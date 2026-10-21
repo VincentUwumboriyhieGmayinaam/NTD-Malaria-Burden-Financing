@@ -1,0 +1,9 @@
+location_name,location_id,pc_count,pc_count_lo,pc_count_hi,pc_rate_agestd,pc_rate_agestd_lo,pc_rate_agestd_hi
+"Central Europe, Eastern Europe, and Central Asia",31,-8.0,-25.5,15.7,-13.0,-32.3,14.3
+Global,1,-18.3,-32.3,-4.8,-21.6,-36.3,-7.8
+High-income,64,2.3,-13.7,17.3,-7.5,-26.3,11.0
+Latin America and Caribbean,103,-9.1,-18.6,2.3,-22.7,-30.8,-12.9
+North Africa and Middle East,137,-0.733,-12.0,15.0,-19.8,-29.2,-6.5
+South Asia,158,-37.1,-47.4,-21.1,-43.8,-52.9,-29.2
+"Southeast Asia, East Asia, and Oceania",4,-34.1,-51.7,-8.4,-38.2,-56.3,-7.1
+Sub-Saharan Africa,166,-14.8,-35.6,1.4,-33.8,-49.9,-21.1

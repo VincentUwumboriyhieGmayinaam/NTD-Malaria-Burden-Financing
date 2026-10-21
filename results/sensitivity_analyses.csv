@@ -1,0 +1,24 @@
+analysis,outcome,specification,estimate,lo,hi,p,n
+S1 Spatial weights,NTDs (excl. malaria),KNN k=4,0.7436120811973086,,,0.001,203
+S1 Spatial weights,NTDs (excl. malaria),KNN k=6 (main),0.7127471144120674,,,0.001,203
+S1 Spatial weights,NTDs (excl. malaria),KNN k=8,0.6932926104479618,,,0.001,203
+S1 Spatial weights,NTDs (excl. malaria),"Distance band 2,500 km",0.6630177551770312,,,0.001,203
+S1 Spatial weights,Malaria,KNN k=4,0.8244541990022722,,,0.001,203
+S1 Spatial weights,Malaria,KNN k=6 (main),0.7932093392346831,,,0.001,203
+S1 Spatial weights,Malaria,KNN k=8,0.7717705387553392,,,0.001,203
+S1 Spatial weights,Malaria,"Distance band 2,500 km",0.7314198795313064,,,0.001,203
+S2 External-dependence association,NTDs (excl. malaria),Main model (2019–23 exposure),-21.000212609664093,-30.157773825295987,-10.64193182921943,0.00017689952659339885,169
+S2 External-dependence association,NTDs (excl. malaria),Lagged exposure (2010–14 mean),-20.30767625713811,-28.503395580428702,-11.172474342031268,4.1380501884605497e-05,161
+S2 External-dependence association,NTDs (excl. malaria),Excluding sub-Saharan Africa,-24.364233905736445,-38.23350267089488,-7.380710254870603,0.0068961674652500355,125
+S2 External-dependence association,NTDs (excl. malaria),Excluding high-income,-20.97686054108855,-30.479719938169513,-10.175037206572712,0.00031637534871921413,145
+S2 External-dependence association,NTDs (excl. malaria),SDI replaces income and UHC (GBD-covariate circularity check),-16.344837031911453,-26.24485810628675,-5.115953796111317,0.005483763769023296,169
+S2 External-dependence association,WHO: people requiring NTD interventions (% pop),Independent outcome: WHO-reported need (SDG 3.3.5),8.436775922143113,-12.555701297724609,34.468850993062006,0.46062903806947353,168
+S4 Scenario attribution,NTDs (excl. malaria),Main: gains attributable in proportion to external share of health spending,378693.2755732092,167816.01737990338,769297.4324333358,,153
+S4 Scenario attribution,NTDs (excl. malaria),Programme-dependence upper bound: ≥80% donor attribution in USAID NTD-programme countries,991731.9686002012,,,,153
+S5 Economic valuation (US$ billion),NTDs (excl. malaria),0.5× GDP per capita per DALY,0.2406275835536712,,,,153
+S5 Economic valuation (US$ billion),NTDs (excl. malaria),1× GDP per capita per DALY,0.4812551671073424,,,,153
+S5 Economic valuation (US$ billion),NTDs (excl. malaria),3× GDP per capita per DALY,1.4437655013220272,,,,153
+S4 Scenario attribution,Malaria,Main: gains attributable in proportion to external share of health spending,1046373.5815194411,41136.27683659763,3298677.129990665,,153
+S5 Economic valuation (US$ billion),Malaria,0.5× GDP per capita per DALY,0.6272644277334299,,,,153
+S5 Economic valuation (US$ billion),Malaria,1× GDP per capita per DALY,1.2545288554668599,,,,153
+S5 Economic valuation (US$ billion),Malaria,3× GDP per capita per DALY,3.7635865664005794,,,,153

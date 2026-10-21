@@ -1,0 +1,677 @@
+{
+ "ineq_change": [
+  {
+   "outcome": "NTDs (excl. malaria)",
+   "period": "1990-2023",
+   "dCI": 0.07955630507603506,
+   "dCI_lo": -0.03678576891134244,
+   "dCI_hi": 0.17923262144561883,
+   "drSII": 0.4938619954053771,
+   "drSII_lo": -0.2074647504219138,
+   "drSII_hi": 1.0813933514120921
+  },
+  {
+   "outcome": "NTDs (excl. malaria)",
+   "period": "2010-2023",
+   "dCI": 0.0495220014551887,
+   "dCI_lo": 0.017036588171822235,
+   "dCI_hi": 0.08303034746807483,
+   "drSII": 0.3045396703413412,
+   "drSII_lo": 0.1063351612565655,
+   "drSII_hi": 0.5067590049452466
+  },
+  {
+   "outcome": "Malaria",
+   "period": "1990-2023",
+   "dCI": -0.011602844038794524,
+   "dCI_lo": -0.15099058000823765,
+   "dCI_hi": 0.10604721537156371,
+   "drSII": -0.05335011933457068,
+   "drSII_lo": -0.9092279007733518,
+   "drSII_hi": 0.6586128682994032
+  },
+  {
+   "outcome": "Malaria",
+   "period": "2010-2023",
+   "dCI": -0.02229920808296293,
+   "dCI_lo": -0.12841679534710668,
+   "dCI_hi": 0.05078079965484308,
+   "drSII": -0.1289282198069488,
+   "drSII_lo": -0.7755916336878651,
+   "drSII_hi": 0.3114272825633733
+  }
+ ],
+ "ineq_time": [
+  {
+   "outcome": "NTDs (excl. malaria)",
+   "year": 1990,
+   "n": 204,
+   "pop_weighted_mean": 634.5186449643489,
+   "CI": -0.5085621736325734,
+   "CI_lo": -0.6397099189291943,
+   "CI_hi": -0.35589866573026185,
+   "SII": -1965.7655219168464,
+   "SII_lo": -3053.2591010405117,
+   "SII_hi": -1197.5763441084073,
+   "rSII": -3.0980421734136674,
+   "rSII_lo": -3.8916055680487154,
+   "rSII_hi": -2.153407247058338,
+   "Theil": 0.6435149078545527,
+   "between_pct": 75.26437669632004,
+   "within_pct": 24.735623303679954
+  },
+  {
+   "outcome": "Malaria",
+   "year": 1990,
+   "n": 204,
+   "pop_weighted_mean": 786.3045798741539,
+   "CI": -0.7945266939895175,
+   "CI_lo": -0.8818563855144567,
+   "CI_hi": -0.6275491876632181,
+   "SII": -3805.7702687883266,
+   "SII_lo": -6754.135044950199,
+   "SII_hi": -1974.3474141079002,
+   "rSII": -4.840071349193248,
+   "rSII_lo": -5.380418647436111,
+   "rSII_hi": -3.8117035653709004,
+   "Theil": 1.6148542948435456,
+   "between_pct": 80.28133128037585,
+   "within_pct": 19.71866871962415
+  },
+  {
+   "outcome": "NTDs (excl. malaria)",
+   "year": 2010,
+   "n": 204,
+   "pop_weighted_mean": 318.8191574520847,
+   "CI": -0.4785326119981149,
+   "CI_lo": -0.5934305952704995,
+   "CI_hi": -0.3192509166898168,
+   "SII": -927.3648210680003,
+   "SII_lo": -1374.9816388011934,
+   "SII_hi": -595.071442353193,
+   "rSII": -2.908748735424952,
+   "rSII_lo": -3.5907352082075596,
+   "rSII_hi": -1.935099563817018,
+   "Theil": 0.5266816125949909,
+   "between_pct": 70.55337587055881,
+   "within_pct": 29.446624129441197
+  },
+  {
+   "outcome": "Malaria",
+   "year": 2010,
+   "n": 204,
+   "pop_weighted_mean": 675.0732288580264,
+   "CI": -0.7838432000648345,
+   "CI_lo": -0.8872779166120154,
+   "CI_hi": -0.6190025394831559,
+   "SII": -3216.434768220129,
+   "SII_lo": -5637.596655990798,
+   "SII_hi": -1535.1009412584315,
+   "rSII": -4.764571650487671,
+   "rSII_lo": -5.387610740705678,
+   "rSII_hi": -3.752246593396228,
+   "Theil": 1.5657782794584103,
+   "between_pct": 77.56615709041945,
+   "within_pct": 22.43384290958056
+  },
+  {
+   "outcome": "NTDs (excl. malaria)",
+   "year": 2023,
+   "n": 204,
+   "pop_weighted_mean": 242.66179999020318,
+   "CI": -0.4290107945422997,
+   "CI_lo": -0.538369514761134,
+   "CI_hi": -0.27849596456769177,
+   "SII": -631.9423303191147,
+   "SII_lo": -877.2687882052408,
+   "SII_hi": -411.7817815173494,
+   "rSII": -2.6042101820089836,
+   "rSII_lo": -3.261470098970558,
+   "rSII_hi": -1.6851678635396734,
+   "Theil": 0.43043645307085165,
+   "between_pct": 63.966432241936,
+   "within_pct": 36.033567758064
+  },
+  {
+   "outcome": "Malaria",
+   "year": 2023,
+   "n": 204,
+   "pop_weighted_mean": 507.55096926547003,
+   "CI": -0.8061424110269089,
+   "CI_lo": -0.8908222234112508,
+   "CI_hi": -0.6543293724656633,
+   "SII": -2483.700611138942,
+   "SII_lo": -4270.57589203782,
+   "SII_hi": -1130.7483857686664,
+   "rSII": -4.893499887771594,
+   "rSII_lo": -5.398222512231295,
+   "rSII_hi": -3.9371529019047093,
+   "Theil": 1.34432668434884,
+   "between_pct": 79.2757044028936,
+   "within_pct": 20.724295597106405
+  }
+ ],
+ "ssa_regions": {
+  "Central Sub-Saharan Africa": {
+   "ntdm_n": 9493595.0,
+   "ntdm_asr": 5006.5,
+   "mal_n": 8320961.0,
+   "mal_asr": 4104.3,
+   "ntd_n": 1172634.0,
+   "ntd_asr": 902.1999999999998,
+   "share_global_ntdm": 13.403112399280364,
+   "pc_ntdm": -37.78850096620919,
+   "pc_ntdm_lo": -48.60458821717907,
+   "pc_ntdm_hi": -28.007105625389823,
+   "pc_mal": -32.814054727543244,
+   "pc_mal_lo": -44.47797794152323,
+   "pc_mal_hi": -22.32218156817172
+  },
+  "Eastern Sub-Saharan Africa": {
+   "ntdm_n": 11860084.0,
+   "ntdm_asr": 2190.8,
+   "mal_n": 9483382.0,
+   "mal_asr": 1640.6,
+   "ntd_n": 2376702.0,
+   "ntd_asr": 550.2000000000003,
+   "share_global_ntdm": 16.744135274035457,
+   "pc_ntdm": -35.212592879128614,
+   "pc_ntdm_lo": -48.52325746266452,
+   "pc_ntdm_hi": -22.695679390266555,
+   "pc_mal": -31.85698535510061,
+   "pc_mal_lo": -53.52101231390053,
+   "pc_mal_hi": -17.042465476628948
+  },
+  "Southern Sub-Saharan Africa": {
+   "ntdm_n": 272450.0,
+   "ntdm_asr": 314.2,
+   "mal_n": 46525.0,
+   "mal_asr": 54.0,
+   "ntd_n": 225925.0,
+   "ntd_asr": 260.2,
+   "share_global_ntdm": 0.38464648778296684,
+   "pc_ntdm": -39.92401348794552,
+   "pc_ntdm_lo": -47.767680033998886,
+   "pc_ntdm_hi": -31.438502802735524,
+   "pc_mal": -65.63576380197478,
+   "pc_mal_lo": -82.48579272854641,
+   "pc_mal_hi": -45.9160739398563
+  },
+  "Western Sub-Saharan Africa": {
+   "ntdm_n": 35168065.0,
+   "ntdm_asr": 5556.5,
+   "mal_n": 31190646.0,
+   "mal_asr": 4828.5,
+   "ntd_n": 3977419.0,
+   "ntd_asr": 728.0,
+   "share_global_ntdm": 49.65047782849361,
+   "pc_ntdm": -34.06346091214979,
+   "pc_ntdm_lo": -51.92363112284808,
+   "pc_ntdm_hi": -20.5289926250375,
+   "pc_mal": -34.32359796885625,
+   "pc_mal_lo": -55.639201150390704,
+   "pc_mal_hi": -18.79111886144249
+  }
+ },
+ "wssa_central_share_ntdm": 63.05359022777397,
+ "yld_share": {
+  "NTDs and malaria": 20.449266110820318,
+  "Malaria": 4.801444593870899,
+  "NTDs (excl. malaria)": 62.37110054822391
+ },
+ "yld_share_ntd_by_sr": {
+  "Central Europe, Eastern Europe, and Central Asia": 94.5323714260895,
+  "Global": 62.37110054822391,
+  "High-income": 89.2727649771446,
+  "Latin America and Caribbean": 74.18161312367225,
+  "North Africa and Middle East": 91.23009732038471,
+  "South Asia": 60.13069656664975,
+  "Southeast Asia, East Asia, and Oceania": 64.12929229561522,
+  "Sub-Saharan Africa": 54.56148469966746
+ },
+ "n_countries_sig": {
+  "uncertain": 122,
+  "decrease": 78,
+  "increase": 4
+ },
+ "countries_increase": [
+  {
+   "location_name": "Nicaragua",
+   "pc_ntdm": 105.0,
+   "pc_ntdm_lo": 46.2,
+   "pc_ntdm_hi": 178.8
+  },
+  {
+   "location_name": "Fiji",
+   "pc_ntdm": 92.5,
+   "pc_ntdm_lo": 62.7,
+   "pc_ntdm_hi": 132.2
+  },
+  {
+   "location_name": "Monaco",
+   "pc_ntdm": 88.8,
+   "pc_ntdm_lo": 16.9,
+   "pc_ntdm_hi": 242.3
+  },
+  {
+   "location_name": "American Samoa",
+   "pc_ntdm": 56.2,
+   "pc_ntdm_lo": 20.4,
+   "pc_ntdm_hi": 91.4
+  }
+ ],
+ "n_ntd_rate_rose_point": 13,
+ "n_mal_rate_rose_point": 13,
+ "top10_ntd_rate": [
+  {
+   "location_name": "South Sudan",
+   "ntd_2023": 2227.1,
+   "ntd_2010": 3558.2,
+   "chg_ntd_asr_pct": -37.4
+  },
+  {
+   "location_name": "Central African Republic",
+   "ntd_2023": 2207.7,
+   "ntd_2010": 2772.3,
+   "chg_ntd_asr_pct": -20.4
+  },
+  {
+   "location_name": "Afghanistan",
+   "ntd_2023": 1450.5,
+   "ntd_2010": 2037.4,
+   "chg_ntd_asr_pct": -28.8
+  },
+  {
+   "location_name": "Liberia",
+   "ntd_2023": 1264.5,
+   "ntd_2010": 2777.4,
+   "chg_ntd_asr_pct": -54.5
+  },
+  {
+   "location_name": "Sierra Leone",
+   "ntd_2023": 1229.1,
+   "ntd_2010": 1738.3,
+   "chg_ntd_asr_pct": -29.3
+  },
+  {
+   "location_name": "Democratic Republic of the Congo",
+   "ntd_2023": 1000.4,
+   "ntd_2010": 2328.2,
+   "chg_ntd_asr_pct": -57.0
+  },
+  {
+   "location_name": "Nigeria",
+   "ntd_2023": 836.1,
+   "ntd_2010": 1078.8,
+   "chg_ntd_asr_pct": -22.5
+  },
+  {
+   "location_name": "Cameroon",
+   "ntd_2023": 811.2,
+   "ntd_2010": 1460.0,
+   "chg_ntd_asr_pct": -44.4
+  },
+  {
+   "location_name": "Chad",
+   "ntd_2023": 803.8,
+   "ntd_2010": 1230.4,
+   "chg_ntd_asr_pct": -34.7
+  },
+  {
+   "location_name": "Gabon",
+   "ntd_2023": 795.3,
+   "ntd_2010": 1162.3,
+   "chg_ntd_asr_pct": -31.6
+  }
+ ],
+ "top10_mal_rate": [
+  {
+   "location_name": "Sierra Leone",
+   "mal_2023": 8237.2,
+   "mal_2010": 12396.5,
+   "chg_mal_asr_pct": -33.6
+  },
+  {
+   "location_name": "Niger",
+   "mal_2023": 5902.2,
+   "mal_2010": 8303.3,
+   "chg_mal_asr_pct": -28.9
+  },
+  {
+   "location_name": "Liberia",
+   "mal_2023": 5502.5,
+   "mal_2010": 8109.7,
+   "chg_mal_asr_pct": -32.1
+  },
+  {
+   "location_name": "Nigeria",
+   "mal_2023": 5399.3,
+   "mal_2010": 7657.1,
+   "chg_mal_asr_pct": -29.5
+  },
+  {
+   "location_name": "Benin",
+   "mal_2023": 5399.1,
+   "mal_2010": 6907.9,
+   "chg_mal_asr_pct": -21.8
+  },
+  {
+   "location_name": "Burundi",
+   "mal_2023": 5229.5,
+   "mal_2010": 4685.9,
+   "chg_mal_asr_pct": 11.6
+  },
+  {
+   "location_name": "Cameroon",
+   "mal_2023": 5210.5,
+   "mal_2010": 7113.1,
+   "chg_mal_asr_pct": -26.7
+  },
+  {
+   "location_name": "C\u00f4te d'Ivoire",
+   "mal_2023": 5140.4,
+   "mal_2010": 9322.0,
+   "chg_mal_asr_pct": -44.9
+  },
+  {
+   "location_name": "Equatorial Guinea",
+   "mal_2023": 5130.5,
+   "mal_2010": 6034.5,
+   "chg_mal_asr_pct": -15.0
+  },
+  {
+   "location_name": "Burkina Faso",
+   "mal_2023": 4955.7,
+   "mal_2010": 10080.2,
+   "chg_mal_asr_pct": -50.8
+  }
+ ],
+ "top10_ntd_count": [
+  {
+   "location_name": "India",
+   "n_ntd_2023": 4004852.0
+  },
+  {
+   "location_name": "Nigeria",
+   "n_ntd_2023": 2098443.0
+  },
+  {
+   "location_name": "China",
+   "n_ntd_2023": 1298294.0
+  },
+  {
+   "location_name": "Indonesia",
+   "n_ntd_2023": 1238963.0
+  },
+  {
+   "location_name": "Democratic Republic of the Congo",
+   "n_ntd_2023": 827981.0
+  },
+  {
+   "location_name": "Brazil",
+   "n_ntd_2023": 767082.0
+  },
+  {
+   "location_name": "Ethiopia",
+   "n_ntd_2023": 730787.0
+  },
+  {
+   "location_name": "Pakistan",
+   "n_ntd_2023": 441716.0
+  },
+  {
+   "location_name": "Afghanistan",
+   "n_ntd_2023": 325980.0
+  },
+  {
+   "location_name": "Bangladesh",
+   "n_ntd_2023": 276284.0
+  }
+ ],
+ "top10_mal_count": [
+  {
+   "location_name": "Nigeria",
+   "n_mal_2023": 16626819.0
+  },
+  {
+   "location_name": "Democratic Republic of the Congo",
+   "n_mal_2023": 6459439.0
+  },
+  {
+   "location_name": "Niger",
+   "n_mal_2023": 2489075.0
+  },
+  {
+   "location_name": "Uganda",
+   "n_mal_2023": 2163447.0
+  },
+  {
+   "location_name": "C\u00f4te d'Ivoire",
+   "n_mal_2023": 1973374.0
+  },
+  {
+   "location_name": "Cameroon",
+   "n_mal_2023": 1917545.0
+  },
+  {
+   "location_name": "Mali",
+   "n_mal_2023": 1539727.0
+  },
+  {
+   "location_name": "Burkina Faso",
+   "n_mal_2023": 1491362.0
+  },
+  {
+   "location_name": "Mozambique",
+   "n_mal_2023": 1226035.0
+  },
+  {
+   "location_name": "Angola",
+   "n_mal_2023": 1108686.0
+  }
+ ],
+ "top10_ntd_count_share": 62.42275681418148,
+ "top10_mal_count_share": 71.75040425677537,
+ "top3_ntd_count_share": 38.46902045677137,
+ "top2_mal_count_share": 44.77430666532246,
+ "leading_ntd_cause_by_country": {
+  "other_neglected_tropical_diseases": 92,
+  "cysticercosis": 41,
+  "intestinal_nematode_infections": 15,
+  "leishmaniasis": 12,
+  "dengue": 11,
+  "schistosomiasis": 10,
+  "food_borne_trematodiases": 7,
+  "lymphatic_filariasis": 6,
+  "onchocerciasis": 4,
+  "chagas_disease": 3,
+  "african_trypanosomiasis": 2,
+  "yellow_fever": 1
+ },
+ "lisa_ntd_HH_persist": [
+  "Angola",
+  "Benin",
+  "Botswana",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Cameroon",
+  "Central African Republic",
+  "Chad",
+  "Comoros",
+  "Congo",
+  "C\u00f4te d'Ivoire",
+  "Democratic Republic of the Congo",
+  "Djibouti",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Eswatini",
+  "Ethiopia",
+  "Gabon",
+  "Gambia",
+  "Ghana",
+  "Guinea",
+  "Guinea-Bissau",
+  "Kenya",
+  "Lesotho",
+  "Liberia",
+  "Madagascar",
+  "Malawi",
+  "Mali",
+  "Mauritania",
+  "Mauritius",
+  "Mozambique",
+  "Namibia",
+  "Niger",
+  "Nigeria",
+  "Rwanda",
+  "Sao Tome and Principe",
+  "Senegal",
+  "Sierra Leone",
+  "South Africa",
+  "South Sudan",
+  "Sudan",
+  "Togo",
+  "Uganda",
+  "United Republic of Tanzania",
+  "Zambia",
+  "Zimbabwe"
+ ],
+ "lisa_ntd_HH_entered": [
+  "Somalia"
+ ],
+ "lisa_ntd_HH_exited": [],
+ "lisa_mal_HH_persist": [
+  "Angola",
+  "Benin",
+  "Burkina Faso",
+  "Burundi",
+  "Cabo Verde",
+  "Cameroon",
+  "Central African Republic",
+  "Chad",
+  "Congo",
+  "C\u00f4te d'Ivoire",
+  "Democratic Republic of the Congo",
+  "Djibouti",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Ethiopia",
+  "Gabon",
+  "Gambia",
+  "Ghana",
+  "Guinea",
+  "Guinea-Bissau",
+  "Kenya",
+  "Liberia",
+  "Madagascar",
+  "Malawi",
+  "Mali",
+  "Mauritania",
+  "Mozambique",
+  "Niger",
+  "Nigeria",
+  "Rwanda",
+  "Sao Tome and Principe",
+  "Senegal",
+  "Sierra Leone",
+  "South Sudan",
+  "Sudan",
+  "Togo",
+  "Uganda",
+  "United Republic of Tanzania",
+  "Zambia",
+  "Zimbabwe"
+ ],
+ "lisa_mal_HH_entered": [
+  "Comoros",
+  "Somalia"
+ ],
+ "lisa_mal_HH_exited": [],
+ "lisa_time": [
+  {
+   "series": "ntd_1990",
+   "moran_I": 0.7382689627072752,
+   "z": 20.134425919179925,
+   "p": 0.0001,
+   "HH": 42,
+   "LL": 43,
+   "outliers": 0
+  },
+  {
+   "series": "ntd_2010",
+   "moran_I": 0.7516933531912121,
+   "z": 20.173783336287027,
+   "p": 0.0001,
+   "HH": 47,
+   "LL": 39,
+   "outliers": 0
+  },
+  {
+   "series": "ntd_2023",
+   "moran_I": 0.7127963930075748,
+   "z": 19.239232643774344,
+   "p": 0.0001,
+   "HH": 48,
+   "LL": 39,
+   "outliers": 0
+  },
+  {
+   "series": "mal_1990",
+   "moran_I": 0.7215701537663918,
+   "z": 19.513080595650827,
+   "p": 0.0001,
+   "HH": 45,
+   "LL": 54,
+   "outliers": 1
+  },
+  {
+   "series": "mal_2010",
+   "moran_I": 0.7499607244780228,
+   "z": 20.41657214243236,
+   "p": 0.0001,
+   "HH": 40,
+   "LL": 49,
+   "outliers": 1
+  },
+  {
+   "series": "mal_2023",
+   "moran_I": 0.7932093392346831,
+   "z": 21.389707759725177,
+   "p": 0.0001,
+   "HH": 42,
+   "LL": 62,
+   "outliers": 1
+  }
+ ],
+ "who_tri": [
+  {
+   "pair": "NTD DALY rate vs people requiring NTD interventions per 100 000",
+   "year": 2010,
+   "n": 180,
+   "rho": 0.8386760243334365,
+   "p": 7.545390304629368e-49
+  },
+  {
+   "pair": "Malaria DALY rate vs WHO malaria incidence per 1000 at risk",
+   "year": 2010,
+   "n": 96,
+   "rho": 0.956731405090299,
+   "p": 3.4284828704773956e-52
+  },
+  {
+   "pair": "NTD DALY rate vs people requiring NTD interventions per 100 000",
+   "year": 2023,
+   "n": 170,
+   "rho": 0.8056460329382454,
+   "p": 4.787520265124756e-40
+  },
+  {
+   "pair": "Malaria DALY rate vs WHO malaria incidence per 1000 at risk",
+   "year": 2023,
+   "n": 79,
+   "rho": 0.943159688412853,
+   "p": 1.3927390251354412e-38
+  }
+ ]
+}

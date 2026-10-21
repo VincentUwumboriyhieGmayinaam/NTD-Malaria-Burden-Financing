@@ -1,0 +1,9 @@
+{
+ "country_years": 2688,
+ "countries": 168,
+ "complete_case_rows": 2287,
+ "complete_case_pct": 85.1,
+ "countries_in_model": 153,
+ "imputed_rows_in_model": 76,
+ "imputed_rows_pct": 3.3
+}

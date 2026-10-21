@@ -1,0 +1,40 @@
+Anselin, L. (1988). Spatial econometrics: Methods and models. Kluwer A
+Bellemare, M. F., Masaki, T., & Pepinsky, T. B. (2017). Lagged explana
+Bergmeir, C., & Benítez, J. M. (2012). On the use of cross-validation 
+Bertram, M. Y., Lauer, J. A., De Joncheere, K., Edejer, T., Hutubessy,
+Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5–32. htt
+Breusch, T. S., & Pagan, A. R. (1980). The Lagrange multiplier test an
+Brunsdon, C., Fotheringham, A. S., & Charlton, M. E. (1996). Geographi
+da Silva, A. R., & Fotheringham, A. S. (2016). The multiple testing is
+Drukker, D. M. (2003). Testing for serial correlation in linear panel-
+Elhorst, J. P. (2014). Spatial econometrics: From cross-sectional data
+Fitzpatrick, C., Nwankwo, U., Lenk, E., de Vlas, S. J., & Bundy, D. A.
+Fotheringham, A. S., Yang, W., & Kang, W. (2017). Multiscale geographi
+GBD 2019 Universal Health Coverage Collaborators. (2020). Measuring un
+Getis, A., & Aldstadt, J. (2004). Constructing the spatial weights mat
+Global Burden of Disease 2021 Health Financing Collaborator Network. (
+Greene, W. H. (2018). Econometric analysis (8th ed.). Pearson.
+Hausman, J. A. (1978). Specification tests in econometrics. Econometri
+Honaker, J., & King, G. (2010). What to do about missing values in tim
+Hurvich, C. M., Simonoff, J. S., & Tsai, C.-L. (1998). Smoothing param
+Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Li
+Lee, L.-F., & Yu, J. (2010). Estimation of spatial autoregressive pane
+LeSage, J., & Pace, R. K. (2009). Introduction to spatial econometrics
+Lundberg, S. M., & Lee, S.-I. (2017). A unified approach to interpreti
+Marseille, E., Larson, B., Kazi, D. S., Kahn, J. G., & Rosen, S. (2015
+O’Brien, R. M. (2007). A caution regarding rules of thumb for variance
+O’Donnell, O., van Doorslaer, E., Wagstaff, A., & Lindelow, M. (2008).
+Oshan, T. M., Li, Z., Kang, W., Wolf, L. J., & Fotheringham, A. S. (20
+Pesaran, M. H. (2021). General diagnostic tests for cross-sectional de
+Ploton, P., Mortier, F., Réjou-Méchain, M., Barbier, N., Picard, N., R
+Roberts, D. R., Bahn, V., Ciuti, S., Boyce, M. S., Elith, J., Guillera
+Rubin, D. B. (1987). Multiple imputation for nonresponse in surveys. W
+Shroff, Z. C., Sparkes, S. P., Paina, L., Skarphedinsdottir, M., Gotsa
+Sterne, J. A. C., White, I. R., Carlin, J. B., Spratt, M., Royston, P.
+Tusting, L. S., Willey, B., Lucas, H., Thompson, J., Kafy, H. T., Smit
+United Nations Statistics Division. (n.d.). Global SDG Indicators Data
+van Buuren, S., & Groothuis-Oudshoorn, K. (2011). mice: Multivariate i
+White, I. R., Royston, P., & Wood, A. M. (2011). Multiple imputation u
+World Health Organization. (n.d.). Global Health Expenditure Database.
+Zou, H., & Hastie, T. (2005). Regularization and variable selection vi
+Natural Earth. (n.d.)

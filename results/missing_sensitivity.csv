@@ -1,0 +1,11 @@
+strategy,outcome,pct,lo,hi,p,n,countries,note
+Main: interpolation + LOCF ≤2 y,NTDs (excl. malaria),-0.64,-2.39,1.14,0.478,2287,153,
+"Complete case, no imputation",NTDs (excl. malaria),-0.69,-2.46,1.11,0.451,2225,153,
+Excluding any imputed country-year,NTDs (excl. malaria),-0.68,-2.46,1.14,0.462,2211,152,
+Balanced panel only,NTDs (excl. malaria),-0.62,-2.55,1.34,0.53,2080,130,
+"Multiple imputation (MICE, m = 20)",NTDs (excl. malaria),-0.64,-2.22,0.97,0.436,2688,168,FMI=0.02
+Main: interpolation + LOCF ≤2 y,Malaria,-6.32,-10.84,-1.57,0.01,1187,77,
+"Complete case, no imputation",Malaria,-6.15,-10.83,-1.22,0.015,1173,77,
+Excluding any imputed country-year,Malaria,-6.14,-10.82,-1.2,0.015,1172,77,
+Balanced panel only,Malaria,-3.09,-8.86,3.04,0.316,1136,71,
+"Multiple imputation (MICE, m = 20)",Malaria,-7.52,-11.5,-3.35,0.001,1248,78,FMI=0.16

@@ -1,0 +1,15 @@
+pandas>=3.0
+numpy>=2.5
+scipy>=1.18
+statsmodels>=0.15
+linearmodels>=7.0
+libpysal>=4.15
+esda>=2.10
+spreg>=1.9
+mgwr>=2.2
+geopandas>=1.2
+scikit-learn>=1.9
+lightgbm>=4.7
+shap>=0.52
+matplotlib>=3.11
+lxml>=6.1

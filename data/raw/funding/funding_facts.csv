@@ -1,0 +1,35 @@
+metric,value,unit,year,source,url
+Total DAH (peak),80.3,USD billion (2023 constant),2021,Apeagyei et al. Lancet 2025 (IHME FGH),https://doi.org/10.1016/S0140-6736(25)01240-1
+Total DAH,49.6,USD billion (2023 constant),2024,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Total DAH (preliminary),38.4,USD billion (2023 constant),2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Total DAH (forecast reference),36.2,USD billion (2023 constant),2030,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Total DAH 2025 pessimistic scenario (US -80%),36.8,USD billion (2023 constant),2025,Apeagyei et al. Lancet 2025 (abstract),https://doi.org/10.1016/S0140-6736(25)01240-1
+Total DAH 2025 optimistic scenario (US -9%),40.0,USD billion (2023 constant),2025,Apeagyei et al. Lancet 2025 (abstract),https://doi.org/10.1016/S0140-6736(25)01240-1
+US government DAH (as source),14.2,USD billion,2024,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+US government DAH (as source),4.76,USD billion,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+US DAH reference-scenario cut to most channels,62,percent,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+UK government DAH,2.0,USD billion,2024,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+UK government DAH,1.2,USD billion,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+France government DAH,1.7,USD billion,2024,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+France government DAH,1.1,USD billion,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Germany government DAH,2.6,USD billion,2024,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Germany government DAH,2.3,USD billion,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Global Fund disbursements,4.9,USD billion,2024,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Global Fund disbursements,3.1,USD billion,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Low-income countries: avg reduction in total health spending from DAH cuts,6,percent (USD 84.9m avg),2025 vs 2022,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+DR Congo DAH decline,512.8,USD million (15% of THE),2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Somalia DAH decline,224.9,USD million (22% of THE),2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+Nigeria DAH decline,597,USD million,2025,Apeagyei et al. Lancet 2025,https://doi.org/10.1016/S0140-6736(25)01240-1
+US NTD program appropriation,15,USD million,FY2006,KFF fact sheet,https://www.kff.org/global-health-policy/the-u-s-government-and-global-neglected-tropical-diseases/
+US NTD program appropriation,115,USD million,FY2024,KFF fact sheet,https://www.kff.org/global-health-policy/the-u-s-government-and-global-neglected-tropical-diseases/
+US NTD program budget frozen,114.5,USD million,FY2025,NPR 5 Jun 2025,https://www.npr.org/sections/goats-and-soda/2025/06/05/g-s1-70255/neglected-tropical-diseases-usaid-cuts-pharmaceuticals
+Donated NTD medicines slated for 2025 (US-supported),975,USD million,2025,NPR 5 Jun 2025,https://www.npr.org/sections/goats-and-soda/2025/06/05/g-s1-70255/neglected-tropical-diseases-usaid-cuts-pharmaceuticals
+Treatments planned 2025 (US-supported),880,million treatments,2025,NPR 5 Jun 2025,https://www.npr.org/sections/goats-and-soda/2025/06/05/g-s1-70255/neglected-tropical-diseases-usaid-cuts-pharmaceuticals
+Leverage ratio US NTD investment to donated drugs,26,USD donated per USD invested,—,CDC via NPR 2025,https://www.npr.org/sections/goats-and-soda/2025/06/05/g-s1-70255/neglected-tropical-diseases-usaid-cuts-pharmaceuticals
+US cumulative NTD support,1.4,USD billion,2006-2025,WHO news 4 Jun 2025,https://www.who.int/news/item/04-06-2025-neglected-tropical-diseases-further-neglected-due-to-oda-cuts
+US-supported treatments delivered (cumulative),3.3,billion treatments to 1.7 billion people in 26 countries,2006-2025,WHO news 4 Jun 2025,https://www.who.int/news/item/04-06-2025-neglected-tropical-diseases-further-neglected-due-to-oda-cuts
+MDA campaigns delayed by funding withdrawal,47,campaigns (143 million people),2025,WHO news 4 Jun 2025,https://www.who.int/news/item/04-06-2025-neglected-tropical-diseases-further-neglected-due-to-oda-cuts
+NTD tablets at risk of expiry in Africa,55,million tablets,end-2025,WHO news 4 Jun 2025,https://www.who.int/news/item/04-06-2025-neglected-tropical-diseases-further-neglected-due-to-oda-cuts
+Pharma NTD drug donations since 2011,12,USD billion,2011-2025,WHO news 4 Jun 2025,https://www.who.int/news/item/04-06-2025-neglected-tropical-diseases-further-neglected-due-to-oda-cuts
+WHO country offices reporting service disruption from ODA cuts,70,percent (>),Apr 2025,WHO news 4 Jun 2025,https://www.who.int/news/item/04-06-2025-neglected-tropical-diseases-further-neglected-due-to-oda-cuts
+UK aid budget cut,4,GBP billion; ended FCDO NTD programmes incl. Ascend West & Central Africa (13 countries),2021,Sightsavers 2021,https://sightsavers.org/news/2021/06/uk-government-cuts-funding-for-neglected-tropical-diseases

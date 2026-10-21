@@ -1,0 +1,205 @@
+location_id,location_name,super_region_name,iso3
+217,Sierra Leone,Sub-Saharan Africa,SLE
+169,Central African Republic,Sub-Saharan Africa,CAF
+210,Liberia,Sub-Saharan Africa,LBR
+213,Niger,Sub-Saharan Africa,NER
+214,Nigeria,Sub-Saharan Africa,NGA
+200,Benin,Sub-Saharan Africa,BEN
+202,Cameroon,Sub-Saharan Africa,CMR
+172,Equatorial Guinea,Sub-Saharan Africa,GNQ
+175,Burundi,Sub-Saharan Africa,BDI
+171,Democratic Republic of the Congo,Sub-Saharan Africa,COD
+205,Côte d'Ivoire,Sub-Saharan Africa,CIV
+435,South Sudan,Sub-Saharan Africa,SSD
+201,Burkina Faso,Sub-Saharan Africa,BFA
+208,Guinea,Sub-Saharan Africa,GIN
+211,Mali,Sub-Saharan Africa,MLI
+218,Togo,Sub-Saharan Africa,TGO
+190,Uganda,Sub-Saharan Africa,UGA
+207,Ghana,Sub-Saharan Africa,GHA
+184,Mozambique,Sub-Saharan Africa,MOZ
+170,Congo,Sub-Saharan Africa,COG
+204,Chad,Sub-Saharan Africa,TCD
+182,Malawi,Sub-Saharan Africa,MWI
+168,Angola,Sub-Saharan Africa,AGO
+173,Gabon,Sub-Saharan Africa,GAB
+191,Zambia,Sub-Saharan Africa,ZMB
+181,Madagascar,Sub-Saharan Africa,MDG
+206,Gambia,Sub-Saharan Africa,GMB
+26,Papua New Guinea,"Southeast Asia, East Asia, and Oceania",PNG
+209,Guinea-Bissau,Sub-Saharan Africa,GNB
+216,Senegal,Sub-Saharan Africa,SEN
+185,Rwanda,Sub-Saharan Africa,RWA
+189,United Republic of Tanzania,Sub-Saharan Africa,TZA
+160,Afghanistan,North Africa and Middle East,AFG
+179,Ethiopia,Sub-Saharan Africa,ETH
+28,Solomon Islands,"Southeast Asia, East Asia, and Oceania",SLB
+212,Mauritania,Sub-Saharan Africa,MRT
+157,Yemen,North Africa and Middle East,YEM
+187,Somalia,Sub-Saharan Africa,SOM
+180,Kenya,Sub-Saharan Africa,KEN
+178,Eritrea,Sub-Saharan Africa,ERI
+177,Djibouti,Sub-Saharan Africa,DJI
+131,Nicaragua,Latin America and Caribbean,NIC
+522,Sudan,North Africa and Middle East,SDN
+113,Guyana,Latin America and Caribbean,GUY
+215,Sao Tome and Principe,Sub-Saharan Africa,STP
+198,Zimbabwe,Sub-Saharan Africa,ZWE
+11,Indonesia,"Southeast Asia, East Asia, and Oceania",IDN
+153,Syrian Arab Republic,North Africa and Middle East,SYR
+121,Bolivia (Plurinational State of),Latin America and Caribbean,BOL
+195,Namibia,Sub-Saharan Africa,NAM
+22,Fiji,"Southeast Asia, East Asia, and Oceania",FJI
+114,Haiti,Latin America and Caribbean,HTI
+176,Comoros,Sub-Saharan Africa,COM
+165,Pakistan,South Asia,PAK
+15,Myanmar,"Southeast Asia, East Asia, and Oceania",MMR
+163,India,South Asia,IND
+123,Peru,Latin America and Caribbean,PER
+135,Brazil,Latin America and Caribbean,BRA
+133,Venezuela (Bolivarian Republic of),Latin America and Caribbean,VEN
+194,Lesotho,Sub-Saharan Africa,LSO
+193,Botswana,Sub-Saharan Africa,BWA
+164,Nepal,South Asia,NPL
+183,Mauritius,"Southeast Asia, East Asia, and Oceania",MUS
+118,Suriname,Latin America and Caribbean,SUR
+12,Lao People's Democratic Republic,"Southeast Asia, East Asia, and Oceania",LAO
+197,Eswatini,Sub-Saharan Africa,SWZ
+128,Guatemala,Latin America and Caribbean,GTM
+111,Dominican Republic,Latin America and Caribbean,DOM
+129,Honduras,Latin America and Caribbean,HND
+20,Viet Nam,"Southeast Asia, East Asia, and Oceania",VNM
+196,South Africa,Sub-Saharan Africa,ZAF
+23,Kiribati,"Southeast Asia, East Asia, and Oceania",KIR
+186,Seychelles,"Southeast Asia, East Asia, and Oceania",SYC
+203,Cabo Verde,Sub-Saharan Africa,CPV
+16,Philippines,"Southeast Asia, East Asia, and Oceania",PHL
+122,Ecuador,Latin America and Caribbean,ECU
+161,Bangladesh,South Asia,BGD
+298,American Samoa,"Southeast Asia, East Asia, and Oceania",ASM
+132,Panama,Latin America and Caribbean,PAN
+147,Libya,North Africa and Middle East,LBY
+162,Bhutan,South Asia,BTN
+136,Paraguay,Latin America and Caribbean,PRY
+13,Malaysia,"Southeast Asia, East Asia, and Oceania",MYS
+40,Turkmenistan,"Central Europe, Eastern Europe, and Central Asia",TKM
+115,Jamaica,Latin America and Caribbean,JAM
+143,Iraq,North Africa and Middle East,IRQ
+18,Thailand,"Southeast Asia, East Asia, and Oceania",THA
+130,Mexico,Latin America and Caribbean,MEX
+19,Timor-Leste,"Southeast Asia, East Asia, and Oceania",TLS
+125,Colombia,Latin America and Caribbean,COL
+24,Marshall Islands,"Southeast Asia, East Asia, and Oceania",MHL
+30,Vanuatu,"Southeast Asia, East Asia, and Oceania",VUT
+126,Costa Rica,Latin America and Caribbean,CRI
+10,Cambodia,"Southeast Asia, East Asia, and Oceania",KHM
+108,Belize,Latin America and Caribbean,BLZ
+14,Maldives,"Southeast Asia, East Asia, and Oceania",MDV
+25,Micronesia (Federated States of),"Southeast Asia, East Asia, and Oceania",FSM
+117,Saint Vincent and the Grenadines,Latin America and Caribbean,VCT
+119,Trinidad and Tobago,Latin America and Caribbean,TTO
+127,El Salvador,Latin America and Caribbean,SLV
+29,Tonga,"Southeast Asia, East Asia, and Oceania",TON
+116,Saint Lucia,Latin America and Caribbean,LCA
+105,Antigua and Barbuda,Latin America and Caribbean,ATG
+17,Sri Lanka,"Southeast Asia, East Asia, and Oceania",LKA
+369,Nauru,"Southeast Asia, East Asia, and Oceania",NRU
+27,Samoa,"Southeast Asia, East Asia, and Oceania",WSM
+154,Tunisia,North Africa and Middle East,TUN
+110,Dominica,Latin America and Caribbean,DMA
+141,Egypt,North Africa and Middle East,EGY
+97,Argentina,High-income,ARG
+416,Tuvalu,"Southeast Asia, East Asia, and Oceania",TUV
+393,Saint Kitts and Nevis,Latin America and Caribbean,KNA
+112,Grenada,Latin America and Caribbean,GRD
+37,Kyrgyzstan,"Central Europe, Eastern Europe, and Central Asia",KGZ
+142,Iran (Islamic Republic of),North Africa and Middle East,IRN
+107,Barbados,Latin America and Caribbean,BRB
+35,Georgia,"Central Europe, Eastern Europe, and Central Asia",GEO
+139,Algeria,North Africa and Middle East,DZA
+152,Saudi Arabia,North Africa and Middle East,SAU
+6,China,"Southeast Asia, East Asia, and Oceania",CHN
+106,Bahamas,Latin America and Caribbean,BHS
+148,Morocco,North Africa and Middle East,MAR
+36,Kazakhstan,"Central Europe, Eastern Europe, and Central Asia",KAZ
+109,Cuba,Latin America and Caribbean,CUB
+63,Ukraine,"Central Europe, Eastern Europe, and Central Asia",UKR
+413,Tokelau,"Southeast Asia, East Asia, and Oceania",TKL
+380,Palau,"Southeast Asia, East Asia, and Oceania",PLW
+68,Republic of Korea,High-income,KOR
+41,Uzbekistan,"Central Europe, Eastern Europe, and Central Asia",UZB
+150,Oman,North Africa and Middle East,OMN
+38,Mongolia,"Central Europe, Eastern Europe, and Central Asia",MNG
+99,Uruguay,High-income,URY
+98,Chile,High-income,CHL
+39,Tajikistan,"Central Europe, Eastern Europe, and Central Asia",TJK
+422,United States Virgin Islands,Latin America and Caribbean,VIR
+374,Niue,"Southeast Asia, East Asia, and Oceania",NIU
+385,Puerto Rico,Latin America and Caribbean,PRI
+66,Brunei Darussalam,High-income,BRN
+367,Monaco,High-income,MCO
+155,Türkiye,North Africa and Middle East,TUR
+376,Northern Mariana Islands,"Southeast Asia, East Asia, and Oceania",MNP
+149,Palestine,North Africa and Middle East,PSE
+144,Jordan,North Africa and Middle East,JOR
+52,Romania,"Central Europe, Eastern Europe, and Central Asia",ROU
+34,Azerbaijan,"Central Europe, Eastern Europe, and Central Asia",AZE
+320,Cook Islands,"Southeast Asia, East Asia, and Oceania",COK
+54,Slovakia,"Central Europe, Eastern Europe, and Central Asia",SVK
+51,Poland,"Central Europe, Eastern Europe, and Central Asia",POL
+62,Russian Federation,"Central Europe, Eastern Europe, and Central Asia",RUS
+46,Croatia,"Central Europe, Eastern Europe, and Central Asia",HRV
+33,Armenia,"Central Europe, Eastern Europe, and Central Asia",ARM
+61,Republic of Moldova,"Central Europe, Eastern Europe, and Central Asia",MDA
+351,Guam,"Southeast Asia, East Asia, and Oceania",GUM
+305,Bermuda,Latin America and Caribbean,BMU
+53,Serbia,"Central Europe, Eastern Europe, and Central Asia",SRB
+44,Bosnia and Herzegovina,"Central Europe, Eastern Europe, and Central Asia",BIH
+60,Lithuania,"Central Europe, Eastern Europe, and Central Asia",LTU
+59,Latvia,"Central Europe, Eastern Europe, and Central Asia",LVA
+7,Democratic People's Republic of Korea,"Southeast Asia, East Asia, and Oceania",PRK
+48,Hungary,"Central Europe, Eastern Europe, and Central Asia",HUN
+49,North Macedonia,"Central Europe, Eastern Europe, and Central Asia",MKD
+58,Estonia,"Central Europe, Eastern Europe, and Central Asia",EST
+50,Montenegro,"Central Europe, Eastern Europe, and Central Asia",MNE
+92,Spain,High-income,ESP
+57,Belarus,"Central Europe, Eastern Europe, and Central Asia",BLR
+45,Bulgaria,"Central Europe, Eastern Europe, and Central Asia",BGR
+102,United States of America,High-income,USA
+146,Lebanon,North Africa and Middle East,LBN
+43,Albania,"Central Europe, Eastern Europe, and Central Asia",ALB
+91,Portugal,High-income,PRT
+101,Canada,High-income,CAN
+85,Israel,High-income,ISR
+145,Kuwait,North Africa and Middle East,KWT
+82,Greece,High-income,GRC
+67,Japan,High-income,JPN
+140,Bahrain,North Africa and Middle East,BHR
+349,Greenland,High-income,GRL
+151,Qatar,North Africa and Middle East,QAT
+8,Taiwan,"Southeast Asia, East Asia, and Oceania",TWN
+75,Austria,High-income,AUT
+156,United Arab Emirates,North Africa and Middle East,ARE
+47,Czechia,"Central Europe, Eastern Europe, and Central Asia",CZE
+79,Finland,High-income,ALA
+396,San Marino,High-income,SMR
+93,Sweden,High-income,SWE
+69,Singapore,High-income,SGP
+90,Norway,High-income,NOR
+72,New Zealand,High-income,NZL
+76,Belgium,High-income,BEL
+55,Slovenia,"Central Europe, Eastern Europe, and Central Asia",SVN
+88,Malta,High-income,MLT
+89,Netherlands,High-income,NLD
+84,Ireland,High-income,IRL
+78,Denmark,High-income,DNK
+86,Italy,High-income,ITA
+80,France,High-income,FRA
+83,Iceland,High-income,ISL
+87,Luxembourg,High-income,LUX
+71,Australia,High-income,AUS
+77,Cyprus,High-income,CYP
+74,Andorra,High-income,AND
+94,Switzerland,High-income,CHE
+81,Germany,High-income,DEU
+95,United Kingdom,High-income,GBR

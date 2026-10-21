@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="515.99622pt" height="521.367128pt" viewBox="0 0 515.99622 521.367128" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-07T14:13:00.751189</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 521.367128 
+L 515.99622 521.367128 
+L 515.99622 0 
+L -0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 24.36363 40.476353 
+L 104.927244 40.476353 
+Q 110.298152 40.476353 110.298152 45.847261 
+L 110.298152 72.701799 
+Q 110.298152 78.072706 104.927244 78.072706 
+L 24.36363 78.072706 
+Q 18.992723 78.072706 18.992723 72.701799 
+L 18.992723 45.847261 
+Q 18.992723 40.476353 24.36363 40.476353 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 121.039967 40.476353 
+L 201.603581 40.476353 
+Q 206.974488 40.476353 206.974488 45.847261 
+L 206.974488 72.701799 
+Q 206.974488 78.072706 201.603581 78.072706 
+L 121.039967 78.072706 
+Q 115.669059 78.072706 115.669059 72.701799 
+L 115.669059 45.847261 
+Q 115.669059 40.476353 121.039967 40.476353 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 217.716303 40.476353 
+L 298.279917 40.476353 
+Q 303.650825 40.476353 303.650825 45.847261 
+L 303.650825 72.701799 
+Q 303.650825 78.072706 298.279917 78.072706 
+L 217.716303 78.072706 
+Q 212.345396 78.072706 212.345396 72.701799 
+L 212.345396 45.847261 
+Q 212.345396 40.476353 217.716303 40.476353 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 314.39264 40.476353 
+L 394.956254 40.476353 
+Q 400.327161 40.476353 400.327161 45.847261 
+L 400.327161 72.701799 
+Q 400.327161 78.072706 394.956254 78.072706 
+L 314.39264 78.072706 
+Q 309.021732 78.072706 309.021732 72.701799 
+L 309.021732 45.847261 
+Q 309.021732 40.476353 314.39264 40.476353 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 411.068976 40.476353 
+L 491.63259 40.476353 
+Q 497.003498 40.476353 497.003498 45.847261 
+L 497.003498 72.701799 
+Q 497.003498 78.072706 491.63259 78.072706 
+L 411.068976 78.072706 
+Q 405.698069 78.072706 405.698069 72.701799 
+L 405.698069 45.847261 
+Q 405.698069 40.476353 411.068976 40.476353 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 24.36363 102.24179 
+L 491.63259 102.24179 
+Q 497.003498 102.24179 497.003498 107.612698 
+L 497.003498 129.096328 
+Q 497.003498 134.467236 491.63259 134.467236 
+L 24.36363 134.467236 
+Q 18.992723 134.467236 18.992723 129.096328 
+L 18.992723 107.612698 
+Q 18.992723 102.24179 24.36363 102.24179 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 24.36363 145.209051 
+L 491.63259 145.209051 
+Q 497.003498 145.209051 497.003498 150.579959 
+L 497.003498 172.063589 
+Q 497.003498 177.434496 491.63259 177.434496 
+L 24.36363 177.434496 
+Q 18.992723 177.434496 18.992723 172.063589 
+L 18.992723 150.579959 
+Q 18.992723 145.209051 24.36363 145.209051 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 24.36363 188.176312 
+L 491.63259 188.176312 
+Q 497.003498 188.176312 497.003498 193.547219 
+L 497.003498 215.03085 
+Q 497.003498 220.401757 491.63259 220.401757 
+L 24.36363 220.401757 
+Q 18.992723 220.401757 18.992723 215.03085 
+L 18.992723 193.547219 
+Q 18.992723 188.176312 24.36363 188.176312 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 24.36363 244.570841 
+L 164.007228 244.570841 
+Q 169.378135 244.570841 169.378135 249.941749 
+L 169.378135 303.650825 
+Q 169.378135 309.021732 164.007228 309.021732 
+L 24.36363 309.021732 
+Q 18.992723 309.021732 18.992723 303.650825 
+L 18.992723 249.941749 
+Q 18.992723 244.570841 24.36363 244.570841 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 188.176312 244.570841 
+L 327.819909 244.570841 
+Q 333.190816 244.570841 333.190816 249.941749 
+L 333.190816 303.650825 
+Q 333.190816 309.021732 327.819909 309.021732 
+L 188.176312 309.021732 
+Q 182.805404 309.021732 182.805404 303.650825 
+L 182.805404 249.941749 
+Q 182.805404 244.570841 188.176312 244.570841 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 351.988993 244.570841 
+L 491.63259 244.570841 
+Q 497.003498 244.570841 497.003498 249.941749 
+L 497.003498 303.650825 
+Q 497.003498 309.021732 491.63259 309.021732 
+L 351.988993 309.021732 
+Q 346.618085 309.021732 346.618085 303.650825 
+L 346.618085 249.941749 
+Q 346.618085 244.570841 351.988993 244.570841 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 188.176312 325.134455 
+L 491.63259 325.134455 
+Q 497.003498 325.134455 497.003498 330.505363 
+L 497.003498 373.472623 
+Q 497.003498 378.843531 491.63259 378.843531 
+L 188.176312 378.843531 
+Q 182.805404 378.843531 182.805404 373.472623 
+L 182.805404 330.505363 
+Q 182.805404 325.134455 188.176312 325.134455 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 188.176312 394.956254 
+L 491.63259 394.956254 
+Q 497.003498 394.956254 497.003498 400.327161 
+L 497.003498 443.294422 
+Q 497.003498 448.665329 491.63259 448.665329 
+L 188.176312 448.665329 
+Q 182.805404 448.665329 182.805404 443.294422 
+L 182.805404 400.327161 
+Q 182.805404 394.956254 188.176312 394.956254 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #ffffff; stroke: #c3c2b7; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 24.36363 464.778052 
+L 491.63259 464.778052 
+Q 497.003498 464.778052 497.003498 470.14896 
+L 497.003498 497.003498 
+Q 497.003498 502.374405 491.63259 502.374405 
+L 24.36363 502.374405 
+Q 18.992723 502.374405 18.992723 497.003498 
+L 18.992723 470.14896 
+Q 18.992723 464.778052 24.36363 464.778052 
+z
+" clip-path="url(#p4d15d94a3b)" style="fill: #b7d3f6; stroke: #2a78d6; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #0b0b0b" x="64.645437" y="56.589076" transform="rotate(-0 64.645437 56.589076)">GBD 2023</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #52514e" x="64.645437" y="69.344981" transform="rotate(-0 64.645437 69.344981)">DALYs · SDI · UHC · LDI</text>
+   </g>
+   <g id="patch_16">
+    <path d="M 64.645437 78.072706 
+Q 64.645437 89.821567 64.645437 100.805145 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 65.905437 98.355145 
+L 64.645437 100.805145 
+L 63.385437 98.355145 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #0b0b0b" x="161.321774" y="56.589076" transform="rotate(-0 161.321774 56.589076)">World Bank WDI</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #52514e" x="161.321774" y="69.344981" transform="rotate(-0 161.321774 69.344981)">Health finance · WASH</text>
+   </g>
+   <g id="patch_17">
+    <path d="M 161.321774 78.072706 
+Q 161.321774 89.821567 161.321774 100.805145 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 162.581774 98.355145 
+L 161.321774 100.805145 
+L 160.061774 98.355145 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #0b0b0b" x="257.99811" y="56.589076" transform="rotate(-0 257.99811 56.589076)">WHO via UN SDG</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #52514e" x="257.99811" y="69.344981" transform="rotate(-0 257.99811 69.344981)">SDG 3.3.5 · 3.3.3</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 257.99811 78.072706 
+Q 257.99811 89.821567 257.99811 100.805145 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 259.25811 98.355145 
+L 257.99811 100.805145 
+L 256.73811 98.355145 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #0b0b0b" x="354.674447" y="56.589076" transform="rotate(-0 354.674447 56.589076)">IHME FGH</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #52514e" x="354.674447" y="69.344981" transform="rotate(-0 354.674447 69.344981)">DAH 2024–2025</text>
+   </g>
+   <g id="patch_19">
+    <path d="M 354.674447 78.072706 
+Q 354.674447 89.821567 354.674447 100.805145 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 355.934447 98.355145 
+L 354.674447 100.805145 
+L 353.414447 98.355145 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #0b0b0b" x="451.350783" y="56.589076" transform="rotate(-0 451.350783 56.589076)">Natural Earth</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: middle; fill: #52514e" x="451.350783" y="69.344981" transform="rotate(-0 451.350783 69.344981)">Admin-0 boundaries</text>
+   </g>
+   <g id="patch_20">
+    <path d="M 451.350783 78.072706 
+Q 451.350783 89.821567 451.350783 100.805145 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 452.610783 98.355145 
+L 451.350783 100.805145 
+L 450.090783 98.355145 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 7.5px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="18.992723" y="29.734538" transform="rotate(-0 18.992723 29.734538)">Data sources</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="29.734538" y="115.669059" transform="rotate(-0 29.734538 115.669059)">1. Data acquisition</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="29.734538" y="127.753601" transform="rotate(-0 29.734538 127.753601)">Programmatic download, raw files archived; truncated calls re-queried; completeness checked per country-year</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="29.734538" y="158.63632" transform="rotate(-0 29.734538 158.63632)">2. Harmonisation and linkage</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="29.734538" y="170.720862" transform="rotate(-0 29.734538 170.720862)">ISO3 and GBD location IDs; GBD super-region assignment; 204 countries × 2005–2023 panel</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="29.734538" y="201.603581" transform="rotate(-0 29.734538 201.603581)">3. Quality control and missing data</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="29.734538" y="213.688123" transform="rotate(-0 29.734538 213.688123)">Interior interpolation, carry-forward ≤2 years, every fill flagged; complete-case, balanced-panel and MICE (m = 20) checks</text>
+   </g>
+   <g id="patch_21">
+    <path d="M 257.99811 134.467236 
+Q 257.99811 139.502462 257.99811 143.772406 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 259.25811 141.322406 
+L 257.99811 143.772406 
+L 256.73811 141.322406 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 257.99811 177.434496 
+Q 257.99811 182.469722 257.99811 186.739667 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 259.25811 184.289667 
+L 257.99811 186.739667 
+L 256.73811 184.289667 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="29.734538" y="260.683564" transform="rotate(-0 29.734538 260.683564)">4. Descriptive and inequality</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="29.734538" y="274.110833" transform="rotate(-0 29.734538 274.110833)">Rates and trends, 1990–2023</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="29.734538" y="286.195375" transform="rotate(-0 29.734538 286.195375)">Concentration index ranked by SDI</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="29.734538" y="298.279917" transform="rotate(-0 29.734538 298.279917)">Theil T: between/within super-region</text>
+   </g>
+   <g id="patch_23">
+    <path d="M 94.185429 220.401757 
+Q 94.185429 232.150617 94.185429 243.134196 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 95.445429 240.684196 
+L 94.185429 243.134196 
+L 92.925429 240.684196 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="193.547219" y="260.683564" transform="rotate(-0 193.547219 260.683564)">5. Spatial analysis</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="274.110833" transform="rotate(-0 193.547219 274.110833)">Global Moran's I, KNN k = 6</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="286.195375" transform="rotate(-0 193.547219 286.195375)">LISA, 9 999 permutations</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="298.279917" transform="rotate(-0 193.547219 298.279917)">Benjamini–Hochberg FDR, q &lt; .05</text>
+   </g>
+   <g id="patch_24">
+    <path d="M 257.99811 220.401757 
+Q 257.99811 232.150617 257.99811 243.134196 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 259.25811 240.684196 
+L 257.99811 243.134196 
+L 256.73811 240.684196 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="357.359901" y="260.683564" transform="rotate(-0 357.359901 260.683564)">6. Panel econometrics</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="357.359901" y="274.110833" transform="rotate(-0 357.359901 274.110833)">7 estimators, 6 assumption tests</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="357.359901" y="286.195375" transform="rotate(-0 357.359901 286.195375)">Two-way FE, Driscoll–Kraay SE</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="357.359901" y="298.279917" transform="rotate(-0 357.359901 298.279917)">153 LMICs, 2007–2022</text>
+   </g>
+   <g id="patch_25">
+    <path d="M 421.810792 220.401757 
+Q 421.810792 232.150617 421.810792 243.134196 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 423.070792 240.684196 
+L 421.810792 243.134196 
+L 420.550792 240.684196 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="193.547219" y="341.247178" transform="rotate(-0 193.547219 341.247178)">7. Robustness and heterogeneity</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="354.674447" transform="rotate(-0 193.547219 354.674447)">Spatial panel SAR and SEM (two-way FE) · GWR and MGWR · random forest, LightGBM, elastic net</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="366.758989" transform="rotate(-0 193.547219 366.758989)">Leave-country-out, spatial-block and temporal validation; SHAP attribution</text>
+   </g>
+   <g id="text_33">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="193.547219" y="411.068976" transform="rotate(-0 193.547219 411.068976)">8. Funding-cut scenarios</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="424.496245" transform="rotate(-0 193.547219 424.496245)">Accounting and econometric models · 4 000 Monte Carlo draws</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #52514e" x="193.547219" y="436.580787" transform="rotate(-0 193.547219 436.580787)">Economic value at 0.5–3 × GDP per capita · domestic financing gap</text>
+   </g>
+   <g id="patch_26">
+    <path d="M 257.99811 309.021732 
+Q 257.99811 316.742412 257.99811 323.69781 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 259.25811 321.24781 
+L 257.99811 323.69781 
+L 256.73811 321.24781 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 421.810792 309.021732 
+Q 421.810792 316.742412 421.810792 323.69781 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 423.070792 321.24781 
+L 421.810792 323.69781 
+L 420.550792 321.24781 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 339.904451 378.843531 
+Q 339.904451 386.564211 339.904451 393.519609 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 341.164451 391.069609 
+L 339.904451 393.519609 
+L 338.644451 391.069609 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_36">
+    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="29.734538" y="480.890775" transform="rotate(-0 29.734538 480.890775)">Outputs</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 6.2px; font-family: 'Liberation Sans'; text-anchor: start; fill: #0b0b0b" x="29.734538" y="493.64668" transform="rotate(-0 29.734538 493.64668)">Tables 1–4 and S1–S13 · Figures 1–8 · archived code and processed data</text>
+   </g>
+   <g id="patch_29">
+    <path d="M 94.185429 309.021732 
+Q 94.185429 386.564211 94.185429 463.341407 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 95.445429 460.891407 
+L 94.185429 463.341407 
+L 92.925429 460.891407 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 339.904451 448.665329 
+Q 339.904451 456.386009 339.904451 463.341407 
+" style="fill: none; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+    <path d="M 341.164451 460.891407 
+L 339.904451 463.341407 
+L 338.644451 460.891407 
+z
+" style="fill: #898781; stroke: #898781; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4d15d94a3b">
+   <rect x="2.88" y="2.88" width="510.23622" height="515.607128"/>
+  </clipPath>
+ </defs>
+</svg>
