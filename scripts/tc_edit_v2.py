@@ -459,3 +459,17 @@ for p in scope:
         old=dt[m.start(1)-0:m.end(2)]; replace(p, old, old.replace('.','·')); nd+=1
 tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
 print('lancet text rules ok; decimals converted:', nd)
+
+# =========================== DISCLOSURE OF AI ASSISTANCE ===========================
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+edit('Tests were two-sided', 'Tests were two-sided at α=0·05.', 'An AI assistant (Claude, Anthropic) helped write and run the analysis code under author supervision (see Acknowledgments). Tests were two-sided at α=0·05.')
+edit_all(' Independent burden draws widened intervals without materially changing medians (Table S7).', '')
+edit_all('1·8% in South Asia and 0·5% in North Africa', '1·8% in South Asia, and 0·5% in North Africa')
+kids=list(body)
+ah=[c for c in kids if c.tag==q('p') and ptext(c).strip()=='ACKNOWLEDGMENTS (Required)'][0]
+instr=ah.getnext()
+del_runs(instr)
+replace(ah, 'ACKNOWLEDGMENTS (Required)', 'ACKNOWLEDGMENTS')
+tpl=[c for c in kids if c.tag==q('p') and 'subject to applicable institutional requirements' in ptext(c)][0]
+new_par_after(instr, 'Declaration of generative AI and AI-assisted technologies: during this work the authors used Claude (Anthropic), a generative AI assistant, to retrieve published estimates from the GBD 2023 results tool and literature records from PubMed; to write and run the analysis code for data linkage and the descriptive, inequality, spatial, panel and scenario analyses; to draft the figures, tables and supplementary appendix; and to edit the manuscript, including formatting it to journal style. The authors specified the research questions and study design, reviewed and verified the code, results, citations and text, and take full responsibility for the content of the publication. All analysis code is available in the study GitHub repository.', template=tpl)
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True); print('AI disclosure ok')

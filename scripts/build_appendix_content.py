@@ -136,7 +136,8 @@ FIGS = [
 ]
 import re as _re
 M=[(h,[_re.sub(r'q < \.05','q<0.05',p).replace('α = .05','α=0.05') for p in ps]) for h,ps in M]
-_FX=[('Table S10b retains these original estimates as provisional pending imputation diagnostics; its variance summary','Because convergence diagnostics were not recorded, the multiple-imputation estimates in Table S10b are a secondary check on the complete-case and interpolation analyses rather than a primary result; the variance summary'),
+_FX=[('Random processes used fixed seeds','An AI assistant (Claude, Anthropic) was used to write and run the analysis code under author supervision; the authors reviewed and verified the code and outputs. Random processes used fixed seeds'),
+ ('Table S10b retains these original estimates as provisional pending imputation diagnostics; its variance summary','Because convergence diagnostics were not recorded, the multiple-imputation estimates in Table S10b are a secondary check on the complete-case and interpolation analyses rather than a primary result; the variance summary'),
  ('Numerical comparisons remain provisional pending consistent test samples and corrected nested tuning.','Test samples differed between validation schemes and hyperparameters were tuned without a fully nested design, so comparisons are valid within, not across, validation schemes and are slightly optimistic for the tuned models.')]
 M=[(h,[__import__('functools').reduce(lambda t,ab: t.replace(*ab),_FX,p) for p in ps]) for h,ps in M]
 json.dump({'methods': M, 'gather': GATHER, 'strobe': STROBE, 'evidence': EV, 'search': SEARCH, 'other': OTHER,
