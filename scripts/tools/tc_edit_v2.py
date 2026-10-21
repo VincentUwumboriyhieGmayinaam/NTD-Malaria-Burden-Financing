@@ -1,10 +1,10 @@
 """Tracked revision of the manuscript to a Lancet-length article (~4500 words main text).
 Whole-paragraph rewrites are tracked as deletion + insertion (author 'Claude'); material removed from the
 main text is carried in the appendix."""
-import sys, re; sys.path.insert(0, 'scripts/tools')
+import sys, re; sys.path.insert(0, '/home/claude/ntd/scripts')
 from tc_lib import *
 from lxml import etree
-P = 'manuscript/source/unpacked/word/document.xml'
+P = '/home/claude/ntd/manuscript/tc/un/word/document.xml'
 tree = etree.parse(P); body = tree.find('.//w:body', ns)
 def dtext(p): return ''.join(t.text or '' for r in p if r.tag == q('r') for t in r.findall('w:t', ns))
 def find(start, contains=None):
@@ -136,3 +136,326 @@ for key, (anchor, a, it, b) in NEW.items():
 
 tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
 print('ok')
+
+# =========================== DECLARATIONS AND DATA SHARING (author-supplied text) ===========================
+from lxml import etree as _et
+from tc_lib import _mark
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+REPO = 'https://github.com/VincentUwumboriyhieGmayinaam/NTD-Malaria-Burden-Financing'
+def del_runs(elem):
+    for r in list(elem.iter(q('r'))):
+        if r.getparent().tag in (q('del'), q('ins')): continue
+        d = _mark('del'); r.addprevious(d); r.getparent().remove(r); d.append(r)
+        for t_ in r.findall('w:t', ns): t_.tag = q('delText')
+    for p_ in elem.iter(q('p')):
+        ppr = p_.find('w:pPr', ns)
+        if ppr is None: ppr = _et.Element(q('pPr')); p_.insert(0, ppr)
+        rp = ppr.find('w:rPr', ns)
+        if rp is None: rp = _et.SubElement(ppr, q('rPr'))
+        if rp.find('w:del', ns) is None: rp.insert(0, _mark('del'))
+kids = list(body)
+def heading(text):
+    return [c for c in kids if c.tag == q('p') and ''.join(c.itertext()).strip() == text][0]
+body_tpl = [p for p in body.iter(q('p')) if ''.join(t.text or '' for t in p.iter(q('t'))).startswith('NTD and malaria burden remains concentrated where poverty')]
+body_tpl = body_tpl[0] if body_tpl else None
+# Declaration of interests
+h = heading('DECLARATION OF INTERESTS (Required)'); tpl = h.getnext()
+del_runs(tpl)
+replace(h, 'DECLARATION OF INTERESTS (Required)', 'DECLARATION OF INTERESTS')
+new_par_after(tpl, 'All other authors declare no competing interests.', template=body_tpl)
+# Data sharing
+h = heading('DATA SHARING (Required)'); tpl = h.getnext()
+while tpl is not None and tpl.tag == q('p') and not ''.join(tpl.itertext()).strip(): tpl = tpl.getnext()
+if tpl.tag == q('sdt'): del_runs(tpl)
+replace(h, 'DATA SHARING (Required)', 'DATA SHARING')
+new_par_after(tpl, "All data analysed in this study were obtained from publicly accessible secondary data repositories. Disease burden, sociodemographic, and universal health coverage estimates were retrieved from the Global Burden of Disease (GBD) 2023 study through the Institute for Health Metrics and Evaluation (IHME) (https://vizhub.healthdata.org/gbd-results/). Economic and health-system indicators were obtained from the World Bank's World Development Indicators database (https://databank.worldbank.org/source/world-development-indicators). Sustainable Development Goal indicators were obtained from the United Nations SDG Global Database, incorporating data reported by the World Health Organization (https://unstats.un.org/sdgs/dataportal). Development assistance for health estimates were obtained from IHME's Financing Global Health database (https://www.healthdata.org/data-tools-practices/data-sources), and geographical boundary data were sourced from Natural Earth (https://www.naturalearthdata.com/). The analytical dataset was constructed by harmonising and linking these sources using country identifiers and calendar years. All original datasets are accessible through their respective repositories, subject to applicable data-use conditions. The harmonised analytical dataset and analytical code are held in the study GitHub repository (" + REPO + "), which will be made publicly available on publication.", template=body_tpl)
+# GitHub link in Methods
+p = [p for p in body.iter(q('p')) if 'project GitHub repository [URL to be added]' in ''.join(t.text or '' for t in p.iter(q('t')))][0]
+for ins in p.findall('w:ins', ns):
+    for t_ in ins.iter(q('t')):
+        if '[URL to be added]' in (t_.text or ''): t_.text = t_.text.replace('the project GitHub repository [URL to be added]', 'the study GitHub repository (' + REPO + ')')
+
+# Ethics (author-supplied)
+p = [p for p in body.iter(q('p')) if 'requires author confirmation' in ''.join(t.text or '' for t in p.iter(q('t')))][0]
+old = ''.join(t.text or '' for r in p.findall('w:r', ns) for t in r.findall('w:t', ns))
+replace(p, old, "This study was based exclusively on secondary analyses of publicly available, aggregated data obtained from the Global Burden of Disease 2023 study, the World Bank's World Development Indicators, the World Health Organization through the United Nations Sustainable Development Goals database, the Institute for Health Metrics and Evaluation's Financing Global Health database, and Natural Earth. All data were available at the country or geographical level and contained no individual-level identifiable information. The study involved no direct recruitment of human participants, collection of primary data, or access to identifiable personal health records. Consequently, formal ethical approval and individual informed consent were not required for this secondary analysis, subject to applicable institutional requirements.")
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('declarations ok')
+
+# =========================== FINAL CHECKLIST / LANCET REVISIONS ===========================
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+def _direct(p): return ''.join(t.text or '' for r in p.findall('w:r', ns) for t in r.findall('w:t', ns))
+def edit(key, old, new):
+    """Tracked replace in original text; direct text change inside Claude's own earlier insertions."""
+    ps=[p for p in body.iter(q('p')) if key in ptext(p) and old in ptext(p)] or [p for p in body.iter(q('p')) if key in ptext(p)]
+    if not ps: raise ValueError('para not found: '+key)
+    p=ps[0]
+    if old in _direct(p): replace(p, old, new); return
+    for ins in p.iter(q('ins')):
+        for t_ in ins.iter(q('t')):
+            if old in (t_.text or ''): t_.text=t_.text.replace(old,new,1); return
+    raise ValueError('text not found: '+old[:70]+' || DIRECT: '+_direct(p)[-400:])
+# Summary
+edit('two scenario models projected excess', 'We analysed Global Burden of Disease', 'In this ecological study, we analysed Global Burden of Disease')
+edit('relative concentration in low-SDI countries persisted', 'malaria concentration index −0.80 in both years', 'malaria concentration index −0.79 in 1990 and −0.81 in 2023')
+# Methods
+edit('Gaps in WDI series', 'The analysis samples comprised 153 countries', 'The analysis samples, restricted to countries outside the GBD high-income super-region (hereafter low- and middle-income countries), comprised 153 countries')
+edit('Gaps in WDI series', 'Complete-case, balanced-panel and multiple-imputation analyses assessed sensitivity (Tables S10a–b).', 'Sample derivation and characteristics are in Tables S25–S26; complete-case, balanced-panel and multiple-imputation analyses assessed sensitivity (Tables S10a–b).')
+edit('Geographically weighted regression and machine-learning prediction', 'Geographically weighted regression and machine-learning prediction, which assessed spatial heterogeneity and predictive performance, are described in the appendix.', 'Geographically weighted regression and machine-learning prediction are described in the appendix.')
+edit('Tests were two-sided', 'Tests were two-sided at α = .05.', 'Tests were two-sided at α=0.05.')
+# Results
+edit('Sub-Saharan Africa had 15.1% of the population', 'Sub-Saharan Africa had 15.1% of the population but 80.2% of combined DALYs, 95.1% of malaria DALYs and 40.3% of NTD DALYs.', 'Sub-Saharan Africa had 15.1% of the population (1208.6 million) but 80.2% of combined DALYs (56.78 million), 95.1% of malaria DALYs (49.03 million) and 40.3% of NTD DALYs (7.75 million).')
+edit('Western sub-Saharan Africa alone accounted', 'Western sub-Saharan Africa alone accounted for 49.7% of global combined DALYs and central sub-Saharan Africa for 13.4%', 'Western sub-Saharan Africa alone accounted for 49.7% of global combined DALYs (35.17 million) and central sub-Saharan Africa for 13.4% (9.49 million)')
+edit('Moran’s I was 0.71', '(both p < .001; Table 2)', '(both p<0.0001; Table 2)')
+edit('relative concentration changed little over time', 'The malaria concentration index was −0.80 in 1990 (95% CI −0.88 to −0.63) and in 2023 (−0.88 to −0.65)', 'The malaria concentration index was −0.79 in 1990 (95% CI −0.88 to −0.63) and −0.81 in 2023 (−0.89 to −0.65)')
+edit('relative concentration changed little over time', 'to −0.43 (−0.54 to −0.27)', 'to −0.43 (−0.54 to −0.28)')
+edit('Median external expenditure share', 'Median external expenditure share was 23.0% in sub-Saharan Africa, 11.5% in Southeast Asia, East Asia and Oceania and 6.4% in South Asia.', 'Median external expenditure share was 23.0% (IQR 14.6–39.1) in sub-Saharan Africa, 11.5% (1.2–18.4) in Southeast Asia, East Asia and Oceania and 6.4% (3.5–6.9) in South Asia.')
+edit('Median external expenditure share', 'they held 27.2% of NTD DALYs and 52.3% of malaria DALYs', 'they held 27.2% of NTD DALYs (5.24 million) and 52.3% of malaria DALYs (26.95 million)')
+edit('In the correlated random-effects model', 'the within-country association −0.64% (Table S23)', 'the within-country association −0.64% (Table 3; Table S23)')
+# Discussion
+edit('This ecological study cannot establish', 'and the spatial-panel and machine-learning analyses remain provisional (appendix).', 'and spatial-panel models used balanced subsets of 130 and 71 countries (appendix).')
+# Funding role
+fp=[p for p in body.iter(q('p')) if 'subject to applicable institutional requirements' in ptext(p)][0]
+new_par_after(fp, 'This study was self-funded by the authors. No funder had any role in study design, data collection, data analysis, data interpretation or writing of the report.', template=fp)
+# Figure legends: map projection
+edit('Hatched = no data.', 'Hatched = no data.', 'Hatched = no data. Equal Earth projection.')
+edit("LISA clusters (FDR q < .05)", "LISA clusters (FDR q < .05)", "LISA clusters (FDR q<0.05; Equal Earth projection)")
+edit('Bivariate tertile map', 'Bivariate tertile map of', 'Bivariate tertile map (Equal Earth projection) of')
+edit('Multiscale GWR local coefficients for external share', 'Multiscale GWR local coefficients for external share', 'Multiscale GWR local coefficients for external share (Equal Earth projection)')
+# Table notes
+edit('Theil T is population-weighted', 'The reported Theil estimates exclude zero rates and require population data (NTDs: n = 199; malaria: n = 86); ', 'Theil T uses GBD populations and countries with a non-zero rate (NTDs: n = 204; malaria: n = 86); Table S15b gives the three-level decomposition and ')
+edit('Theil T is population-weighted', ' the zero-inclusive sensitivity.', ' the sensitivity to population source and zero rates.')
+edit('Spatial-panel rows remain provisional', 'Spatial-panel rows remain provisional because the main and supplementary tables read different model outputs.', 'Mundlak rows are the within-country and between-country components of one correlated random-effects model with year effects (Table S23). p values are given to two significant figures.')
+# Table cells (Tables 2 and 3): tracked cell replacements to match regenerated estimates
+import json
+TJ={t['id']:t for t in json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)),'..','results','tables.json')))}
+tbls=body.findall('.//w:tbl', ns)
+def cell_paras(tr): return [tc.find('w:p', ns) for tc in tr.findall('w:tc', ns)]
+def set_cell(p, new):
+    old=_direct(p)
+    if old==new or not old: return
+    replace(p, old, new)
+def sync_table(tbl, tid, labelmap=lambda s: s):
+    want={r[0]:r for r in TJ[tid]['rows'] if isinstance(r, list)}
+    for tr in tbl.findall('w:tr', ns)[1:]:
+        ps=cell_paras(tr); lab=labelmap(ptext(ps[0]))
+        if len(ps)>1 and lab in want:
+            for p_, v in zip(ps[1:], want[lab][1:]): set_cell(p_, v.replace('−','-'))
+import json
+sync_table(tbls[1], 'Table 2')
+t3=tbls[2]
+# Mundlak: relabel row as within component, add tracked row for between component
+mr=[tr for tr in t3.findall('w:tr', ns) if ptext(cell_paras(tr)[0])=='Mundlak CRE'][0]
+newrow=copy.deepcopy(mr); mr.addnext(newrow)
+replace(cell_paras(mr)[0], 'Mundlak CRE', 'Mundlak CRE, within-country component')
+trpr=newrow.find('w:trPr', ns)
+if trpr is None: trpr=_et.Element(q('trPr')); newrow.insert(0, trpr)
+trpr.append(_mark('ins'))
+bw=[r for r in TJ['Table 3']['rows'] if isinstance(r, list) and r[0]=='Mundlak CRE, between-country component'][0]
+for p_, v in zip(cell_paras(newrow), bw):
+    for r_ in list(p_.findall('w:r', ns)):
+        rpr=r_.find('w:rPr', ns); p_.remove(r_)
+    ins=_mark('ins'); r_=_et.SubElement(ins, q('r'))
+    if rpr is not None: r_.append(copy.deepcopy(rpr))
+    t_=_et.SubElement(r_, q('t')); t_.text=v.replace('−','-'); t_.set('{http://www.w3.org/XML/1998/namespace}space','preserve'); p_.append(ins)
+for tr in t3.findall('w:tr', ns):
+    p0=cell_paras(tr)[0]
+    if ptext(p0)=='Spatial panel 2007–2022 — provisional':
+        replace(p0, 'Spatial panel 2007–2022 — provisional', 'Spatial panel (2007–22)')
+        ref=[tr2 for tr2 in t3.findall('w:tr', ns) if ptext(cell_paras(tr2)[0])=='Within-country panel (2007–22)'][0]
+        rp=cell_paras(ref)[0].find('.//w:r/w:rPr', ns); ins_r=p0.find('w:ins/w:r', ns)
+        if rp is not None and ins_r is not None:
+            old_rp=ins_r.find('w:rPr', ns)
+            if old_rp is not None: ins_r.remove(old_rp)
+            ins_r.insert(0, copy.deepcopy(rp))
+        rpp=cell_paras(ref)[0].find('w:pPr', ns); opp=p0.find('w:pPr', ns)
+        if rpp is not None:
+            if opp is not None: p0.remove(opp)
+            p0.insert(0, copy.deepcopy(rpp))
+sync_table(t3, 'Table 3', labelmap=lambda s: {'Mundlak CRE, within-country component':'Mundlak CRE, within-country component'}.get(s, s))
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('final revisions ok')
+# word-limit trim (main text ≤3500 words)
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+edit('Reductions in health aid have not historically', 'Replacing lost funds would require an 8.7% rise in domestic government health spending in sub-Saharan Africa. Reductions', 'Domestic replacement is uncertain. Reductions')
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True); print('trim ok')
+
+# =========================== LANCET FORMATTING: VANCOUVER CITATIONS, REFERENCES, FIGURE LEGENDS ===========================
+import vancouver as VC
+from tc_lib import _runs
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+XMLNS='{http://www.w3.org/XML/1998/namespace}space'
+RPR_ORDER=['rStyle','rFonts','b','bCs','i','iCs','caps','smallCaps','strike','dstrike','outline','shadow','emboss','imprint','noProof','snapToGrid','vanish','webHidden','color','spacing','w','kern','position','sz','szCs','highlight','u','effect','bdr','shd','fitText','vertAlign','rtl','cs','em','lang','eastAsianLayout','specVanish','oMath']
+def sup_rpr(rpr):
+    rpr=copy.deepcopy(rpr) if rpr is not None else _et.Element(q('rPr'))
+    for x in rpr.findall('w:vertAlign', ns): rpr.remove(x)
+    va=_et.Element(q('vertAlign')); va.set(q('val'),'superscript')
+    after=RPR_ORDER[RPR_ORDER.index('vertAlign')+1:]
+    for i,ch in enumerate(rpr):
+        if ch.tag.split('}')[1] in after: rpr.insert(i, va); break
+    else: rpr.append(va)
+    return rpr
+def mkrun(text, rpr):
+    r=_et.Element(q('r'))
+    if rpr is not None: r.append(copy.deepcopy(rpr))
+    t=_et.SubElement(r, q('t')); t.text=text; t.set(XMLNS,'preserve'); return r
+kids=list(body)
+def idx_of(text, exact=True):
+    for i,c in enumerate(kids):
+        t=''.join(c.itertext()).strip()
+        if (t==text if exact else t.startswith(text)): return i
+    raise ValueError(text)
+i_intro=idx_of('Introduction'); i_contrib=idx_of('CONTRIBUTORS (Required)'); i_apa=idx_of('References'); i_tables=idx_of('Tables')
+# reference map from the APA list (all entries, incl. those later moved to the appendix)
+APA=[ptext(c) for c in kids[i_apa+1:i_tables] if c.tag==q('p') and ptext(c).strip()]
+REF={VC.key(r):r for r in APA}
+# ---- pass 1: order of first citation in main text
+order=[]
+def cites_in(text):
+    out=[]
+    for m in VC.CITE_RE.finditer(text):
+        ks=VC.cite_keys(m.group(1))
+        if ks and all(k in REF for k in ks): out.append((m, ks))
+    return out
+NARR={'Symons et al. (2025)':('Symons','2025')}
+main_pars=[c for c in kids[i_intro:i_contrib] if c.tag==q('p')]
+for p in main_pars:
+    t=ptext(p); hits=[(m.start(),ks) for m,ks in cites_in(t)]+[(t.find(n),[k]) for n,k in NARR.items() if n in t]
+    for _,ks in sorted(hits):
+        for k in ks:
+            if k not in order: order.append(k)
+NUM={k:i+1 for i,k in enumerate(order)}
+# ---- pass 2: replace citations with superscript numbers placed after punctuation
+def place_sup(p, old, punct, nums):
+    sup=VC.fmt_nums(nums)
+    if old in _direct(p):
+        replace(p, old, punct)
+        dels=[d for d in p.findall('w:del', ns) if ''.join(x.text or '' for x in d.iter(q('delText')))==old]
+        d=dels[-1]; rpr=d.find('w:r/w:rPr', ns); anchor=d
+        nx=d.getnext()
+        if punct and nx is not None and nx.tag==q('ins'): anchor=nx
+        ins=_mark('ins'); ins.append(mkrun(sup, sup_rpr(rpr))); anchor.addnext(ins); return
+    for ins in p.iter(q('ins')):
+        for r in ins.findall('w:r', ns):
+            t_=r.find('w:t', ns)
+            if t_ is not None and old in (t_.text or ''):
+                a,b=t_.text.split(old,1); rpr=r.find('w:rPr', ns)
+                t_.text=a+punct; t_.set(XMLNS,'preserve')
+                r2=mkrun(sup, sup_rpr(rpr)); r.addnext(r2)
+                if b: r2.addnext(mkrun(b, rpr))
+                return
+    raise ValueError('citation not placed: '+old[:80])
+PUN='.,;:'
+for p in main_pars:
+    while True:
+        t=ptext(p); h=cites_in(t)
+        if not h: break
+        m,ks=h[0]; s,e=m.start(),m.end()
+        punct=t[e] if e<len(t) and t[e] in PUN else ''
+        place_sup(p, t[s:e]+punct, punct, [NUM[k] for k in ks])
+    t=ptext(p)
+    for n,k in NARR.items():
+        if n in t: place_sup(p, n, 'Symons and colleagues', [NUM[k]])
+# ---- reference list under REFERENCES heading (Vancouver, numbered with a tab)
+hp=kids[idx_of('REFERENCES (Required)')]; instr=hp.getnext()
+del_runs(instr)
+replace(hp, 'REFERENCES (Required)', 'REFERENCES')
+anchor=instr; base_tpl=[c for c in main_pars if len(ptext(c))>200][0]
+brpr=_runs(base_tpl)[-1].find('w:rPr', ns) if _runs(base_tpl) else None
+def ref_par(anchor, n, text):
+    p=_et.Element(q('p')); ppr=copy.deepcopy(base_tpl.find('w:pPr', ns)) if base_tpl.find('w:pPr', ns) is not None else _et.Element(q('pPr'))
+    for x in ppr.findall('w:rPr', ns)+ppr.findall('w:ind', ns): ppr.remove(x)
+    rp=_et.SubElement(ppr, q('rPr')); rp.append(_mark('ins')); p.append(ppr)
+    ins=_mark('ins'); p.append(ins)
+    ins.append(mkrun(str(n), brpr)); rt=_et.SubElement(ins, q('r'))
+    if brpr is not None: rt.append(copy.deepcopy(brpr))
+    _et.SubElement(rt, q('tab')); ins.append(mkrun(text, brpr)); anchor.addnext(p); return p
+for k in order: anchor=ref_par(anchor, NUM[k], VC.vancouver(REF[k]))
+last_ref=anchor
+# ---- figure legends after the references; remove embedded figures and placeholders from the body
+fig_pars=[]; legends=[]
+for c in kids[i_intro:i_contrib]:
+    if c.tag!=q('p'): continue
+    t=ptext(c).strip()
+    if c.find('.//w:drawing', ns) is not None or re.match(r'^\[Figure \d', t): fig_pars.append(c)
+    elif re.match(r'^Figure \d+: ', t): fig_pars.append(c); legends.append(t)
+for c in kids[:i_intro]:
+    if c.tag==q('p') and re.match(r'^\[Figure \d', ptext(c).strip()): fig_pars.append(c)
+for c in kids[i_intro-60 if i_intro>60 else 0:i_contrib]:
+    if c.tag==q('p') and (c.find('.//w:drawing', ns) is not None) and c not in fig_pars: fig_pars.append(c)
+for c in fig_pars: delete_par(c)
+anchor=new_par_after(last_ref, 'FIGURE LEGENDS', template=hp)
+for L in legends:
+    ttl, rest = L.split('. ',1) if '. ' in L else (L,'')
+    anchor=new_par_after(anchor, '', template=base_tpl, runs=[(ttl+'.', True, False), (' '+rest if rest else '', False, False)])
+# ---- remove the APA list and the embedded tables (tables are supplied as a separate Word file)
+def del_table(tb):
+    for tr in tb.findall('w:tr', ns):
+        if tr.find('w:trPr/w:ins', ns) is not None: tb.remove(tr); continue
+        trpr=tr.find('w:trPr', ns)
+        if trpr is None: trpr=_et.Element(q('trPr')); tr.insert(0 if tr.find('w:tblPrEx', ns) is None else 1, trpr)
+        trpr.append(_mark('del'))
+        for p_ in tr.iter(q('p')): delete_par(p_)
+for c in kids[i_apa:]:
+    if c.tag==q('p'): delete_par(c)
+    elif c.tag==q('tbl'): del_table(c)
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('vancouver ok:', len(order), 'references;', len(legends), 'figure legends;', len(fig_pars), 'figure paragraphs removed')
+
+# =========================== LANCET TEXT RULES: SERIAL COMMA, MID-LINE DECIMALS ===========================
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+def edit_all(old, new):
+    n=0
+    for p in list(body.iter(q('p'))):
+        while old in ptext(p) and n<50:
+            try: edit_p(p, old, new)
+            except ValueError: break
+            n+=1
+    return n
+def edit_p(p, old, new):
+    if old in _direct(p): replace(p, old, new); return
+    for ins in p.iter(q('ins')):
+        for t_ in ins.iter(q('t')):
+            if old in (t_.text or ''): t_.text=t_.text.replace(old,new,1); return
+    raise ValueError(old)
+SERIAL=[('by super-region, region and country','by super-region, region, and country'),
+ ('development assistance for health and funding cuts','development assistance for health, and funding cuts'),
+ ('lower malaria, NTD and child mortality','lower malaria, NTD, and child mortality'),
+ ('HIV, tuberculosis and malaria','HIV, tuberculosis, and malaria'),
+ ('at super-region, regional and national level','at super-region, regional, and national level'),
+ ('IHME Financing Global Health estimates and Natural Earth boundaries','IHME Financing Global Health estimates, and Natural Earth boundaries'),
+ ('complete-case, balanced-panel and multiple-imputation analyses','complete-case, balanced-panel, and multiple-imputation analyses'),
+ ('measured in 1990, 2010 and 2023','measured in 1990, 2010, and 2023'),
+ ('between regions within super-regions and within regions','between regions within super-regions, and within regions'),
+ ('heteroskedasticity, serial correlation and cross-sectional dependence','heteroskedasticity, serial correlation, and cross-sectional dependence'),
+ ('draws of GBD estimates, cut size and coefficients','draws of GBD estimates, cut size, and coefficients'),
+ ('scikit-learn and LightGBM','scikit-learn, and LightGBM'),
+ ('data interpretation or writing of the report','data interpretation, or writing of the report'),
+ ('Eastern Europe and Central Asia','Eastern Europe, and Central Asia'),
+ ('East Asia and Oceania','East Asia, and Oceania'),
+ ('Southern Latin America and Western Europe','Southern Latin America, and Western Europe'),
+ ('Madagascar, Zambia and Kenya','Madagascar, Zambia, and Kenya'),
+ ('Brazil, Peru and Indonesia','Brazil, Peru, and Indonesia'),
+ ('Higher UHC, sanitation and drinking-water coverage','Higher UHC, sanitation, and drinking-water coverage'),
+ ('food-borne trematodiasis and Chagas disease','food-borne trematodiasis, and Chagas disease'),
+ ('water, housing and cash transfers','water, housing, and cash transfers')]
+for a,b in SERIAL:
+    if edit_all(a,b)==0: print('serial not found:', a)
+# mid-line decimal points in text, legends and statements (not in references, URLs, or SDG target numbers)
+kids=list(body)
+def ix(t): return [i for i,c in enumerate(kids) if c.tag==q('p') and ptext(c).strip()==t][0]
+i0=ix('Summary')
+iR=ix('REFERENCES'); iF=ix('FIGURE LEGENDS'); iS=ix('SUPPLEMENTARY MATERIAL')
+scope=[c for c in kids[i0:iR]+kids[iF:iS] if c.tag==q('p')]
+DEC=re.compile(r'(?<!Goal )(?<!SDG )(?<![\w/.])(\d+)\.(\d+)(?![\w/]*\.\w)')
+nd=0
+for p in scope:
+    for t_ in [t for ins in p.iter(q('ins')) for t in ins.iter(q('t'))]:
+        new=DEC.sub(lambda m: m.group(1)+'·'+m.group(2), t_.text or '')
+        if new!=t_.text: nd+=1; t_.text=new
+    while True:
+        dt=_direct(p); m=DEC.search(dt)
+        if not m or 'http' in dt[max(0,m.start()-60):m.start()]: break
+        old=dt[m.start(1)-0:m.end(2)]; replace(p, old, old.replace('.','·')); nd+=1
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('lancet text rules ok; decimals converted:', nd)

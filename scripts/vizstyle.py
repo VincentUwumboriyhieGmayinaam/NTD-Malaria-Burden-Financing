@@ -21,7 +21,24 @@ def panel(ax,letter,title,x=-0.0,y=1.02):
     ax.text(x,y,letter+'.',transform=ax.transAxes,fontsize=9,fontweight='bold',va='bottom',ha='left',color=INK)
     import matplotlib.transforms as mt
     ax.text(x,y,title,transform=mt.offset_copy(ax.transAxes,fig=ax.figure,x=12.5,y=0,units='points'),fontsize=7.5,fontweight='bold',va='bottom',ha='left',color=INK)
+class _MidDot(mpl.ticker.Formatter):
+    """Lancet style: mid-line decimal point (23·4) in tick labels; delegates to the axis' own formatter."""
+    def __init__(self,inner): self.inner=inner
+    def set_axis(self,axis): self.inner.set_axis(axis); super().set_axis(axis)
+    def set_locs(self,locs): self.inner.set_locs(locs)
+    def __call__(self,x,pos=None):
+        import re; return re.sub(r'(\d)\.(\d)',r'\1·\2',str(self.inner(x,pos)))
+def lancet_decimals(fig):
+    import re
+    for ax in fig.axes:
+        for axis in (ax.xaxis,ax.yaxis):
+            f=axis.get_major_formatter()
+            if not isinstance(f,_MidDot): axis.set_major_formatter(_MidDot(f))
+    for t in fig.findobj(mpl.text.Text):
+        s=t.get_text()
+        if s and '$' not in s: t.set_text(re.sub(r'(?<![\w/])(\d+)\.(\d+)',r'\1·\2',s))
 def save(fig,name):
+    lancet_decimals(fig)
     import os; sub='supplementary' if name.startswith('FigureS') else 'main'; os.makedirs(f'figures/{sub}',exist_ok=True); name=f'{sub}/{name}'
     for ext in ['pdf','png','svg']: fig.savefig(f'figures/{name}.{ext}',bbox_inches='tight',pad_inches=0.04,dpi=600 if ext=='png' else None)
     fig.savefig(f'figures/{name}.tiff',bbox_inches='tight',pad_inches=0.04,dpi=600,pil_kwargs={'compression':'tiff_lzw'})

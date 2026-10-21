@@ -279,3 +279,183 @@ print('final revisions ok')
 tree = _et.parse(P); body = tree.find('.//w:body', ns)
 edit('Reductions in health aid have not historically', 'Replacing lost funds would require an 8.7% rise in domestic government health spending in sub-Saharan Africa. Reductions', 'Domestic replacement is uncertain. Reductions')
 tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True); print('trim ok')
+
+# =========================== LANCET FORMATTING: VANCOUVER CITATIONS, REFERENCES, FIGURE LEGENDS ===========================
+import vancouver as VC
+from tc_lib import _runs
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+XMLNS='{http://www.w3.org/XML/1998/namespace}space'
+RPR_ORDER=['rStyle','rFonts','b','bCs','i','iCs','caps','smallCaps','strike','dstrike','outline','shadow','emboss','imprint','noProof','snapToGrid','vanish','webHidden','color','spacing','w','kern','position','sz','szCs','highlight','u','effect','bdr','shd','fitText','vertAlign','rtl','cs','em','lang','eastAsianLayout','specVanish','oMath']
+def sup_rpr(rpr):
+    rpr=copy.deepcopy(rpr) if rpr is not None else _et.Element(q('rPr'))
+    for x in rpr.findall('w:vertAlign', ns): rpr.remove(x)
+    va=_et.Element(q('vertAlign')); va.set(q('val'),'superscript')
+    after=RPR_ORDER[RPR_ORDER.index('vertAlign')+1:]
+    for i,ch in enumerate(rpr):
+        if ch.tag.split('}')[1] in after: rpr.insert(i, va); break
+    else: rpr.append(va)
+    return rpr
+def mkrun(text, rpr):
+    r=_et.Element(q('r'))
+    if rpr is not None: r.append(copy.deepcopy(rpr))
+    t=_et.SubElement(r, q('t')); t.text=text; t.set(XMLNS,'preserve'); return r
+kids=list(body)
+def idx_of(text, exact=True):
+    for i,c in enumerate(kids):
+        t=''.join(c.itertext()).strip()
+        if (t==text if exact else t.startswith(text)): return i
+    raise ValueError(text)
+i_intro=idx_of('Introduction'); i_contrib=idx_of('CONTRIBUTORS (Required)'); i_apa=idx_of('References'); i_tables=idx_of('Tables')
+# reference map from the APA list (all entries, incl. those later moved to the appendix)
+APA=[ptext(c) for c in kids[i_apa+1:i_tables] if c.tag==q('p') and ptext(c).strip()]
+REF={VC.key(r):r for r in APA}
+# ---- pass 1: order of first citation in main text
+order=[]
+def cites_in(text):
+    out=[]
+    for m in VC.CITE_RE.finditer(text):
+        ks=VC.cite_keys(m.group(1))
+        if ks and all(k in REF for k in ks): out.append((m, ks))
+    return out
+NARR={'Symons et al. (2025)':('Symons','2025')}
+main_pars=[c for c in kids[i_intro:i_contrib] if c.tag==q('p')]
+for p in main_pars:
+    t=ptext(p); hits=[(m.start(),ks) for m,ks in cites_in(t)]+[(t.find(n),[k]) for n,k in NARR.items() if n in t]
+    for _,ks in sorted(hits):
+        for k in ks:
+            if k not in order: order.append(k)
+NUM={k:i+1 for i,k in enumerate(order)}
+# ---- pass 2: replace citations with superscript numbers placed after punctuation
+def place_sup(p, old, punct, nums):
+    sup=VC.fmt_nums(nums)
+    if old in _direct(p):
+        replace(p, old, punct)
+        dels=[d for d in p.findall('w:del', ns) if ''.join(x.text or '' for x in d.iter(q('delText')))==old]
+        d=dels[-1]; rpr=d.find('w:r/w:rPr', ns); anchor=d
+        nx=d.getnext()
+        if punct and nx is not None and nx.tag==q('ins'): anchor=nx
+        ins=_mark('ins'); ins.append(mkrun(sup, sup_rpr(rpr))); anchor.addnext(ins); return
+    for ins in p.iter(q('ins')):
+        for r in ins.findall('w:r', ns):
+            t_=r.find('w:t', ns)
+            if t_ is not None and old in (t_.text or ''):
+                a,b=t_.text.split(old,1); rpr=r.find('w:rPr', ns)
+                t_.text=a+punct; t_.set(XMLNS,'preserve')
+                r2=mkrun(sup, sup_rpr(rpr)); r.addnext(r2)
+                if b: r2.addnext(mkrun(b, rpr))
+                return
+    raise ValueError('citation not placed: '+old[:80])
+PUN='.,;:'
+for p in main_pars:
+    while True:
+        t=ptext(p); h=cites_in(t)
+        if not h: break
+        m,ks=h[0]; s,e=m.start(),m.end()
+        punct=t[e] if e<len(t) and t[e] in PUN else ''
+        place_sup(p, t[s:e]+punct, punct, [NUM[k] for k in ks])
+    t=ptext(p)
+    for n,k in NARR.items():
+        if n in t: place_sup(p, n, 'Symons and colleagues', [NUM[k]])
+# ---- reference list under REFERENCES heading (Vancouver, numbered with a tab)
+hp=kids[idx_of('REFERENCES (Required)')]; instr=hp.getnext()
+del_runs(instr)
+replace(hp, 'REFERENCES (Required)', 'REFERENCES')
+anchor=instr; base_tpl=[c for c in main_pars if len(ptext(c))>200][0]
+brpr=_runs(base_tpl)[-1].find('w:rPr', ns) if _runs(base_tpl) else None
+def ref_par(anchor, n, text):
+    p=_et.Element(q('p')); ppr=copy.deepcopy(base_tpl.find('w:pPr', ns)) if base_tpl.find('w:pPr', ns) is not None else _et.Element(q('pPr'))
+    for x in ppr.findall('w:rPr', ns)+ppr.findall('w:ind', ns): ppr.remove(x)
+    rp=_et.SubElement(ppr, q('rPr')); rp.append(_mark('ins')); p.append(ppr)
+    ins=_mark('ins'); p.append(ins)
+    ins.append(mkrun(str(n), brpr)); rt=_et.SubElement(ins, q('r'))
+    if brpr is not None: rt.append(copy.deepcopy(brpr))
+    _et.SubElement(rt, q('tab')); ins.append(mkrun(text, brpr)); anchor.addnext(p); return p
+for k in order: anchor=ref_par(anchor, NUM[k], VC.vancouver(REF[k]))
+last_ref=anchor
+# ---- figure legends after the references; remove embedded figures and placeholders from the body
+fig_pars=[]; legends=[]
+for c in kids[i_intro:i_contrib]:
+    if c.tag!=q('p'): continue
+    t=ptext(c).strip()
+    if c.find('.//w:drawing', ns) is not None or re.match(r'^\[Figure \d', t): fig_pars.append(c)
+    elif re.match(r'^Figure \d+: ', t): fig_pars.append(c); legends.append(t)
+for c in kids[:i_intro]:
+    if c.tag==q('p') and re.match(r'^\[Figure \d', ptext(c).strip()): fig_pars.append(c)
+for c in kids[i_intro-60 if i_intro>60 else 0:i_contrib]:
+    if c.tag==q('p') and (c.find('.//w:drawing', ns) is not None) and c not in fig_pars: fig_pars.append(c)
+for c in fig_pars: delete_par(c)
+anchor=new_par_after(last_ref, 'FIGURE LEGENDS', template=hp)
+for L in legends:
+    ttl, rest = L.split('. ',1) if '. ' in L else (L,'')
+    anchor=new_par_after(anchor, '', template=base_tpl, runs=[(ttl+'.', True, False), (' '+rest if rest else '', False, False)])
+# ---- remove the APA list and the embedded tables (tables are supplied as a separate Word file)
+def del_table(tb):
+    for tr in tb.findall('w:tr', ns):
+        if tr.find('w:trPr/w:ins', ns) is not None: tb.remove(tr); continue
+        trpr=tr.find('w:trPr', ns)
+        if trpr is None: trpr=_et.Element(q('trPr')); tr.insert(0 if tr.find('w:tblPrEx', ns) is None else 1, trpr)
+        trpr.append(_mark('del'))
+        for p_ in tr.iter(q('p')): delete_par(p_)
+for c in kids[i_apa:]:
+    if c.tag==q('p'): delete_par(c)
+    elif c.tag==q('tbl'): del_table(c)
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('vancouver ok:', len(order), 'references;', len(legends), 'figure legends;', len(fig_pars), 'figure paragraphs removed')
+
+# =========================== LANCET TEXT RULES: SERIAL COMMA, MID-LINE DECIMALS ===========================
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+def edit_all(old, new):
+    n=0
+    for p in list(body.iter(q('p'))):
+        while old in ptext(p) and n<50:
+            try: edit_p(p, old, new)
+            except ValueError: break
+            n+=1
+    return n
+def edit_p(p, old, new):
+    if old in _direct(p): replace(p, old, new); return
+    for ins in p.iter(q('ins')):
+        for t_ in ins.iter(q('t')):
+            if old in (t_.text or ''): t_.text=t_.text.replace(old,new,1); return
+    raise ValueError(old)
+SERIAL=[('by super-region, region and country','by super-region, region, and country'),
+ ('development assistance for health and funding cuts','development assistance for health, and funding cuts'),
+ ('lower malaria, NTD and child mortality','lower malaria, NTD, and child mortality'),
+ ('HIV, tuberculosis and malaria','HIV, tuberculosis, and malaria'),
+ ('at super-region, regional and national level','at super-region, regional, and national level'),
+ ('IHME Financing Global Health estimates and Natural Earth boundaries','IHME Financing Global Health estimates, and Natural Earth boundaries'),
+ ('complete-case, balanced-panel and multiple-imputation analyses','complete-case, balanced-panel, and multiple-imputation analyses'),
+ ('measured in 1990, 2010 and 2023','measured in 1990, 2010, and 2023'),
+ ('between regions within super-regions and within regions','between regions within super-regions, and within regions'),
+ ('heteroskedasticity, serial correlation and cross-sectional dependence','heteroskedasticity, serial correlation, and cross-sectional dependence'),
+ ('draws of GBD estimates, cut size and coefficients','draws of GBD estimates, cut size, and coefficients'),
+ ('scikit-learn and LightGBM','scikit-learn, and LightGBM'),
+ ('data interpretation or writing of the report','data interpretation, or writing of the report'),
+ ('Eastern Europe and Central Asia','Eastern Europe, and Central Asia'),
+ ('East Asia and Oceania','East Asia, and Oceania'),
+ ('Southern Latin America and Western Europe','Southern Latin America, and Western Europe'),
+ ('Madagascar, Zambia and Kenya','Madagascar, Zambia, and Kenya'),
+ ('Brazil, Peru and Indonesia','Brazil, Peru, and Indonesia'),
+ ('Higher UHC, sanitation and drinking-water coverage','Higher UHC, sanitation, and drinking-water coverage'),
+ ('food-borne trematodiasis and Chagas disease','food-borne trematodiasis, and Chagas disease'),
+ ('water, housing and cash transfers','water, housing, and cash transfers')]
+for a,b in SERIAL:
+    if edit_all(a,b)==0: print('serial not found:', a)
+# mid-line decimal points in text, legends and statements (not in references, URLs, or SDG target numbers)
+kids=list(body)
+def ix(t): return [i for i,c in enumerate(kids) if c.tag==q('p') and ptext(c).strip()==t][0]
+i0=ix('Summary')
+iR=ix('REFERENCES'); iF=ix('FIGURE LEGENDS'); iS=ix('SUPPLEMENTARY MATERIAL')
+scope=[c for c in kids[i0:iR]+kids[iF:iS] if c.tag==q('p')]
+DEC=re.compile(r'(?<!Goal )(?<!SDG )(?<![\w/.])(\d+)\.(\d+)(?![\w/]*\.\w)')
+nd=0
+for p in scope:
+    for t_ in [t for ins in p.iter(q('ins')) for t in ins.iter(q('t'))]:
+        new=DEC.sub(lambda m: m.group(1)+'·'+m.group(2), t_.text or '')
+        if new!=t_.text: nd+=1; t_.text=new
+    while True:
+        dt=_direct(p); m=DEC.search(dt)
+        if not m or 'http' in dt[max(0,m.start()-60):m.start()]: break
+        old=dt[m.start(1)-0:m.end(2)]; replace(p, old, old.replace('.','·')); nd+=1
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('lancet text rules ok; decimals converted:', nd)

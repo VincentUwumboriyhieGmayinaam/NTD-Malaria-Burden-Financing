@@ -142,3 +142,64 @@ M=[(h,[__import__('functools').reduce(lambda t,ab: t.replace(*ab),_FX,p) for p i
 json.dump({'methods': M, 'gather': GATHER, 'strobe': STROBE, 'evidence': EV, 'search': SEARCH, 'other': OTHER,
            'tables': [t for t in T if not t.get('main')], 'figures': FIGS}, open('/home/claude/ntd/results/appendix.json', 'w'), ensure_ascii=False, indent=1)
 print('methods words', sum(len(p.split()) for _, ps in M for p in ps), 'tables', len([t for t in T if not t.get('main')]), 'evidence rows', len(rows), 'other found', OTHER is not None)
+
+# =================== Lancet style: Vancouver numbering for the appendix ===================
+import sys as _sys; _sys.path.insert(0, '/home/claude/ntd/scripts' if __import__('os').path.exists('/home/claude/ntd/scripts') else 'scripts')
+import vancouver as VC, json as _json
+D = _json.load(open('/home/claude/ntd/results/appendix.json' if __import__('os').path.exists('/home/claude/ntd/results') else 'results/appendix.json'))
+_RP = 'results/appendix_refs.json'
+APA_ALL = _json.load(open(_RP if __import__('os').path.exists(_RP) else '/home/claude/ntd/' + _RP))
+REFK = {VC.key(r): r for r in APA_ALL}
+order = []
+def _note(k):
+    if k not in order: order.append(k)
+def _hits(t):
+    out = []
+    for m in VC.CITE_RE.finditer(t):
+        ks = VC.cite_keys(m.group(1))
+        if ks and all(k in REFK for k in ks): out.append((m, ks))
+    return out
+NARR = re.compile(r'([A-Z][A-Za-z’\-]+(?: (?:and|&) [A-Z][A-Za-z’\-]+| et al\.)?) \((\d{4}[a-z]?)\)')
+def _narr(t):
+    out = []
+    for m in NARR.finditer(t):
+        nm = m.group(1); first = re.split(r' (?:and|&) | et al\.', nm)[0]
+        if (first, m.group(2)) in REFK: out.append((m, (first, m.group(2)), nm))
+    return out
+def _scan(t):
+    for _, ks in sorted([(m.start(), ks) for m, ks in _hits(t)] + [(m.start(), [k]) for m, k, _ in _narr(t)]):
+        for k in ks: _note(k)
+def _sub(t):
+    while True:
+        h = _hits(t)
+        if not h: break
+        m, ks = h[0]; e = m.end(); pun = t[e] if e < len(t) and t[e] in '.,;:' else ''
+        t = t[:m.start()] + pun + '^{' + VC.fmt_nums([order.index(k) + 1 for k in ks]) + '}' + t[e + len(pun):]
+    for m, k, nm in reversed(_narr(t)):
+        who = re.split(r' et al\.', nm)[0] + (' and colleagues' if 'et al.' in nm else '')
+        t = t[:m.start()] + who + '^{' + str(order.index(k) + 1) + '}' + t[m.end():]
+    return t
+# document order: search text, evidence table, methods, table notes, figure legends
+_scan(D['search'])
+STUDY = {}
+for r in D['evidence']['rows']:
+    if isinstance(r, list):
+        mm = re.match(r'^([^,]+), (\d{4})', r[0]); k = (mm.group(1), mm.group(2)) if mm else None
+        if k in REFK: _note(k); STUDY[r[0]] = k
+for _, ps in D['methods']:
+    for p in ps: _scan(p)
+for t in D['tables']:
+    if t.get('note'): _scan(t['note'])
+for f in D['figures']: _scan(f[3])
+for k in REFK:                      # remaining entries of the evidence review, numbered after those cited
+    _note(k)
+D['search'] = _sub(D['search'])
+D['methods'] = [(h, [_sub(p) for p in ps]) for h, ps in D['methods']]
+for t in D['tables']:
+    if t.get('note'): t['note'] = _sub(t['note'])
+D['figures'] = [[a, b, c, _sub(d)] for a, b, c, d in D['figures']]
+for r in D['evidence']['rows']:
+    if isinstance(r, list) and r[0] in STUDY: r[0] = r[0] + '^{' + str(order.index(STUDY[r[0]]) + 1) + '}'
+D['references'] = [VC.vancouver(REFK[k]) for k in order]
+_json.dump(D, open('/home/claude/ntd/results/appendix.json' if __import__('os').path.exists('/home/claude/ntd/results') else 'results/appendix.json', 'w'), ensure_ascii=False, indent=1)
+print('appendix references (Vancouver):', len(order), '| cited in text or tables:', len(order) - sum(1 for k in REFK if k not in [kk for kk in order[:0]]))

@@ -3,25 +3,25 @@
   [
    "3.1 Data sources, linkage and study populations",
    [
-    "We conducted an ecological panel study of 204 countries and territories in seven Global Burden of Disease (GBD) super-regions, covering 2005–2023. We described the burden of neglected tropical diseases (NTDs) and malaria, assessed spatial clustering and socioeconomic inequality, examined associations with external health financing, and modelled potential health losses under reductions in development assistance for health (DAH). The unit of analysis was the country-year; estimates therefore describe population-level associations rather than individual effects (Morgenstern, 1995). Reporting followed the Guidelines for Accurate and Transparent Health Estimates Reporting (GATHER) and relevant STROBE recommendations (Stevens et al., 2016; von Elm et al., 2007). The GATHER checklist is provided in the appendix.",
-    "We linked five public sources: GBD 2023, World Bank World Development Indicators (WDI), World Health Organization (WHO) indicators disseminated through the UN Sustainable Development Goal (SDG) database, Institute for Health Metrics and Evaluation (IHME) Financing Global Health estimates, and Natural Earth boundaries (Apeagyei et al., 2025; GBD 2023 Disease and Injury and Risk Factor Collaborators, 2025; United Nations Statistics Division, n.d.; World Bank, n.d.; World Health Organization, n.d.). Records were harmonised using ISO 3166-1 alpha-3 codes, GBD location identifiers and the GBD super-region hierarchy. Table S1 summarises source coverage; Figure 1 shows the analytical workflow.",
+    "We conducted an ecological panel study of 204 countries and territories in seven Global Burden of Disease (GBD) super-regions, covering 2005–2023. We described the burden of neglected tropical diseases (NTDs) and malaria, assessed spatial clustering and socioeconomic inequality, examined associations with external health financing, and modelled potential health losses under reductions in development assistance for health (DAH). The unit of analysis was the country-year; estimates therefore describe population-level associations rather than individual effects.^{27} Reporting followed the Guidelines for Accurate and Transparent Health Estimates Reporting (GATHER) and relevant STROBE recommendations.^{28,29} The GATHER checklist is provided in the appendix.",
+    "We linked five public sources: GBD 2023, World Bank World Development Indicators (WDI), World Health Organization (WHO) indicators disseminated through the UN Sustainable Development Goal (SDG) database, Institute for Health Metrics and Evaluation (IHME) Financing Global Health estimates, and Natural Earth boundaries.^{26,30–33} Records were harmonised using ISO 3166-1 alpha-3 codes, GBD location identifiers and the GBD super-region hierarchy. Table S1 summarises source coverage; Figure 1 shows the analytical workflow.",
     "Descriptive analyses covered 204 GBD locations. Spatial analyses included 203 locations with Natural Earth polygons, excluding Tokelau. Financing analyses began with 168 locations outside the GBD high-income super-region; this geographical classification is not equivalent to World Bank low- and middle-income status. After covariate exclusions, the NTD panel included 153 locations. Malaria models additionally required a maximum age-standardised malaria DALY rate above 10 per 100 000 during 2005–2023: 78 locations met this threshold and 77 entered the complete-case panel. Inequality analyses required population data; the original Theil analysis also excluded zero-rate locations. Inequality time series used all 204 locations, weighted by GBD population for 1990 and by population implied by GBD all-age counts divided by crude rates for 2010 and 2023.",
     "Countries were assigned to the 21 GBD regions using the GBD location hierarchy. Summed country DALY counts reproduced published regional totals to within 0.2% in 17 regions and within 1.5–4.2% in the Caribbean, Central Europe, Western Europe and Oceania, where GBD regional aggregates include locations without separate country estimates. In the linkage file, Finland carried the Natural Earth code for the Åland Islands (ALA); it was reassigned to Western Europe for regional analyses and to the Finland polygon for supplementary maps.",
-    "WHO-reported indicators provided outcomes not obtained from GBD: the number of people requiring NTD interventions (SDG 3.3.5) and malaria incidence per 1000 people at risk (SDG 3.3.3) (United Nations Statistics Division, n.d.; World Health Organization, 2020). These were retrieved through the UN SDG database. IHME Financing Global Health estimates for 1990–2030 were used to calibrate the funding-cut scenarios (Apeagyei et al., 2025). Estimated DAH fell from US$49.6 billion in 2024 to a preliminary US$38.4 billion in 2025, approximately 22%. Spatial analyses used Natural Earth administrative level 0 polygons at 1:50 million scale (Natural Earth, n.d.). After projection to Robinson coordinates (ESRI:54030), the scripts generated an interior representative point for each country polygon. Euclidean distances between these points defined the original spatial weights. GBD extracts were retained as raw CSV and JSON files; WDI and SDG series were retrieved through public APIs. Truncated requests were split into shorter year windows, and country-year coverage was checked after assembly. The GBD outcome panel contained 3876 observations (204 locations × 19 years), with no missing outcomes. Raw data, processed datasets and scripts are archived with the paper. Natural Earth records with missing ISO codes were matched using administrative codes. The supplied WDI extract covered 2005–2024; the panel retained 2005–2023. Table S11 lists indicator codes, definitions, transformations and lags."
+    "WHO-reported indicators provided outcomes not obtained from GBD: the number of people requiring NTD interventions (SDG 3.3.5) and malaria incidence per 1000 people at risk (SDG 3.3.3).^{31,34} These were retrieved through the UN SDG database. IHME Financing Global Health estimates for 1990–2030 were used to calibrate the funding-cut scenarios.^{26} Estimated DAH fell from US$49.6 billion in 2024 to a preliminary US$38.4 billion in 2025, approximately 22%. Spatial analyses used Natural Earth administrative level 0 polygons at 1:50 million scale.^{35} After projection to Robinson coordinates (ESRI:54030), the scripts generated an interior representative point for each country polygon. Euclidean distances between these points defined the original spatial weights. GBD extracts were retained as raw CSV and JSON files; WDI and SDG series were retrieved through public APIs. Truncated requests were split into shorter year windows, and country-year coverage was checked after assembly. The GBD outcome panel contained 3876 observations (204 locations × 19 years), with no missing outcomes. Raw data, processed datasets and scripts are archived with the paper. Natural Earth records with missing ISO codes were matched using administrative codes. The supplied WDI extract covered 2005–2024; the panel retained 2005–2023. Table S11 lists indicator codes, definitions, transformations and lags."
    ]
   ],
   [
    "3.2 Burden outcomes",
    [
-    "GBD 2023 supplied annual all-age DALY counts and age-standardised DALY rates for the combined NTD-and-malaria category and malaria during 2005–2023. NTD totals excluding malaria were obtained by subtraction. The 2023 cross-section additionally contained 19 individual NTD components, selected deaths and prevalence estimates, and published uncertainty intervals (UIs). The 19 component DALY counts reproduced the 2023 NTD total. Historical country-level extracts covered selected years, whereas super-regional trends extended from 1990 to 2023. Age-standardised rates were expressed per 100 000 population (GBD 2023 Disease and Injury and Risk Factor Collaborators, 2025). Percentage changes and their UIs were imported from GBD rather than calculated from endpoint bounds.",
+    "GBD 2023 supplied annual all-age DALY counts and age-standardised DALY rates for the combined NTD-and-malaria category and malaria during 2005–2023. NTD totals excluding malaria were obtained by subtraction. The 2023 cross-section additionally contained 19 individual NTD components, selected deaths and prevalence estimates, and published uncertainty intervals (UIs). The 19 component DALY counts reproduced the 2023 NTD total. Historical country-level extracts covered selected years, whereas super-regional trends extended from 1990 to 2023. Age-standardised rates were expressed per 100 000 population.^{30} Percentage changes and their UIs were imported from GBD rather than calculated from endpoint bounds.",
     "For regional analyses we extracted, for each of the 21 GBD regions, 2023 all-age DALY counts with 95% UIs, all-age and age-standardised rates, and GBD-published percentage changes in age-standardised rates between 2010 and 2023, with UIs, for the NTD-and-malaria aggregate and for malaria. For the fatal and non-fatal composition, we extracted 2023 all-age YLDs and YLLs with UIs for each super-region and globally. NTD values excluding malaria were obtained by subtraction and carry no interval because GBD does not publish draws for that difference. Country-level age-standardised rates and counts for 1990 and 2010 supported the inequality time series and the national comparisons. GBD publishes country-level percentage changes with UIs only for the NTD-and-malaria aggregate; changes for NTDs excluding malaria and for malaria alone were computed from point estimates and are reported without intervals."
    ]
   ],
   [
    "3.3 Financing exposures and covariates",
    [
-    "The primary exposure was external health expenditure as a share of current health expenditure (CHE), scaled per 10 percentage points. The secondary exposure was log(1 + external health expenditure per capita). WDI health-financing series derive from the WHO Global Health Expenditure Database (GHED), which follows the System of Health Accounts 2011 (World Bank, n.d.; World Health Organization, n.d.). External expenditure includes bilateral, multilateral and philanthropic financing originating outside the country. Both exposures were lagged by 2 years to allow for programme implementation and reduce contemporaneous feedback; lagging alone does not resolve endogeneity (Bellemare et al., 2017; Bendavid & Bhattacharya, 2014). Monetary values were expressed in current US dollars.",
-    "NTD rates were natural-log transformed; malaria rates used log (1 + rate) to accommodate values approaching zero. NTD and malaria models were fitted separately. Covariates were selected a priori from aid–health studies and the WHO NTD road map (Bendavid & Bhattacharya, 2014; Mishra & Newhouse, 2009; World Health Organization, 2020). Models adjusted for log domestic government health expenditure per capita (lagged 2 years), log LDI, UHC effective coverage per 10 points, and basic sanitation and drinking-water coverage per 10 percentage points (GBD 2019 Universal Health Coverage Collaborators, 2020). SDI was excluded from the primary models because it incorporates income; it was used for inequality ranking and sensitivity analyses. Collinearity was assessed using variance inflation factors on within-transformed covariates; maximum values were 6.1 for NTDs and 6.4 for malaria. These were interpreted as diagnostics rather than against an absolute threshold (O’Brien, 2007)."
+    "The primary exposure was external health expenditure as a share of current health expenditure (CHE), scaled per 10 percentage points. The secondary exposure was log(1 + external health expenditure per capita). WDI health-financing series derive from the WHO Global Health Expenditure Database (GHED), which follows the System of Health Accounts 2011.^{32,33} External expenditure includes bilateral, multilateral and philanthropic financing originating outside the country. Both exposures were lagged by 2 years to allow for programme implementation and reduce contemporaneous feedback; lagging alone does not resolve endogeneity.^{14,36} Monetary values were expressed in current US dollars.",
+    "NTD rates were natural-log transformed; malaria rates used log (1 + rate) to accommodate values approaching zero. NTD and malaria models were fitted separately. Covariates were selected a priori from aid–health studies and the WHO NTD road map.^{12,14,34} Models adjusted for log domestic government health expenditure per capita (lagged 2 years), log LDI, UHC effective coverage per 10 points, and basic sanitation and drinking-water coverage per 10 percentage points.^{37} SDI was excluded from the primary models because it incorporates income; it was used for inequality ranking and sensitivity analyses. Collinearity was assessed using variance inflation factors on within-transformed covariates; maximum values were 6.1 for NTDs and 6.4 for malaria. These were interpreted as diagnostics rather than against an absolute threshold.^{38}"
    ]
   ],
   [
@@ -31,8 +31,8 @@
     "Fourteen locations had no usable lagged external expenditure share in the modelling window: American Samoa, Bermuda, Cook Islands, Guam, Montenegro, Northern Mariana Islands, Niue, Puerto Rico, the Democratic People’s Republic of Korea, Slovakia, Tokelau, Türkiye, Taiwan and the US Virgin Islands. Nicaragua also lacked sanitation and drinking-water observations. These exclusions reduced the eligible NTD sample from 168 to 153 locations.",
     "We assessed associations between incomplete records and log NTD DALY rate, SDI, year and super-region using logistic regression with country-clustered standard errors. These diagnostics described observed missingness patterns but could not establish whether data were missing at random.",
     "Within each country, interior WDI gaps were linearly interpolated without a maximum gap length; final observations were carried forward for at most 2 years. We did not extrapolate backwards or impute outcomes. Remaining incomplete records were excluded from each model. We reconstructed a model-specific flag from the observed input series, using exposure values 2 years before the outcome and contemporaneous sanitation and drinking-water values. This identified filled model inputs in 62 of 2287 NTD observations (2.7%) and 14 of 1187 malaria observations (1.2%).",
-    "Missing-data sensitivity analyses used observed model inputs only, restricted the sample to countries with complete observations throughout 2007–2022, and used multiple imputation (Honaker & King, 2010; Rubin, 1987; Sterne et al., 2009; van Buuren & Groothuis-Oudshoorn, 2011; White et al., 2011). Excluding observations with the corrected model-specific filling flag produced the same sample as requiring observed inputs, so these checks are not independent robustness tests. The original imputation model used four WDI variables, LDI, UHC, SDI, year, the observed outcome and country means of observed covariates. Outcomes were predictors only.",
-    "The multiple-imputation implementation used Bayesian ridge regression with posterior sampling, 15 iterations and 20 datasets. Missing country-level auxiliary means were replaced with the corresponding across-country median. It imposed no explicit bounds on percentage variables and recorded no convergence diagnostics. Estimates were pooled using Rubin’s rules (Rubin, 1987). Because convergence diagnostics were not recorded, the multiple-imputation estimates in Table S10b are a secondary check on the complete-case and interpolation analyses rather than a primary result; the variance summary is the proportion of total variance attributable to the between-imputation component, not a finite-sample fraction-of-missing-information estimate.",
+    "Missing-data sensitivity analyses used observed model inputs only, restricted the sample to countries with complete observations throughout 2007–2022, and used multiple imputation.^{39–43} Excluding observations with the corrected model-specific filling flag produced the same sample as requiring observed inputs, so these checks are not independent robustness tests. The original imputation model used four WDI variables, LDI, UHC, SDI, year, the observed outcome and country means of observed covariates. Outcomes were predictors only.",
+    "The multiple-imputation implementation used Bayesian ridge regression with posterior sampling, 15 iterations and 20 datasets. Missing country-level auxiliary means were replaced with the corresponding across-country median. It imposed no explicit bounds on percentage variables and recorded no convergence diagnostics. Estimates were pooled using Rubin’s rules.^{40} Because convergence diagnostics were not recorded, the multiple-imputation estimates in Table S10b are a secondary check on the complete-case and interpolation analyses rather than a primary result; the variance summary is the proportion of total variance attributable to the between-imputation component, not a finite-sample fraction-of-missing-information estimate.",
     "Cross-sectional exposures used the latest available observation during 2019–2023. Complete records were available for 169 of 204 locations globally; 145 remained after excluding the GBD high-income super-region. Table S9 describes the global complete-case comparison. The WHO NTD intervention-need proportion divided the 2023 count by the latest available WDI population value, so its denominator was not necessarily from 2023.",
     "Scenario analyses used 2022 population where 2023 values were unavailable. Missing GDP per capita for South Sudan, Yemen and Eritrea was replaced by the study-sample median for monetary valuation only, not for DALY projections."
    ]
@@ -46,52 +46,52 @@
   [
    "3.6 Socioeconomic inequality",
    [
-    "We summarised 2023 all-age DALY counts, shares of global burden and age-standardised rates by super-region, and changes in age-standardised rates from 2010 to 2023 (Table 1). Cause-specific estimates are provided in Table S2. Maps, heat maps and trend plots describe geographical and temporal patterns (Figure 2, Figure 3 & Figure 4). Socioeconomic inequality was measured using a population-weighted concentration index, ranking countries from lowest to highest SDI in the same year (1990, 2010 and 2023) (Kakwani et al., 1997; O’Donnell et al., 2008; Wagstaff et al., 1991). The index equals twice the weighted covariance of the age-standardised rate and fractional socioeconomic rank, divided by the weighted mean rate. Negative values indicate concentration in lower-SDI countries. We obtained 95% confidence intervals (CIs) from 2000 country-level bootstrap resamples using the percentile method.",
-    "Absolute inequality was measured with the slope index of inequality (SII). Countries were ordered by SDI and each was assigned the midpoint of its cumulative population share (its fractional rank, from 0 to 1). The SII is the slope of a population-weighted linear regression of the age-standardised rate on this rank, which estimates the difference in rate between the hypothetical highest-SDI and lowest-SDI ends of the distribution; negative values indicate higher rates in low-SDI countries. The relative SII divides the SII by the population-weighted mean rate (Mackenbach & Kunst, 1997). The concentration index, the SII and the relative SII were estimated for 1990, 2010 and 2023. CIs used 2000 bootstrap resamples of countries. Changes between years were estimated by resampling countries jointly across years (paired bootstrap), so that each replicate compares the same set of countries; a change was considered distinguishable from zero when its 95% CI excluded zero (Table S15a; Figure S1).",
-    "We calculated the population-weighted Theil T index and decomposed it into between-super-region and within-super-region components (Table 2; Figure 5) (Shorrocks, 1980; Theil, 1967). The original calculation required positive rates and available population, yielding 199 locations for NTDs and 86 for malaria. A sensitivity analysis retained zero malaria rates among all 199 locations with population data, assigning zero to the limiting term 0 log (0).",
+    "We summarised 2023 all-age DALY counts, shares of global burden and age-standardised rates by super-region, and changes in age-standardised rates from 2010 to 2023 (Table 1). Cause-specific estimates are provided in Table S2. Maps, heat maps and trend plots describe geographical and temporal patterns (Figure 2, Figure 3 & Figure 4). Socioeconomic inequality was measured using a population-weighted concentration index, ranking countries from lowest to highest SDI in the same year (1990, 2010 and 2023).^{44–46} The index equals twice the weighted covariance of the age-standardised rate and fractional socioeconomic rank, divided by the weighted mean rate. Negative values indicate concentration in lower-SDI countries. We obtained 95% confidence intervals (CIs) from 2000 country-level bootstrap resamples using the percentile method.",
+    "Absolute inequality was measured with the slope index of inequality (SII). Countries were ordered by SDI and each was assigned the midpoint of its cumulative population share (its fractional rank, from 0 to 1). The SII is the slope of a population-weighted linear regression of the age-standardised rate on this rank, which estimates the difference in rate between the hypothetical highest-SDI and lowest-SDI ends of the distribution; negative values indicate higher rates in low-SDI countries. The relative SII divides the SII by the population-weighted mean rate.^{47} The concentration index, the SII and the relative SII were estimated for 1990, 2010 and 2023. CIs used 2000 bootstrap resamples of countries. Changes between years were estimated by resampling countries jointly across years (paired bootstrap), so that each replicate compares the same set of countries; a change was considered distinguishable from zero when its 95% CI excluded zero (Table S15a; Figure S1).",
+    "We calculated the population-weighted Theil T index and decomposed it into between-super-region and within-super-region components (Table 2; Figure 5).^{48,49} The original calculation required positive rates and available population, yielding 199 locations for NTDs and 86 for malaria. A sensitivity analysis retained zero malaria rates among all 199 locations with population data, assigning zero to the limiting term 0 log (0).",
     "A nested Theil T decomposition used the GBD hierarchy to split total inequality into three additive parts: between the seven super-regions, between the 21 regions within super-regions, and between countries within regions. It was computed for 1990, 2010 and 2023 among countries with positive rates (Table S15b)."
    ]
   ],
   [
    "3.7 Spatial autocorrelation",
    [
-    "Spatial dependence was assessed before regression modelling (Anselin, 1988). We constructed row-standardised weights from the six nearest neighbours of each projected country representative point. This retained island states in the spatial analysis. Sensitivity analyses used four or eight neighbours and a 2500 km inverse-distance band (Table S7) (Anselin, 1988; Getis & Aldstadt, 2004). Global Moran’s I assessed clustering in log (1 + age-standardised DALY rate), with 9999 permutations for inference (Moran, 1950). We reported permutation p values and z scores. Analyses were repeated within the sample outside the GBD high-income super-region and, for malaria, within endemic locations. Local Moran statistics identified high–high and low–low clusters and high–low or low–high outliers (Anselin, 1995). Multiple testing across 203 locations was addressed using the Benjamini–Hochberg false-discovery-rate procedure at q<0.05 (Benjamini & Hochberg, 1995). Cluster maps are shown in Figure 5.",
+    "Spatial dependence was assessed before regression modelling.^{50} We constructed row-standardised weights from the six nearest neighbours of each projected country representative point. This retained island states in the spatial analysis. Sensitivity analyses used four or eight neighbours and a 2500 km inverse-distance band (Table S7).^{50,51} Global Moran’s I assessed clustering in log (1 + age-standardised DALY rate), with 9999 permutations for inference.^{52} We reported permutation p values and z scores. Analyses were repeated within the sample outside the GBD high-income super-region and, for malaria, within endemic locations. Local Moran statistics identified high–high and low–low clusters and high–low or low–high outliers.^{53} Multiple testing across 203 locations was addressed using the Benjamini–Hochberg false-discovery-rate procedure at q<0.05.^{54} Cluster maps are shown in Figure 5.",
     "To assess persistence of clusters, global Moran’s I and local indicators were recomputed for 1990, 2010 and 2023 with the same weights and false-discovery-rate control, and countries entering or leaving high–high clusters between 2010 and 2023 were listed (Table S21; Figure S4)."
    ]
   ],
   [
    "3.8 Panel econometric models",
    [
-    "The primary analysis used within-country variation to account for time-invariant country characteristics (Wooldridge, 2010). Cross-sectional ordinary least squares (OLS) with super-region fixed effects and a maximum-likelihood spatial error model provided between-country comparisons (Bendavid & Bhattacharya, 2014; Cavalcanti et al., 2025; Mishra & Newhouse, 2009). Cross-sectional models additionally adjusted for rural population share. NTD panel models included 153 countries and 2287 country-years during 2007–2022; malaria models included 77 countries and 1187 country-years. The preferred specification included country and year fixed effects, the 2-year-lagged financing exposure and the covariates listed above. We retained 2007–2022 as the original primary window and examined extension through 2023 in a post-review sensitivity analysis. Additional checks omitted UHC and excluded observations without matching UHC or LDI records in the supplied raw archive (Table S15). We compared pooled OLS, random effects, two-way fixed effects with country-clustered standard errors, correlated random effects (Mundlak), first differences, and fixed effects with country-specific linear trends (Bell & Jones, 2015; Mundlak, 1978; Wooldridge, 2010). Mundlak models included country means of time-varying regressors. Country-specific trends were removed from outcomes and regressors before estimation. Each estimator was fitted using both financing exposures.",
-    "Diagnostics comprised the Breusch–Pagan test for country-level heterogeneity, Hausman and cluster-robust Mundlak tests, Pesaran’s test for cross-sectional dependence, the Wooldridge test for serial correlation, and a modified Wald test for groupwise heteroskedasticity (Table S3) (Bell & Jones, 2015; Breusch & Pagan, 1980; Drukker, 2003; Greene, 2018; Hausman, 1978; Pesaran, 2021). The preferred two-way fixed-effects model used Driscoll–Kraay standard errors with a Bartlett kernel and bandwidth of 3 to address heteroskedasticity, serial correlation and cross-sectional dependence (Driscoll & Kraay, 1998; Hoechle, 2007). Sensitivity analyses used bandwidths of 1, 2 and 4 and country-clustered standard errors. These checks assess inference sensitivity; they do not remove the limitations of a 16-year panel. For NTDs, coefficients and confidence limits were transformed as 100 × [exp(β) − 1] to express percentage differences in DALY rates. For malaria, this transformation applies to rate + 1 and approximates a percentage difference in the rate when rates are large relative to 1. For the per-capita exposure, multiplying the coefficient by log (2) estimates a doubling of expenditure plus US$1, not a doubling of expenditure itself. All coefficients were interpreted as conditional associations. Fixed effects do not remove time-varying confounding, and lagging does not establish causal identification (Bellemare et al., 2017; Imai & Kim, 2021). We assessed consistency across estimators rather than relying on statistical significance alone.",
-    "To present between-country and within-country associations side by side in the same sample, we fitted a correlated random-effects (Mundlak) model containing the time-varying exposure, its country mean, the five covariates and their country means, and year indicators, with country-clustered standard errors. The coefficient on the time-varying exposure is the within-country association; the sum of that coefficient and the coefficient on the country mean is the between-country association; the coefficient on the country mean tests whether the two differ (Table S23) (Bell & Jones, 2015; Mundlak, 1978).",
+    "The primary analysis used within-country variation to account for time-invariant country characteristics.^{55} Cross-sectional ordinary least squares (OLS) with super-region fixed effects and a maximum-likelihood spatial error model provided between-country comparisons.^{12,14,21} Cross-sectional models additionally adjusted for rural population share. NTD panel models included 153 countries and 2287 country-years during 2007–2022; malaria models included 77 countries and 1187 country-years. The preferred specification included country and year fixed effects, the 2-year-lagged financing exposure and the covariates listed above. We retained 2007–2022 as the original primary window and examined extension through 2023 in a post-review sensitivity analysis. Additional checks omitted UHC and excluded observations without matching UHC or LDI records in the supplied raw archive (Table S15). We compared pooled OLS, random effects, two-way fixed effects with country-clustered standard errors, correlated random effects (Mundlak), first differences, and fixed effects with country-specific linear trends.^{55–57} Mundlak models included country means of time-varying regressors. Country-specific trends were removed from outcomes and regressors before estimation. Each estimator was fitted using both financing exposures.",
+    "Diagnostics comprised the Breusch–Pagan test for country-level heterogeneity, Hausman and cluster-robust Mundlak tests, Pesaran’s test for cross-sectional dependence, the Wooldridge test for serial correlation, and a modified Wald test for groupwise heteroskedasticity (Table S3).^{56,58–62} The preferred two-way fixed-effects model used Driscoll–Kraay standard errors with a Bartlett kernel and bandwidth of 3 to address heteroskedasticity, serial correlation and cross-sectional dependence.^{63,64} Sensitivity analyses used bandwidths of 1, 2 and 4 and country-clustered standard errors. These checks assess inference sensitivity; they do not remove the limitations of a 16-year panel. For NTDs, coefficients and confidence limits were transformed as 100 × [exp(β) − 1] to express percentage differences in DALY rates. For malaria, this transformation applies to rate + 1 and approximates a percentage difference in the rate when rates are large relative to 1. For the per-capita exposure, multiplying the coefficient by log (2) estimates a doubling of expenditure plus US$1, not a doubling of expenditure itself. All coefficients were interpreted as conditional associations. Fixed effects do not remove time-varying confounding, and lagging does not establish causal identification.^{36,65} We assessed consistency across estimators rather than relying on statistical significance alone.",
+    "To present between-country and within-country associations side by side in the same sample, we fitted a correlated random-effects (Mundlak) model containing the time-varying exposure, its country mean, the five covariates and their country means, and year indicators, with country-clustered standard errors. The coefficient on the time-varying exposure is the within-country association; the sum of that coefficient and the coefficient on the country mean is the between-country association; the coefficient on the country mean tests whether the two differ (Table S23).^{56,57}",
     "Because recent evaluations of development assistance report mortality, the preferred two-way fixed-effects model was re-estimated with the GBD 2023 age-standardised malaria death rate, on the log(1 + rate) scale, as outcome for the 77 malaria-endemic countries, with Driscoll–Kraay and country-clustered standard errors (Table S24)."
    ]
   ],
   [
    "3.9 Spatial panel models",
    [
-    "Models used row-standardised six-nearest-neighbour weights and maximum likelihood with the Lee–Yu fixed-effects transformation (Lee & Yu, 2010). Year effects were removed by cross-country demeaning. Analyses were restricted to balanced 16-year panels of 130 countries for NTDs and 71 for malaria. The intended SAR summaries are direct, indirect and total associations derived from the spatial multiplier (I − ρW)⁻¹ (LeSage & Pace, 2009) (Table S12)."
+    "Models used row-standardised six-nearest-neighbour weights and maximum likelihood with the Lee–Yu fixed-effects transformation.^{66} Year effects were removed by cross-country demeaning. Analyses were restricted to balanced 16-year panels of 130 countries for NTDs and 71 for malaria. The intended SAR summaries are direct, indirect and total associations derived from the spatial multiplier (I − ρW)⁻¹^{67} (Table S12)."
    ]
   ],
   [
    "3.10 Geographically weighted regression",
    [
-    "GWR and MGWR examined the 2023 NTD association in 145 locations outside the GBD high-income super-region with complete inputs (Brunsdon et al., 1996; Fotheringham et al., 2017; Oshan et al., 2019). Financing exposure was mean external expenditure share during 2019–2022. The log NTD DALY rate and all four predictors (external share, UHC, log LDI and sanitation coverage) were standardised to mean 0 and SD 1. Models used an adaptive bisquare kernel. Bandwidths were selected by minimising the corrected Akaike information criterion (AICc), using golden-section search for GWR and back-fitting for MGWR (Hurvich et al., 1998). MGWR estimated a separate bandwidth for each covariate. Local inference used the MGWR multiple-testing adjustment based on covariate-specific effective numbers of parameters (A. R. da Silva & Fotheringham, 2016). Fit was compared with global OLS using AICc and R² (Tables S6a–b; Figure 7C)."
+    "GWR and MGWR examined the 2023 NTD association in 145 locations outside the GBD high-income super-region with complete inputs.^{68–70} Financing exposure was mean external expenditure share during 2019–2022. The log NTD DALY rate and all four predictors (external share, UHC, log LDI and sanitation coverage) were standardised to mean 0 and SD 1. Models used an adaptive bisquare kernel. Bandwidths were selected by minimising the corrected Akaike information criterion (AICc), using golden-section search for GWR and back-fitting for MGWR.^{71} MGWR estimated a separate bandwidth for each covariate. Local inference used the MGWR multiple-testing adjustment based on covariate-specific effective numbers of parameters.^{72} Fit was compared with global OLS using AICc and R² (Tables S6a–b; Figure 7C)."
    ]
   ],
   [
    "3.11 Predictive modelling",
    [
-    "We compared elastic net, random forest and LightGBM for prediction of log NTD DALY rates during 2007–2023, using validation schemes that reflected the panel and spatial structure (Bergmeir & Benítez, 2012; Breiman, 2001; Ke et al., 2017; Ploton et al., 2020; Roberts et al., 2017; Zou & Hastie, 2005). Elastic-net penalty strength and mixing proportion (0.1, 0.5 or 0.9) were selected by internal five-fold cross-validation. Random forest used 500 trees, a minimum leaf size of 5 and 50% of features at each split. LightGBM used 600 trees, learning rate 0.03, 15 leaves, and row and column subsampling of 0.8. Tree-model hyperparameters were fixed before test-set evaluation. In the supplied elastic-net implementation, scaling preceded internal cross-validation and ordinary internal folds did not preserve the grouped or temporal validation structure. These results require rerunning with preprocessing and tuning inside structure-appropriate training folds. All models used 13 features: both financing exposures, the five panel covariates, rural population share, out-of-pocket expenditure share, SDI, year, and two projected coordinate variables. Validation comprised random five-fold splits, grouped five-fold splits by country, leave-one-super-region-out validation, and temporal validation (training: 2007–2017; testing: 2018–2023). Random splits were included to illustrate potentially optimistic performance when countries appear in both training and test sets. Temporal validation included a linear benchmark with country fixed effects and a linear time trend, allowing extrapolation beyond the training years. Test-period covariates were observed, so temporal results describe conditional predictions rather than fully prospective forecasts. Test samples differed between validation schemes and hyperparameters were tuned without a fully nested design, so comparisons are valid within, not across, validation schemes and are slightly optimistic for the tuned models. Performance was assessed on the log scale using root-mean-square error (RMSE), mean absolute error and R² (Table S5; Figure 7B). Mean absolute Shapley additive explanations (SHAP) values summarised feature contributions to LightGBM predictions in the full dataset (Lundberg & Lee, 2017). These were interpreted as model attribution, not causal effects."
+    "We compared elastic net, random forest and LightGBM for prediction of log NTD DALY rates during 2007–2023, using validation schemes that reflected the panel and spatial structure.^{73–78} Elastic-net penalty strength and mixing proportion (0.1, 0.5 or 0.9) were selected by internal five-fold cross-validation. Random forest used 500 trees, a minimum leaf size of 5 and 50% of features at each split. LightGBM used 600 trees, learning rate 0.03, 15 leaves, and row and column subsampling of 0.8. Tree-model hyperparameters were fixed before test-set evaluation. In the supplied elastic-net implementation, scaling preceded internal cross-validation and ordinary internal folds did not preserve the grouped or temporal validation structure. These results require rerunning with preprocessing and tuning inside structure-appropriate training folds. All models used 13 features: both financing exposures, the five panel covariates, rural population share, out-of-pocket expenditure share, SDI, year, and two projected coordinate variables. Validation comprised random five-fold splits, grouped five-fold splits by country, leave-one-super-region-out validation, and temporal validation (training: 2007–2017; testing: 2018–2023). Random splits were included to illustrate potentially optimistic performance when countries appear in both training and test sets. Temporal validation included a linear benchmark with country fixed effects and a linear time trend, allowing extrapolation beyond the training years. Test-period covariates were observed, so temporal results describe conditional predictions rather than fully prospective forecasts. Test samples differed between validation schemes and hyperparameters were tuned without a fully nested design, so comparisons are valid within, not across, validation schemes and are slightly optimistic for the tuned models. Performance was assessed on the log scale using root-mean-square error (RMSE), mean absolute error and R² (Table S5; Figure 7B). Mean absolute Shapley additive explanations (SHAP) values summarised feature contributions to LightGBM predictions in the full dataset.^{79} These were interpreted as model attribution, not causal effects."
    ]
   ],
   [
    "3.12 Scenario models of development-assistance cuts",
    [
-    "We used two conditional scenarios for annual health losses under external-financing reductions. Neither identifies a causal effect. The scenarios reduced each country’s external expenditure by 5–15% (mild), 19–26% (reference) or 40–60% (severe). The reference range encompassed IHME’s estimated 22% decline in global DAH between 2024 and 2025; the severe scenario represented larger reductions (Apeagyei et al., 2025; Cavalcanti et al., 2025). The same proportional cut was applied to 153 locations with financing data, using the latest available 2019–2023 financing baseline and 2023 burden and population.",
+    "We used two conditional scenarios for annual health losses under external-financing reductions. Neither identifies a causal effect. The scenarios reduced each country’s external expenditure by 5–15% (mild), 19–26% (reference) or 40–60% (severe). The reference range encompassed IHME’s estimated 22% decline in global DAH between 2024 and 2025; the severe scenario represented larger reductions.^{21,26} The same proportional cut was applied to 153 locations with financing data, using the latest available 2019–2023 financing baseline and 2023 burden and population.",
     "The accounting model summed cause-specific changes in all-age DALYs per person between 2010 and 2023, truncated each country’s total gain at zero, and multiplied it by 2023 population, external expenditure share and the funding-cut proportion. This assumes that gains attributable to external financing equal its share of health spending and reverse proportionately after a cut. All 19 NTD causes, including other NTDs, yellow fever, Ebola, Guinea worm disease and Zika, had GBD 2023 baselines for 2010; the 2010 sum of the 19 causes was 21.76 million DALYs. The econometric model recalculated external expenditure share as s(1 − c)/(1 − sc), where s is the baseline share expressed as a fraction and c is the proportional cut. It multiplied the share change in units of 10 percentage points by the preferred panel coefficient and applied exp (βΔx) − 1 to baseline all-age DALYs. For NTDs, this additionally assumes that an age-standardised association transfers to all-age counts. For malaria, whose outcome is log(1 + rate), each draw computed the new value of (1 + age-standardised rate) by multiplying the baseline (1 + rate) by the exponentiated coefficient–exposure product, subtracted 1 to obtain the new rate, and applied the ratio of the new to the baseline rate to baseline all-age DALYs.",
-    "Uncertainty was propagated through 4000 Monte Carlo draws (Briggs et al., 2012). We treated each published DALY point estimate as a log-normal median and set the log-scale standard deviation to [log(upper UI) − log(lower UI)]/3.92. Simulated draws were independent across countries and causes, with shared standard-normal draws between 2010 and 2023 in the primary analysis and independent year draws in sensitivity analysis. These are approximations from published summaries, not original GBD posterior draws, and generally do not reproduce both published bounds exactly. Each simulation sampled a funding cut uniformly within the scenario range and applied it to all countries. For the econometric model, coefficients were sampled from a normal distribution using the preferred estimate and Driscoll–Kraay standard error. Country estimates were summed within each draw to obtain super-regional and overall projections. We reported medians and 2.5th–97.5th percentiles; these intervals reflect the specified simulation assumptions. Projected DALYs were valued at one time each country’s GDP per capita in current US dollars, with 0.5 and 3 times GDP per capita examined in sensitivity analyses. These multiples provide an illustrative monetary valuation, not a cost-effectiveness threshold or an estimate of fiscal losses (Bertram et al., 2016; Fitzpatrick et al., 2017; Marseille et al., 2015). The domestic financing gap was calculated at each scenario midpoint as external expenditure per capita × population × proportional cut, summed by super-region. This was expressed as a percentage of domestic government health expenditure to describe the increase needed to replace lost external funds (Table S14)."
+    "Uncertainty was propagated through 4000 Monte Carlo draws.^{80} We treated each published DALY point estimate as a log-normal median and set the log-scale standard deviation to [log(upper UI) − log(lower UI)]/3.92. Simulated draws were independent across countries and causes, with shared standard-normal draws between 2010 and 2023 in the primary analysis and independent year draws in sensitivity analysis. These are approximations from published summaries, not original GBD posterior draws, and generally do not reproduce both published bounds exactly. Each simulation sampled a funding cut uniformly within the scenario range and applied it to all countries. For the econometric model, coefficients were sampled from a normal distribution using the preferred estimate and Driscoll–Kraay standard error. Country estimates were summed within each draw to obtain super-regional and overall projections. We reported medians and 2.5th–97.5th percentiles; these intervals reflect the specified simulation assumptions. Projected DALYs were valued at one time each country’s GDP per capita in current US dollars, with 0.5 and 3 times GDP per capita examined in sensitivity analyses. These multiples provide an illustrative monetary valuation, not a cost-effectiveness threshold or an estimate of fiscal losses.^{81–83} The domestic financing gap was calculated at each scenario midpoint as external expenditure per capita × population × proportional cut, summed by super-region. This was expressed as a percentage of domestic government health expenditure to describe the increase needed to replace lost external funds (Table S14)."
    ]
   ],
   [
@@ -109,7 +109,7 @@
   [
    "3.15 Statistical software and reproducibility",
    [
-    "Analyses used Python: pandas and NumPy for data management; statsmodels and linearmodels for regression and diagnostics; PySAL packages for spatial analyses; scikit-learn for imputation, elastic net, random forest and validation; LightGBM and SHAP for predictive modelling; and GeoPandas and matplotlib for maps and figures (Oshan et al., 2019; Rey & Anselin, 2007). Code and the harmonised analytical dataset are in the study GitHub repository (https://github.com/VincentUwumboriyhieGmayinaam/NTD-Malaria-Burden-Financing). Random processes used fixed seeds (scenario seed: 20261007). Tests were two-sided at α=0.05, with emphasis on estimates and 95% CIs. Code, processed datasets and execution instructions are provided in the appendix. Revision analyses are in scripts step5_revisions.py (inequality over time, regions, YLD–YLL, national rankings, cause leaders, LISA over time, WHO triangulation), step5_theil_regions.py, step5_mundlak_between_within.py, step5_mortality_sensitivity.py and step3_scenarios_v2.py."
+    "Analyses used Python: pandas and NumPy for data management; statsmodels and linearmodels for regression and diagnostics; PySAL packages for spatial analyses; scikit-learn for imputation, elastic net, random forest and validation; LightGBM and SHAP for predictive modelling; and GeoPandas and matplotlib for maps and figures.^{70,84} Code and the harmonised analytical dataset are in the study GitHub repository (https://github.com/VincentUwumboriyhieGmayinaam/NTD-Malaria-Burden-Financing). Random processes used fixed seeds (scenario seed: 20261007). Tests were two-sided at α=0.05, with emphasis on estimates and 95% CIs. Code, processed datasets and execution instructions are provided in the appendix. Revision analyses are in scripts step5_revisions.py (inequality over time, regions, YLD–YLL, national rankings, cause leaders, LISA over time, WHO triangulation), step5_theil_regions.py, step5_mundlak_between_within.py, step5_mortality_sensitivity.py and step3_scenarios_v2.py."
    ]
   ]
  ],
@@ -420,7 +420,7 @@
     "group": "A. Burden and trends"
    },
    [
-    "Murray, 2014, Lancet",
+    "Murray, 2014, Lancet^{1}",
     "GBD 2013 systematic analysis of HIV, TB and malaria incidence and mortality, 1990–2013; Global, 188 countries",
     "Malaria peaked at 232 million cases (143–387 million) in 2003 and 1.2 million deaths (1.1–1.4 million) in 2004. Child malaria deaths in sub-Saharan Africa fell 31.5% (15.7–44.1) after 2004",
     "Outdated GBD round; no NTDs; no inequality, spatial or financing analysis",
@@ -434,7 +434,7 @@
     "10.1371/journal.pntd.0006559"
    ],
    [
-    "Lin, 2022, J Travel Med",
+    "Lin, 2022, J Travel Med^{2}",
     "GBD 2019 secondary analysis of total NTDs with EAPC, 1990–2019; 204 countries",
     "Age-standardised NTD incidence rose, while age-standardised mortality and DALY rates fell. Tropical Latin America incidence fell from 1673.5 to 1059.2 per 100,000 (2010–2019)",
     "No malaria; descriptive only; no inequality indices, spatial statistics or financing",
@@ -448,14 +448,14 @@
     "10.1016/S0140-6736(24)00367-2"
    ],
    [
-    "Zheng, 2025, J R Soc Med",
+    "Zheng, 2025, J R Soc Med^{3}",
     "GBD 2019 cross-sectional analysis of malaria plus NTDs, ages 0–19, 1990–2019; 204 countries",
     "195.6 million cases and 43.9 million DALYs (25.0–70.4) in 2019. Malaria caused over 93% of DALYs in children under 5. Burden was inversely associated with SDI",
     "GBD 2019; children only; association with SDI only, no formal inequality index",
     "10.1177/01410768251321572"
    ],
    [
-    "Zheng, 2025, J Adv Res",
+    "Zheng, 2025, J Adv Res^{3}",
     "GBD 2021 analysis of NTDs plus malaria, 1990–2021; 204 countries, 21 regions",
     "Incidence 4,259.54 per 100,000 (+0.56% since 1990). Prevalence fell 58.05%. DALYs fell 18.06%, from 87.42 million to 71.63 million",
     "GBD 2021; descriptive SDI gradient; no spatial or financing analysis",
@@ -476,7 +476,7 @@
     "10.1016/S0140-6736(25)01637-X"
    ],
    [
-    "GBD 2023 Causes of Death Collaborators, 2025, Lancet",
+    "GBD 2023 Causes of Death Collaborators, 2025, Lancet^{4}",
     "GBD 2023 analysis of 292 causes of death, 1990–2023; 204 countries, 660 subnational units",
     "Global mean age at death rose from 46.8 years (1990) to 63.4 years (2023). Mean age at death in sub-Saharan Africa in 2023 was 38.0 years for females and 35.6 for males",
     "Mortality only; NTD and malaria results not reported in the abstract",
@@ -493,21 +493,21 @@
     "group": "B. Inequality and spatial analyses"
    },
    [
-    "Stolk, 2016, PLoS Negl Trop Dis",
+    "Stolk, 2016, PLoS Negl Trop Dis^{5}",
     "GBD 2010; between-country inequality by income group for 9 NTDs, 1990 and 2010, projected to 2020; Global",
     "Low- and lower-middle-income countries held 69% (1990) and then 81% (2010) of the burden. Burden fell 27% from 1990 to 2010, with gains mainly in upper-middle-income countries. Meeting WHO targets would cut a further 55% by 2020",
     "Old GBD round; income groups rather than SDI; no concentration index or spatial statistics; no malaria",
     "10.1371/journal.pntd.0004560"
    ],
    [
-    "Lo, 2019, Lancet Glob Health",
+    "Lo, 2019, Lancet Glob Health^{6}",
     "DHS spatiotemporal cross-sectional study of deworming coverage and equity index, 2003–2017; 50 countries; 820,883 children",
     "Mean preschool deworming coverage 33.0%. Of 31 countries reporting WHO coverage above 75%, 30 showed coverage concentrated in wealthier groups",
     "Coverage, not burden; within-country equity; no financing",
     "10.1016/S2214-109X(19)30413-9"
    ],
    [
-    "Emadi, 2021, BMC Public Health",
+    "Emadi, 2021, BMC Public Health^{7}",
     "GBD 2019; concentration index by HDI for 25 cause groups; 204 countries",
     "Concentration index for NTD and malaria DALYs was −0.6872, the most pro-poor of all CMNN groups. CMNN DALY index was −0.5203",
     "Cross-sectional (2019 only); HDI rather than SDI; no trend, spatial or financing analysis",
@@ -528,28 +528,28 @@
     "10.1186/s12936-024-05028-4"
    ],
    [
-    "Lin, 2025, Sci Rep",
+    "Lin, 2025, Sci Rep^{8}",
     "GBD 2021; inequality and frontier analysis with BAPC projection to 2041; 204 countries",
     "Age-standardised NTD plus malaria DALY rate fell from 1506.54 to 1020.27 per 100,000 (1990–2021). Western sub-Saharan Africa held 51.18% of the global burden. Burden projected to rise",
     "GBD 2021; no financing; no Moran's I or LISA",
     "10.1038/s41598-025-05530-y"
    ],
    [
-    "Khaki, 2025, PLoS Negl Trop Dis",
+    "Khaki, 2025, PLoS Negl Trop Dis^{9}",
     "Model-based geostatistics on ESPEN soil-transmitted helminth (STH) surveys, 2004–2018; 35 SSA countries (25 calibrated)",
     "Spatial correlation scale ranged from 1.14 to 3,027.44 km. Strong between-country heterogeneity",
     "Prevalence of STH only; not DALYs; no financing",
     "10.1371/journal.pntd.0012782"
    ],
    [
-    "Namubiru, 2025, Malar J",
+    "Namubiru, 2025, Malar J^{10}",
     "Spatial Durbin, SLX and SDEM models plus fixed effects with Driscoll–Kraay errors, 2010–2022; 38 SSA countries",
     "Moran's I showed significant clustering of malaria cases and deaths in every year. DAH per capita was positively associated with burden, reflecting targeting. Spillover between neighbours was limited",
     "Malaria only; SSA only; WHO/MAP outcomes rather than GBD DALYs; no NTDs",
     "10.1186/s12936-025-05592-3"
    ],
    [
-    "Feng, 2025, BMC Infect Dis",
+    "Feng, 2025, BMC Infect Dis^{11}",
     "GBD 2021; concentration index and slope index of inequality by SDI, decomposition, BAPC projection to 2050; 204 countries",
     "1990–2021: age-standardised incidence +0.59%; prevalence −58.05%; deaths −25%; DALY rate −32.36%. Absolute inequality narrowed while relative inequality worsened",
     "GBD 2021; no spatial autocorrelation; no financing",
@@ -566,7 +566,7 @@
     "group": "C. Financing and outcomes"
    },
    [
-    "Mishra, 2009, J Health Econ",
+    "Mishra, 2009, J Health Econ^{12}",
     "Cross-country panel, 1973–2004; 118 countries",
     "Doubling health aid per capita was associated with a 2% lower infant mortality rate",
     "Infant mortality only; old data; no malaria or NTDs",
@@ -580,28 +580,28 @@
     "10.1371/journal.pmed.1000328"
    ],
    [
-    "Akachi, 2011, PLoS One",
+    "Akachi, 2011, PLoS One^{13}",
     "Panel regression plus Lives Saved Tool, 2002–2008; 34 SSA countries",
     "US$1 million of malaria ODA bought 50,478 ITNs. 1,000 ITNs saved 0.625 lives. Global Fund-supported ITN/IRS averted about 240,000 deaths. High-burden countries received less ODA per person at risk (US$3.90 vs US$7.05)",
     "Child mortality only; SSA only; pre-2010",
     "10.1371/journal.pone.0021309"
    ],
    [
-    "Bendavid, 2014, JAMA Intern Med",
+    "Bendavid, 2014, JAMA Intern Med^{14}",
     "Cross-country panel with country and year fixed effects, 1974–2010; 140 countries",
     "Each 1% increase in health aid was linked to +0.24 months of life expectancy (0.02–0.46) and a 0.14 per 1,000 faster decline in under-5 mortality. US$1 billion was linked to 364,800 fewer under-5 deaths (98,400–630,000)",
     "All-cause outcomes; no NTD or malaria burden; no spatial dependence",
     "10.1001/jamainternmed.2014.292"
    ],
    [
-    "Hsiao, 2014, J Epidemiol Glob Health",
+    "Hsiao, 2014, J Epidemiol Glob Health^{15}",
     "Panel with country and period fixed effects, plus GMM; 120 LMICs",
     "Malaria DAH and HIV DAH were associated with lower malaria and HIV mortality. TB DAH showed no association",
     "No NTDs; no DALYs; pre-2014; no inequality",
     "10.1016/j.jegh.2014.10.001"
    ],
    [
-    "Yan, 2015, BMC Public Health",
+    "Yan, 2015, BMC Public Health^{16}",
     "Econometric panel with fixed effects, 1995–2010; All Global Fund-eligible countries",
     "Each +US$10 per capita of Global Fund disbursement was linked to a 1.4% per year faster decline in adult mortality and a 6.9% per year faster decline in under-5 malaria mortality. No association with all-cause under-5 mortality",
     "One donor; ends 2010; no NTDs",
@@ -622,7 +622,7 @@
     "10.1186/s12963-021-00278-9"
    ],
    [
-    "Sempungu, 2023, Glob Public Health",
+    "Sempungu, 2023, Glob Public Health^{17}",
     "GBD 2019 joinpoint plus two-way fixed effects (DAH and governance), 2000–2017; Sub-Saharan Africa",
     "Malaria age-standardised DALY rate fell 47% (UI −69 to −14). DAH coefficient on that rate was −134.18 (SE 27.26); governance coefficient −246.19",
     "Malaria only; SSA only; DAH level rather than dependence share; no NTDs or spatial terms",
@@ -653,21 +653,21 @@
     "group": "D. Projections of funding cuts"
    },
    [
-    "Hallett, 2025, Lancet",
+    "Hallett, 2025, Lancet^{18}",
     "Disease-specific epidemiological and costing models for 2027–29; Global Fund-eligible countries",
     "Need US$140.6 billion; US$111.3 billion (79%) available. Optimal use could save 23 million lives and avert 400 million cases. Return of up to US$19 per US$1",
     "HIV, TB and malaria only; no NTDs; investment case rather than cut scenario",
     "10.1016/S0140-6736(25)00831-1"
    ],
    [
-    "Symons, 2025, Lancet",
+    "Symons, 2025, Lancet^{19}",
     "Geospatial Bayesian transmission model with and without PMI commodities, 2025; 27 African PMI focus countries",
     "PMI would avert 13.6 million cases (11.4–16.4 million) and 104,000 deaths (69,000–161,000) in 2025, equal to 11.3% of malaria morbidity and 37.5% of malaria mortality in PMI geographies",
     "Malaria only; one year; one donor; no NTDs",
     "10.1016/S0140-6736(25)00805-0"
    ],
    [
-    "Stover, 2025, Lancet Glob Health",
+    "Stover, 2025, Lancet Glob Health^{20}",
     "Established mathematical models (6 HIV models, 1 TB, 1 MCH, 3 family-planning approaches), 2025–2030; Up to 80 countries",
     "Full cessation of US funding: 4.1 million AIDS deaths (1.6–6.6 million), 606,900 TB deaths, and 2.5 million (1.3–4.5 million) other child deaths",
     "No malaria or NTD outcomes",
@@ -677,14 +677,14 @@
     "group": "C. Financing and outcomes"
    },
    [
-    "Cavalcanti, 2025, Lancet",
+    "Cavalcanti, 2025, Lancet^{21}",
     "Fixed-effects Poisson panel (2001–2021) plus microsimulation to 2030; 133 countries",
     "USAID funding linked to lower mortality: all-cause RR 0.85 (0.78–0.93); malaria RR 0.49 (0.39–0.61; 8.0 million deaths averted); NTDs RR 0.50 (0.40–0.62; 8.9 million). Cuts projected to cause 14.05 million extra deaths by 2030 (8.48–19.66 million), 4.54 million under age 5",
     "One donor; mortality only (no DALYs or disability-dominated NTD burden); no country-level NTD projections; no spatial structure",
     "10.1016/S0140-6736(25)01186-9"
    ],
    [
-    "da Silva, 2026, Lancet Glob Health",
+    "da Silva, 2026, Lancet Glob Health^{22}",
     "Two-way fixed-effects Poisson panel of ODA (2002–2021) plus microsimulation of 3 scenarios to 2030; 93 LMICs",
     "Higher ODA linked to lower mortality: all-cause RR 0.77 (0.70–0.85); malaria RR 0.44 (0.35–0.56); NTDs RR 0.46 (0.36–0.59). Severe defunding: 22.6 million extra deaths (16.3–29.3 million). Mild defunding: 9.4 million (6.2–12.6 million) by 2030",
     "Mortality only; ODA level rather than financing-dependence share; no separation of between- and within-country variation; no NTD DALYs",
@@ -694,7 +694,7 @@
     "group": "E. Domestic financing, displacement and donor transition"
    },
    [
-    "Liese, 2009, Int Health",
+    "Liese, 2009, Int Health^{23}",
     "Analysis of ODA commitments, 2003–2007; DAC and multilateral donors",
     "Only 0.6% of health ODA went to NTDs, compared with HIV/AIDS 36.3%, malaria 3.6% and TB 2.2%",
     "Descriptive; old; no outcomes",
@@ -722,21 +722,21 @@
     "10.1016/S0140-6736(19)30841-4"
    ],
    [
-    "Patenaude, 2021, Health Policy Plan",
+    "Patenaude, 2021, Health Policy Plan^{24}",
     "Arellano–Bond system GMM on DAH, domestic spending and under-5 mortality, 2000–2015; 134 countries",
     "DAH had no significant effect on overall domestic public health spending. US$1 of on-budget DAH raised government HIV spending by US$0.12. A 1% rise in public financing cut under-5 mortality by 0.025%; DAH had no significant effect",
     "Under-5 mortality only; no NTD or malaria burden",
     "10.1093/heapol/czab004"
    ],
    [
-    "Huffstetler, 2022, Health Policy Plan",
+    "Huffstetler, 2022, Health Policy Plan^{25}",
     "Scoping review of donor transitions, 1990–2018 (89 of 11,236 records); Middle-income countries",
     "Unmanaged transitions led to funding shortfalls, stock-outs, service disruption and workforce gaps",
     "Qualitative synthesis; no quantified burden",
     "10.1093/heapol/czac063"
    ],
    [
-    "Apeagyei, 2025, Lancet",
+    "Apeagyei, 2025, Lancet^{26}",
     "IHME DAH tracking with forecasts, 1990–2030; Global",
     "DAH peaked at US$80.3 billion (2021), fell to US$49.6 billion (2024), was estimated at US$38.4 billion for 2025 (range 36.8–40.0), and is forecast at US$36.2 billion for 2030",
     "Financing only; no health-loss estimates",
@@ -4600,5 +4600,109 @@
    "Local spatial clusters of age-standardised DALY rates, 2010 and 2023",
    "Local indicators of spatial association on log(1 + rate) with six-nearest-neighbour weights, 9999 permutations and Benjamini–Hochberg false-discovery rate below 5%. Black outlines mark countries that entered a high–high cluster between 2010 and 2023."
   ]
+ ],
+ "references": [
+  "Murray CJL, Ortblad KF, Guinovart C, et al. Global, regional, and national incidence and mortality for HIV, tuberculosis, and malaria during 1990–2013: a systematic analysis for the Global Burden of Disease Study 2013. Lancet 2014; 384: 1005–70.",
+  "Lin Y, Fang K, Zheng Y, Wang HL, Wu J. Global burden and trends of neglected tropical diseases from 1990 to 2019. J Travel Med 2022; 29: taac031.",
+  "Zheng J-X, Liu Y, Guan S-Y, et al. Global, regional, and national burden of neglected tropical diseases and malaria in the general population, 1990–2021: systematic analysis of the Global Burden of Disease Study 2021. J Adv Res 2025; 79: 769–81.",
+  "GBD 2023 Causes of Death Collaborators. Global burden of 292 causes of death in 204 countries and territories and 660 subnational locations, 1990–2023: a systematic analysis for the Global Burden of Disease Study 2023. Lancet 2025; 406: 1811–72.",
+  "Stolk WA, Kulik MC, le Rutte EA, et al. Between-country inequalities in the neglected tropical disease burden in 1990 and 2010, with projections for 2020. PLoS Negl Trop Dis 2016; 10: e0004560.",
+  "Lo NC, Heft-Neal S, Coulibaly JT, Leonard L, Bendavid E, Addiss DG. State of deworming coverage and equity in low-income and middle-income countries using household health surveys: a spatiotemporal cross-sectional study. Lancet Glob Health 2019; 7: e1511–20.",
+  "Emadi M, Delavari S, Bayati M. Global socioeconomic inequality in the burden of communicable and non-communicable diseases and injuries: an analysis on Global Burden of Disease Study 2019. BMC Public Health 2021; 21: 1771.",
+  "Lin Y, Long Q, Sun J, et al. Global trends, health inequalities, and projections in the burden of neglected tropical diseases and malaria from 1990 to 2021. Sci Rep 2025; 15: 20958.",
+  "Khaki JJ, Minnery M, Giorgi E. Using ESPEN data for evidence-based control of neglected tropical diseases in sub-Saharan Africa: a comprehensive model-based geostatistical analysis of soil-transmitted helminths. PLoS Negl Trop Dis 2025; 19: e0012782.",
+  "Namubiru C. Institutional quality, aid flows, and malaria burden: a geospatial analysis of sub-Saharan Africa. Malar J 2025; 24: 332.",
+  "Feng L, Mo G, Liu Z, Liu Q. Global, regional, national burden, trends and health inequality of neglected tropical diseases and malaria from 1990 to 2021. BMC Infect Dis 2025; 25: 1649.",
+  "Mishra P, Newhouse D. Does health aid matter? J Health Econ 2009; 28: 855–72.",
+  "Akachi Y, Atun R. Effect of investment in malaria control on child mortality in sub-Saharan Africa in 2002–2008. PLoS One 2011; 6: e21309.",
+  "Bendavid E, Bhattacharya J. The relationship of health aid to population health improvements. JAMA Intern Med 2014; 174: 881–87.",
+  "Hsiao AJ, Emdin CA. The association between development assistance for health and malaria, HIV and tuberculosis mortality: a cross-national analysis. J Epidemiol Glob Health 2014; 5: 41–48.",
+  "Yan I, Korenromp E, Bendavid E. Mortality changes after grants from the Global Fund to Fight AIDS, Tuberculosis and Malaria: an econometric analysis from 1995 to 2010. BMC Public Health 2015; 15: 977.",
+  "Sempungu JK, Choi M, Lee EH, Lee YH. The burden of malaria in sub-Saharan Africa and its association with development assistance for health and governance: an exploration of the GBD 2019 study. Glob Public Health 2023; 18: 2229892.",
+  "Hallett TB, Menzies NA, Resch S, et al. The case for optimal investment in combating HIV, tuberculosis, and malaria: a global modelling study. Lancet 2025; 406: 261–70.",
+  "Symons TL, Lubinda J, McPhail M, et al. Estimating the potential malaria morbidity and mortality avertable by the US President’s Malaria Initiative in 2025: a geospatial modelling analysis. Lancet 2025; 405: 2231–40.",
+  "Stover J, Sonneveldt E, Tam Y, et al. Effects of reductions in US foreign assistance on HIV, tuberculosis, family planning, and maternal and child health: a modelling study. Lancet Glob Health 2025; 13: e1669–80.",
+  "Cavalcanti DM, de Oliveira Ferreira de Sales L, da Silva AF, et al. Evaluating the impact of two decades of USAID interventions and projecting the effects of defunding on mortality up to 2030: a retrospective impact evaluation and forecasting analysis. Lancet 2025; 406: 283–94.",
+  "da Silva AF, Anderle RVR, Barreix Sibils G, et al. Impact of two decades of humanitarian and development assistance and the projected mortality consequences of current defunding to 2030: retrospective evaluation and forecasting analysis. Lancet Glob Health 2026; 14: e690–701.",
+  "Liese BH, Schubert L. Official development assistance for health—how neglected are neglected tropical diseases? An analysis of health financing. Int Health 2009; 1: 141–47.",
+  "Patenaude BN. The relationship between development assistance for health and public health financing in 134 countries between 2000 and 2015. Health Policy Plan 2021; 36: 369–83.",
+  "Huffstetler HE, Bandara S, Bharali I, et al. The impacts of donor transitions on health systems in middle-income countries: a scoping review. Health Policy Plan 2022; 37: 1188–202.",
+  "Apeagyei AE, Bisignano C, Elliott H, et al. Tracking development assistance for health, 1990–2030: historical trends, recent cuts, and outlook. Lancet 2025; 406: 337–48.",
+  "Morgenstern H. Ecologic studies in epidemiology: concepts, principles, and methods. Annu Rev Public Health 1995; 16: 61–81.",
+  "Stevens GA, Alkema L, Black RE, et al. Guidelines for accurate and transparent health estimates reporting: the GATHER statement. Lancet 2016; 388: e19–23.",
+  "von Elm E, Altman DG, Egger M, Pocock SJ, Gøtzsche PC, Vandenbroucke JP. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) statement: guidelines for reporting observational studies. Lancet 2007; 370: 1453–57.",
+  "GBD 2023 Disease and Injury and Risk Factor Collaborators. Burden of 375 diseases and injuries, risk-attributable burden of 88 risk factors, and healthy life expectancy in 204 countries and territories, including 660 subnational locations, 1990–2023: a systematic analysis for the Global Burden of Disease Study 2023. Lancet 2025; 406: 1873–922.",
+  "United Nations Statistics Division. Global SDG Indicators Database. https://unstats.un.org/sdgs/dataportal (accessed Oct 7, 2026).",
+  "World Bank. World Development Indicators. https://databank.worldbank.org/source/world-development-indicators (accessed Oct 7, 2026).",
+  "WHO. Global Health Expenditure Database. https://apps.who.int/nha/database (accessed Oct 7, 2026).",
+  "WHO. Ending the neglect to attain the Sustainable Development Goals: a road map for neglected tropical diseases 2021–2030. Geneva: World Health Organization, 2020.",
+  "Natural Earth. Admin 0 – countries, 1:50m cultural vectors. https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/ (accessed Oct 7, 2026).",
+  "Bellemare MF, Masaki T, Pepinsky TB. Lagged explanatory variables and the estimation of causal effect. J Polit 2017; 79: 949–63.",
+  "GBD 2019 Universal Health Coverage Collaborators. Measuring universal health coverage based on an index of effective coverage of health services in 204 countries and territories, 1990–2019: a systematic analysis for the Global Burden of Disease Study 2019. Lancet 2020; 396: 1250–84.",
+  "O’Brien RM. A caution regarding rules of thumb for variance inflation factors. Qual Quant 2007; 41: 673–90.",
+  "Honaker J, King G. What to do about missing values in time‐series cross‐section data. Am J Pol Sci 2010; 54: 561–81.",
+  "Rubin DB. Multiple imputation for nonresponse in surveys. New York, NY: Wiley, 1987.",
+  "Sterne JAC, White IR, Carlin JB, et al. Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls. BMJ 2009; 338: b2393.",
+  "van Buuren S, Groothuis-Oudshoorn K. mice: multivariate imputation by chained equations in R. J Stat Softw 2011; 45: 1–67.",
+  "White IR, Royston P, Wood AM. Multiple imputation using chained equations: issues and guidance for practice. Stat Med 2011; 30: 377–99.",
+  "Kakwani N, Wagstaff A, van Doorslaer E. Socioeconomic inequalities in health: measurement, computation, and statistical inference. J Econom 1997; 77: 87–103.",
+  "O’Donnell O, van Doorslaer E, Wagstaff A, Lindelow M. Analyzing health equity using household survey data: a guide to techniques and their implementation. Washington, DC: World Bank, 2008.",
+  "Wagstaff A, Paci P, van Doorslaer E. On the measurement of inequalities in health. Soc Sci Med 1991; 33: 545–57.",
+  "Mackenbach JP, Kunst AE. Measuring the magnitude of socio-economic inequalities in health: an overview of available measures illustrated with two examples from Europe. Soc Sci Med 1997; 44: 757–71.",
+  "Shorrocks AF. The class of additively decomposable inequality measures. Econometrica 1980; 48: 613–25.",
+  "Theil H. Economics and information theory. Amsterdam: North-Holland, 1967.",
+  "Anselin L. Spatial econometrics: methods and models. Dordrecht: Kluwer Academic Publishers, 1988.",
+  "Getis A, Aldstadt J. Constructing the spatial weights matrix using a local statistic. Geogr Anal 2004; 36: 90–104.",
+  "Moran PAP. Notes on continuous stochastic phenomena. Biometrika 1950; 37: 17–23.",
+  "Anselin L. Local indicators of spatial association—LISA. Geogr Anal 1995; 27: 93–115.",
+  "Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. J R Stat Soc Series B Stat Methodol 1995; 57: 289–300.",
+  "Wooldridge JM. Econometric analysis of cross section and panel data, 2nd edn. Cambridge, MA: MIT Press, 2010.",
+  "Bell A, Jones K. Explaining fixed effects: random effects modeling of time-series cross-sectional and panel data. Polit Sci Res Methods 2015; 3: 133–53.",
+  "Mundlak Y. On the pooling of time series and cross section data. Econometrica 1978; 46: 69–85.",
+  "Breusch TS, Pagan AR. The Lagrange multiplier test and its applications to model specification in econometrics. Rev Econ Stud 1980; 47: 239–53.",
+  "Drukker DM. Testing for serial correlation in linear panel-data models. Stata J 2003; 3: 168–77.",
+  "Greene WH. Econometric analysis, 8th edn. New York, NY: Pearson, 2018.",
+  "Hausman JA. Specification tests in econometrics. Econometrica 1978; 46: 1251–71.",
+  "Pesaran MH. General diagnostic tests for cross-sectional dependence in panels. Empir Econ 2021; 60: 13–50.",
+  "Driscoll JC, Kraay AC. Consistent covariance matrix estimation with spatially dependent panel data. Rev Econ Stat 1998; 80: 549–60.",
+  "Hoechle D. Robust standard errors for panel regressions with cross-sectional dependence. Stata J 2007; 7: 281–312.",
+  "Imai K, Kim IS. On the use of two-way fixed effects regression models for causal inference with panel data. Polit Anal 2021; 29: 405–15.",
+  "Lee L-F, Yu J. Estimation of spatial autoregressive panel data models with fixed effects. J Econom 2010; 154: 165–85.",
+  "LeSage J, Pace RK. Introduction to spatial econometrics. Boca Raton, FL: Chapman & Hall/CRC, 2009.",
+  "Brunsdon C, Fotheringham AS, Charlton ME. Geographically weighted regression: a method for exploring spatial nonstationarity. Geogr Anal 1996; 28: 281–98.",
+  "Fotheringham AS, Yang W, Kang W. Multiscale geographically weighted regression (MGWR). Ann Am Assoc Geogr 2017; 107: 1247–65.",
+  "Oshan TM, Li Z, Kang W, Wolf LJ, Fotheringham AS. mgwr: a Python implementation of multiscale geographically weighted regression for investigating process spatial heterogeneity and scale. ISPRS Int J Geoinf 2019; 8: 269.",
+  "Hurvich CM, Simonoff JS, Tsai C-L. Smoothing parameter selection in nonparametric regression using an improved Akaike information criterion. J R Stat Soc Series B Stat Methodol 1998; 60: 271–93.",
+  "da Silva AR, Fotheringham AS. The multiple testing issue in geographically weighted regression. Geogr Anal 2016; 48: 233–47.",
+  "Bergmeir C, Benítez JM. On the use of cross-validation for time series predictor evaluation. Inf Sci 2012; 191: 192–213.",
+  "Breiman L. Random forests. Mach Learn 2001; 45: 5–32.",
+  "Ke G, Meng Q, Finley T, et al. LightGBM: a highly efficient gradient boosting decision tree. Adv Neural Inf Process Syst 2017; 30: 3146–54.",
+  "Ploton P, Mortier F, Réjou-Méchain M, et al. Spatial validation reveals poor predictive performance of large-scale ecological mapping models. Nat Commun 2020; 11: 4540.",
+  "Roberts DR, Bahn V, Ciuti S, et al. Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. Ecography 2017; 40: 913–29.",
+  "Zou H, Hastie T. Regularization and variable selection via the elastic net. J R Stat Soc Series B Stat Methodol 2005; 67: 301–20.",
+  "Lundberg SM, Lee S-I. A unified approach to interpreting model predictions. Adv Neural Inf Process Syst 2017; 30: 4765–74.",
+  "Briggs AH, Weinstein MC, Fenwick EAL, Karnon J, Sculpher MJ, Paltiel AD. Model parameter estimation and uncertainty analysis: a report of the ISPOR-SMDM Modeling Good Research Practices Task Force Working Group–6. Med Decis Making 2012; 32: 722–32.",
+  "Bertram MY, Lauer JA, De Joncheere K, et al. Cost–effectiveness thresholds: pros and cons. Bull World Health Organ 2016; 94: 925–30.",
+  "Fitzpatrick C, Nwankwo U, Lenk E, de Vlas SJ, Bundy DAP. An investment case for ending neglected tropical diseases. In: Holmes KK, Bertozzi S, Bloom BR, Jha P, eds. Major infectious diseases, 3rd edn. Washington, DC: World Bank, 2017: 411–31.",
+  "Marseille E, Larson B, Kazi DS, Kahn JG, Rosen S. Thresholds for the cost–effectiveness of interventions: alternative approaches. Bull World Health Organ 2015; 93: 118–24.",
+  "Rey SJ, Anselin L. PySAL: a Python library of spatial analytical methods. Rev Reg Stud 2007; 37: 5–27.",
+  "Ahmed A, Aune D, Vineis P, Pescarini JM, Millett C, Hone T. The effect of conditional cash transfers on the control of neglected tropical disease: a systematic review. Lancet Glob Health 2022; 10: e640–48.",
+  "Bhatt S, Weiss DJ, Cameron E, et al. The effect of malaria control on Plasmodium falciparum in Africa between 2000 and 2015. Nature 2015; 526: 207–11.",
+  "Borlase A, Le Rutte EA, Castaño S, et al. Evaluating and mitigating the potential indirect effect of COVID-19 on control programmes for seven neglected tropical diseases: a modelling study. Lancet Glob Health 2022; 10: e1600–11.",
+  "Cohen JM, Smith DL, Cotter C, et al. Malaria resurgence: a systematic review and assessment of its causes. Malar J 2012; 11: 122.",
+  "Dieleman JL, Hanlon M. Measuring the displacement and replacement of government health expenditure. Health Econ 2014; 23: 129–40.",
+  "Elhorst JP. Spatial econometrics: from cross-sectional data to spatial panels. Heidelberg: Springer, 2014.",
+  "Global Burden of Disease 2021 Health Financing Collaborator Network. Global investments in pandemic preparedness and COVID-19: development assistance and domestic spending on health between 1990 and 2026. Lancet Glob Health 2023; 11: e385–413.",
+  "Grimes JET, Croll D, Harrison WE, Utzinger J, Freeman MC, Templeton MR. The relationship between water, sanitation and schistosomiasis: a systematic review and meta-analysis. PLoS Negl Trop Dis 2014; 8: e3296.",
+  "He R, Zhu W, Hui S, et al. Inequalities in disease burden and care quality of neglected tropical diseases and malaria, 1990–2021: findings from the 2021 Global Burden of Disease Study. PLoS One 2025; 20: e0329475.",
+  "Jakubowski A, Stearns SC, Kruk ME, Angeles G, Thirumurthy H. The US President’s Malaria Initiative and under-5 child mortality in sub-Saharan Africa: a difference-in-differences analysis. PLoS Med 2017; 14: e1002319.",
+  "Reeves A, Gourtsoyannis Y, Basu S, McCoy D, McKee M, Stuckler D. Financing universal health coverage—effects of alternative tax structures on public health systems: cross-national modelling in 89 low-income and middle-income countries. Lancet 2015; 386: 274–80.",
+  "Shroff ZC, Sparkes SP, Paina L, et al. Managing transitions from external assistance: cross-national learning about sustaining effective coverage. Health Policy Plan 2024; 39: i50–i64.",
+  "Tusting LS, Bottomley C, Gibson H, et al. Housing improvements and malaria risk in sub-Saharan Africa: a multi-country analysis of survey data. PLoS Med 2017; 14: e1002234.",
+  "Tusting LS, Willey B, Lucas H, et al. Socioeconomic development as an intervention against malaria: a systematic review and meta-analysis. Lancet 2013; 382: 963–72.",
+  "Weiss DJ, Dzianach PA, Saddler A, et al. Mapping the global prevalence, incidence, and mortality of Plasmodium falciparum and Plasmodium vivax malaria, 2000–22: a spatial and temporal modelling study. Lancet 2025; 405: 979–90.",
+  "WHO Regional Office for Africa. Sustaining momentum in NTD programmes amidst a reduced funding landscape: a regional assessment. Brazzaville: WHO Regional Office for Africa, 2025. https://espen.afro.who.int/sites/default/files/content/document/Sustaining%20Momentum%20in%20NTD%20Programmes%20Amidst%20a%20Reduced%20Funding%20Landscape_A%20Regional%20Assessment_0.pdf (accessed Oct 21, 2026).",
+  "WHO. Global report on neglected tropical diseases 2025. Geneva: World Health Organization, 2025. https://www.who.int/publications/i/item/9789240114043 (accessed Oct 21, 2026).",
+  "WHO. World malaria report 2025: addressing the threat of antimalarial drug resistance. Geneva: World Health Organization, 2025. https://www.who.int/publications/i/item/9789240117822 (accessed Oct 21, 2026)."
  ]
 }

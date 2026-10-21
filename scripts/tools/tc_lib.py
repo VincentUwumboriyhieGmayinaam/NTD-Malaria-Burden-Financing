@@ -111,11 +111,12 @@ def new_par_after(anchor, text, template=None, runs=None):
     anchor.addnext(p); return p
 
 def delete_par(p):
+    for x in [x for x in p if x.tag == q('ins')]: p.remove(x)   # Claude's own insertions simply vanish
     ppr = p.find('w:pPr', ns)
     if ppr is None: ppr = etree.Element(q('pPr')); p.insert(0, ppr)
     rp = ppr.find('w:rPr', ns)
     if rp is None: rp = etree.SubElement(ppr, q('rPr'))
-    rp.insert(0, _mark('del'))
+    rp.insert(1 if (len(rp) and rp[0].tag == q('ins')) else 0, _mark('del'))
     for parent in [p] + p.findall('w:hyperlink', ns) + p.findall('w:smartTag', ns):
         for r in [r for r in parent if r.tag == q('r')]:
             d = _mark('del'); r.addprevious(d); parent.remove(r)

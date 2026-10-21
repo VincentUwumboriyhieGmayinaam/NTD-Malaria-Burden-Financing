@@ -10,7 +10,7 @@ Authors: Gmayinaam VU, Nortey AN, Dzissem PE, Immurana M, Manyeh AK. Centre for 
 
 | Folder | Contents |
 |---|---|
-| `manuscript/` | `Manuscript_V2_tracked_changes.docx` (revisions as tracked changes), `Manuscript_V2_clean.docx/.pdf` (changes accepted), `Supplementary_Appendix.docx/.pdf`, `Tables_Main_APA.docx`, `Tables_Supplementary_APA.docx`, `Methods_Audit_and_Reviewer_Responses.docx`, original V1 manuscript |
+| `manuscript/` | `Tables_Main_Lancet.docx` (main tables in Lancet submission format), `Manuscript_V2_tracked_changes.docx` (revisions as tracked changes), `Manuscript_V2_clean.docx/.pdf` (changes accepted), `Supplementary_Appendix.docx/.pdf`, `Tables_Main_APA.docx`, `Tables_Supplementary_APA.docx`, `Methods_Audit_and_Reviewer_Responses.docx`, original V1 manuscript |
 | `manuscript/source/` | inputs used to assemble the appendix and the tracked revision |
 | `figures/main/` | Figures 1–8 (PDF and SVG vector with editable text; PNG and TIFF at 600 dpi; 180 mm width); `Figure1_workflow_editable.pptx` (editable flow diagram) |
 | `figures/panels/` | individual parts of every multi-part figure (PDF and SVG), as requested in the Lancet artwork guidelines |

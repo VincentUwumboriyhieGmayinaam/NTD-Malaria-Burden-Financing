@@ -4,26 +4,30 @@ const {Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,WidthType,Bord
 const A=JSON.parse(fs.readFileSync('results/appendix.json','utf8'));
 const FONT='Times New Roman', SZ=16; // Lancet: tables 8 pt, text 10 pt, main heading 12 pt
 const PG=fs.existsSync('results/appendix_toc_pages.json')?JSON.parse(fs.readFileSync('results/appendix_toc_pages.json','utf8')):{};
-const minus=s=>String(s).replace(/(^|[\s\[(;,=])-(?=\d)/g,'$1−');
+const minus=s=>String(s).replace(/(^|[\s\[(;,=])-(?=\d)/g,'$1−')
+  .replace(/(^|[^\w\/.])(\d+)\.(\d+)(?![\w\/]*\.[a-z])(?![\/\d])/g,(m,a,b,c,off,str)=>/(appendix|Appendix|sections?|SDG|Goal) $/.test(str.slice(Math.max(0,off-12),off+a.length))||/https?:|doi/.test(str.slice(Math.max(0,off-80),off))?m:`${a}${b}·${c}`)
+  .replace(/^—$/,'··');
+// runs with superscript citation markers ^{1,2}
+const RUNS=(t,o)=>{const out=[];String(t).split(/(\^\{[^}]*\})/).forEach(seg=>{if(!seg)return;const sup=seg.startsWith('^{');out.push(new TextRun({...o,text:sup?seg.slice(2,-1):(o.raw?seg:minus(seg)),superScript:sup}));});return out;};
 const P=(text,o={})=>new Paragraph({spacing:{after:o.after??120,line:o.line??240},alignment:o.align??AlignmentType.JUSTIFIED,keepNext:o.keepNext,
-  children:(Array.isArray(text)?text:[[text,{}]]).map(([t,f])=>new TextRun({text:minus(t),font:FONT,size:o.size??20,bold:f.b,italics:f.i}))});
+  children:(Array.isArray(text)?text:[[text,{}]]).flatMap(([t,f])=>RUNS(t,{font:FONT,size:o.size??20,bold:f.b,italics:f.i,raw:o.raw}))});
 const H=(text,lvl)=>new Paragraph({heading:lvl==='TITLE'?HeadingLevel.HEADING_1:lvl,spacing:{before:lvl===HeadingLevel.HEADING_1?240:180,after:120},keepNext:true,
   children:[new TextRun({text,font:FONT,size:lvl==='TITLE'?24:20,bold:true,color:'000000'})]});
 const none={style:BorderStyle.NONE,size:0,color:'FFFFFF'}, rule={style:BorderStyle.SINGLE,size:6,color:'000000'};
-function cell(text,w,{bold=false,italic=false,top=false,bottom=false,span=1,align=AlignmentType.LEFT,size=SZ}={}){
+function cell(text,w,{bold=false,italic=false,top=false,bottom=false,span=1,align=AlignmentType.LEFT,size=SZ,raw=false}={}){
   return new TableCell({width:{size:w,type:WidthType.DXA},columnSpan:span,verticalAlign:VerticalAlign.CENTER,
     borders:{top:top?rule:none,bottom:bottom?rule:none,left:none,right:none},margins:{top:30,bottom:30,left:60,right:60},
-    children:[new Paragraph({alignment:align,spacing:{line:240},children:[new TextRun({text:minus(text),font:FONT,size,bold,italics:italic})]})]});}
+    children:[new Paragraph({alignment:align,spacing:{line:240},children:RUNS(text,{font:FONT,size,bold,italics:italic,raw:raw})})]});}
 function apaTable(t,AV,size=SZ){
   const tot=t.widths.reduce((a,b)=>a+b,0); const W=t.widths.map(x=>Math.floor(x/tot*AV)); W[W.length-1]+=AV-W.reduce((a,b)=>a+b,0);
   const rows=[new TableRow({tableHeader:true,children:t.cols.map((c,i)=>cell(c,W[i],{top:true,bottom:true,bold:true,italic:['p','n','b','SE','z'].includes(c),align:(i&&!t.left)?AlignmentType.CENTER:AlignmentType.LEFT,size}))})];
   t.rows.forEach((r,k)=>{const last=k===t.rows.length-1;
     if(!Array.isArray(r)) rows.push(new TableRow({cantSplit:true,children:[cell(r.group,AV,{italic:true,span:t.cols.length,bottom:last,size})]}));
-    else rows.push(new TableRow({cantSplit:true,children:r.map((v,i)=>cell(v,W[i],{bottom:last,align:(i&&!t.left)?AlignmentType.CENTER:AlignmentType.LEFT,size}))}));});
+    else rows.push(new TableRow({cantSplit:true,children:r.map((v,i)=>cell(v,W[i],{bottom:last,align:(i&&!t.left)?AlignmentType.CENTER:AlignmentType.LEFT,size,raw:!!t.left}))}));});
   const out=[new Paragraph({keepNext:true,spacing:{before:0,after:40},children:[new TextRun({text:t.id,font:FONT,size:20,bold:true})]}),
     new Paragraph({keepNext:true,spacing:{after:100},children:[new TextRun({text:t.title,font:FONT,size:20,bold:true})]}),
     new Table({width:{size:AV,type:WidthType.DXA},columnWidths:W,rows})];
-  if(t.note) out.push(new Paragraph({spacing:{before:80,after:0,line:240},children:[new TextRun({text:'Note. ',font:FONT,size:20,italics:true}),new TextRun({text:minus(t.note),font:FONT,size:20})]}));
+  if(t.note) out.push(new Paragraph({spacing:{before:80,after:0,line:240},children:[new TextRun({text:'Note. ',font:FONT,size:20,italics:true}),...RUNS(t.note,{font:FONT,size:20})]}));
   return out;}
 const footer=new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({font:FONT,size:18,children:['Page ',PageNumber.CURRENT]})]})]});
 const header=new Header({children:[new Paragraph({alignment:AlignmentType.RIGHT,children:[new TextRun({text:'Supplementary appendix — NTD and malaria burden, inequality and external financing',font:FONT,size:16,color:'666666'})]})]});
@@ -36,7 +40,7 @@ const front=[
   H('Supplementary appendix','TITLE'),
   H('Contents',HeadingLevel.HEADING_2)];
 const TL=(txt,key,o={})=>new Paragraph({tabStops:[{type:TabStopType.RIGHT,position:AVP-10,leader:'dot'}],spacing:{after:o.after??30,line:240},indent:{left:o.indent??0,hanging:o.hang??0},
-  children:[new TextRun({text:minus(txt),font:FONT,size:20,bold:o.b}),new TextRun({text:'\t'+(PG[key]??'00'),font:FONT,size:20,bold:o.b})]});
+  children:[new TextRun({text:txt,font:FONT,size:20,bold:o.b}),new TextRun({text:'\t'+(PG[key]??'00'),font:FONT,size:20,bold:o.b})]});
 const TOC=[['1. Reporting checklists: GATHER and STROBE','1. Reporting checklists'],['2. Evidence before this study: search strategy and evidence map','2. Evidence before this study'],['3. Detailed statistical methods','3. Detailed statistical methods'],
   ['4. Supplementary tables','4. Supplementary tables'],['5. Supplementary figures','5. Supplementary figures'],['6. References','6. References']];
 const tocKeys=[];
@@ -73,7 +77,7 @@ A.figures.forEach(([id,file,title,legend],i)=>{
   fg.push(P(legend,{size:20}));});
 // ---- 6 references
 const refs=[H('6. References',HeadingLevel.HEADING_1)];
-JSON.parse(fs.readFileSync('results/appendix_refs.json','utf8')).forEach(r=>refs.push(new Paragraph({spacing:{after:60,line:240},indent:{left:720,hanging:720},children:[new TextRun({text:r,font:FONT,size:20})]})));
+A.references.forEach((r,i)=>refs.push(new Paragraph({spacing:{after:60,line:240},tabStops:[{type:TabStopType.LEFT,position:500}],indent:{left:500,hanging:500},children:[new TextRun({text:`${i+1}\t${r}`,font:FONT,size:20})]})));
 const sec=(props,children)=>({properties:props,headers:{default:header},footers:{default:footer},children});
 const doc=new Document({styles:{default:{document:{run:{font:FONT,size:22}}}},sections:[
   sec(portrait,[...front,new Paragraph({children:[new PageBreak()]}),...g]), sec(landscape,ev), sec(portrait,meth), sec(landscape,tb), sec(portrait,[...fg,new Paragraph({children:[new PageBreak()]}),...refs])]});
