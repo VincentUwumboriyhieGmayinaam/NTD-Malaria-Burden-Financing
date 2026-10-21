@@ -3,7 +3,7 @@ import pandas as pd, numpy as np, geopandas as gpd, matplotlib.pyplot as plt, js
 from matplotlib.patches import Patch
 import vizstyle as V; warnings.filterwarnings('ignore'); V.setup()
 lisa=gpd.read_file('results/lisa.gpkg'); K=json.load(open('results/key_numbers.json'))
-ne=gpd.read_file('data/raw/geo/ne_50m_admin_0_countries.geojson'); ne=ne[ne.ADMIN!='Antarctica'].to_crs('ESRI:54030')
+ne=gpd.read_file('data/raw/geo/ne_50m_admin_0_countries.geojson'); ne=ne[ne.ADMIN!='Antarctica'].to_crs('EPSG:8857')
 COL={'High–High':V.RED,'High–Low':V.RED_LIGHT,'Low–High':V.BLUE_LIGHT,'Low–Low':V.BLUE,'Not significant':V.NEUTRAL}
 fig=plt.figure(figsize=(V.W2,V.W2*0.78))
 gs=fig.add_gridspec(2,2,height_ratios=[1,0.95],hspace=0.22,wspace=0.18,left=0.02,right=0.985,top=0.94,bottom=0.08)
@@ -11,7 +11,7 @@ for k,(L,nm,col) in enumerate([('A','NTDs excluding malaria','lisa_ntd_fdr'),('B
     ax=fig.add_subplot(gs[0,k]); ax.set_axis_off()
     ne.plot(ax=ax,color=V.NODATA,edgecolor='white',linewidth=0.1)
     for cat,c in COL.items(): lisa[lisa[col]==cat].plot(ax=ax,color=c,edgecolor='white',linewidth=0.12)
-    ax.set_xlim(-1.32e7,1.62e7); ax.set_ylim(-6.3e6,8.6e6)
+    ax.set_xlim(-1.32e7,1.62e7); ax.set_ylim(-6.8e6,8.5e6)
     sp=K['spatial']['ntd' if k==0 else 'mal']
     V.panel(ax,L,f'{nm}: local clusters (LISA, FDR q<0·05)',y=1.02)
     ax.text(0.0,0.30,f"Global Moran's I = {sp['I']:.2f}".replace('.','·')+"\np<0·001 (9999 permutations)",transform=ax.transAxes,fontsize=6,color=V.INK,va='bottom')

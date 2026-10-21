@@ -14,7 +14,7 @@ for ax,loc in zip(axs.flat,ORDER):
     for col,c in [('NTD',V.BLUE),('Malaria',V.ORANGE)]:
         y=d[col].where(d[col]>0.5)
         ax.plot(d.year,y,color=c,lw=1.4)
-        ax.scatter(d.year.iloc[-1:],y.iloc[-1:],s=10,color=c,edgecolor='white',linewidth=0.6,zorder=3)
+        if pd.notna(y.iloc[-1]): ax.scatter(d.year.iloc[-1:],y.iloc[-1:],s=10,color=c,edgecolor='white',linewidth=0.6,zorder=3)
     ax.set_yscale('log'); ax.set_ylim(0.8,15000); ax.yaxis.set_major_locator(FixedLocator([1,10,100,1000,10000])); ax.yaxis.set_minor_locator(NullLocator())
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda v,_: f'{v:,.0f}'.replace(',',' ')))
     ax.yaxis.grid(True); ax.set_axisbelow(True); ax.set_xlim(1988,2025); ax.set_xticks([1990,2005,2023])

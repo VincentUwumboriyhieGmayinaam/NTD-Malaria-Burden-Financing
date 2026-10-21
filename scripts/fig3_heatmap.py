@@ -52,4 +52,5 @@ for yi,v in zip(y,G.values):
     bx.text(v*1.6,yi,lab,va='center',fontsize=5.8,color=V.INK2)
 bx.set_xlabel('Global DALYs, 2023 (log scale)',fontsize=6.3)
 fig.text(0.715,0.955,'B.',fontsize=9,fontweight='bold'); fig.text(0.735,0.955,'Global DALYs by cause',fontsize=7.5,fontweight='bold')
+fig._panels=[('A',ax),('B',bx)]
 V.save(fig,'Figure3_cause_superregion_heatmap')

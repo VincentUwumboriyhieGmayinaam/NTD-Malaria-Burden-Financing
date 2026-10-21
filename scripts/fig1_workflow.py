@@ -14,13 +14,13 @@ for i,(a,b) in enumerate(src):
     x=24+144*i; box(x,56,136,56); t(x+68,80,a,True,ha='center',size=7); t(x+68,99,b,ha='center',size=6.2); ar(x+68,112,x+68,147)
 t(24,40,'Data sources',True,size=7.5)
 stages=[(148,'1. Data acquisition','Programmatic download, raw files archived; truncated calls re-queried; completeness checked per country-year'),
-        (212,'2. Harmonisation and linkage','ISO3 and GBD location IDs; GBD super-region assignment; 204 countries × 2005–2023 panel'),
+        (212,'2. Harmonisation and linkage','ISO3 and GBD location IDs; GBD super-region and region assignment; 204 countries × 2005–2023 panel'),
         (276,'3. Quality control and missing data','Interior interpolation, carry-forward ≤2 years, every fill flagged; complete-case, balanced-panel and MICE (m = 20) checks')]
 for y,a,b in stages: box(24,y,712,48); t(40,y+20,a,True,size=7); t(40,y+38,b,size=6.2)
 ar(380,196,380,211); ar(380,260,380,275)
-cols=[(24,'4. Descriptive and inequality',['Rates and trends, 1990–2023','Concentration index ranked by SDI','Theil T: between/within super-region']),
-      (268,'5. Spatial analysis',["Global Moran's I, KNN k = 6",'LISA, 9 999 permutations','Benjamini–Hochberg FDR, q < .05']),
-      (512,'6. Panel econometrics',['7 estimators, 6 assumption tests','Two-way FE, Driscoll–Kraay SE','153 LMICs, 2007–2022'])]
+cols=[(24,'4. Descriptive and inequality',['Rates and trends, 1990–2023','Concentration index and SII ranked by SDI','Theil T: super-region, region, country']),
+      (268,'5. Spatial analysis',["Global Moran's I, KNN k = 6",'LISA, 9 999 permutations','Benjamini–Hochberg FDR, q<0.05']),
+      (512,'6. Panel econometrics',['7 estimators, 6 assumption tests','Two-way FE, Driscoll–Kraay SE; Mundlak CRE','153 LMICs, 2007–2022'])]
 for x,a,ls in cols:
     box(x,360,224,96); t(x+16,384,a,True,size=7)
     for k,l in enumerate(ls): t(x+16,404+18*k,l,size=6.2)
@@ -32,6 +32,6 @@ box(268,584,468,80); t(284,608,'8. Funding-cut scenarios',True,size=7)
 t(284,628,'Accounting and econometric models · 4 000 Monte Carlo draws',size=6.2)
 t(284,646,'Economic value at 0.5–3 × GDP per capita · domestic financing gap',size=6.2)
 ar(380,456,380,479); ar(624,456,624,479); ar(502,560,502,583)
-box(24,688,712,56,True); t(40,712,'Outputs',True,size=7); t(40,731,'Tables 1–4 and S1–S13 · Figures 1–8 · archived code and processed data',c=V.INK,size=6.2)
+box(24,688,712,56,True); t(40,712,'Outputs',True,size=7); t(40,731,'Tables 1–4 and S1–S26 · Figures 1–8 and S1–S4 · archived code and processed data',c=V.INK,size=6.2)
 ar(136,456,136,687); ar(502,664,502,687)
 V.save(fig,'Figure1_workflow')

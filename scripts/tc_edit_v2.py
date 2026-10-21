@@ -181,3 +181,101 @@ old = ''.join(t.text or '' for r in p.findall('w:r', ns) for t in r.findall('w:t
 replace(p, old, "This study was based exclusively on secondary analyses of publicly available, aggregated data obtained from the Global Burden of Disease 2023 study, the World Bank's World Development Indicators, the World Health Organization through the United Nations Sustainable Development Goals database, the Institute for Health Metrics and Evaluation's Financing Global Health database, and Natural Earth. All data were available at the country or geographical level and contained no individual-level identifiable information. The study involved no direct recruitment of human participants, collection of primary data, or access to identifiable personal health records. Consequently, formal ethical approval and individual informed consent were not required for this secondary analysis, subject to applicable institutional requirements.")
 tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
 print('declarations ok')
+
+# =========================== FINAL CHECKLIST / LANCET REVISIONS ===========================
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+def _direct(p): return ''.join(t.text or '' for r in p.findall('w:r', ns) for t in r.findall('w:t', ns))
+def edit(key, old, new):
+    """Tracked replace in original text; direct text change inside Claude's own earlier insertions."""
+    ps=[p for p in body.iter(q('p')) if key in ptext(p) and old in ptext(p)] or [p for p in body.iter(q('p')) if key in ptext(p)]
+    if not ps: raise ValueError('para not found: '+key)
+    p=ps[0]
+    if old in _direct(p): replace(p, old, new); return
+    for ins in p.iter(q('ins')):
+        for t_ in ins.iter(q('t')):
+            if old in (t_.text or ''): t_.text=t_.text.replace(old,new,1); return
+    raise ValueError('text not found: '+old[:70]+' || DIRECT: '+_direct(p)[-400:])
+# Summary
+edit('two scenario models projected excess', 'We analysed Global Burden of Disease', 'In this ecological study, we analysed Global Burden of Disease')
+edit('relative concentration in low-SDI countries persisted', 'malaria concentration index −0.80 in both years', 'malaria concentration index −0.79 in 1990 and −0.81 in 2023')
+# Methods
+edit('Gaps in WDI series', 'The analysis samples comprised 153 countries', 'The analysis samples, restricted to countries outside the GBD high-income super-region (hereafter low- and middle-income countries), comprised 153 countries')
+edit('Gaps in WDI series', 'Complete-case, balanced-panel and multiple-imputation analyses assessed sensitivity (Tables S10a–b).', 'Sample derivation and characteristics are in Tables S25–S26; complete-case, balanced-panel and multiple-imputation analyses assessed sensitivity (Tables S10a–b).')
+edit('Geographically weighted regression and machine-learning prediction', 'Geographically weighted regression and machine-learning prediction, which assessed spatial heterogeneity and predictive performance, are described in the appendix.', 'Geographically weighted regression and machine-learning prediction are described in the appendix.')
+edit('Tests were two-sided', 'Tests were two-sided at α = .05.', 'Tests were two-sided at α=0.05.')
+# Results
+edit('Sub-Saharan Africa had 15.1% of the population', 'Sub-Saharan Africa had 15.1% of the population but 80.2% of combined DALYs, 95.1% of malaria DALYs and 40.3% of NTD DALYs.', 'Sub-Saharan Africa had 15.1% of the population (1208.6 million) but 80.2% of combined DALYs (56.78 million), 95.1% of malaria DALYs (49.03 million) and 40.3% of NTD DALYs (7.75 million).')
+edit('Western sub-Saharan Africa alone accounted', 'Western sub-Saharan Africa alone accounted for 49.7% of global combined DALYs and central sub-Saharan Africa for 13.4%', 'Western sub-Saharan Africa alone accounted for 49.7% of global combined DALYs (35.17 million) and central sub-Saharan Africa for 13.4% (9.49 million)')
+edit('Moran’s I was 0.71', '(both p < .001; Table 2)', '(both p<0.0001; Table 2)')
+edit('relative concentration changed little over time', 'The malaria concentration index was −0.80 in 1990 (95% CI −0.88 to −0.63) and in 2023 (−0.88 to −0.65)', 'The malaria concentration index was −0.79 in 1990 (95% CI −0.88 to −0.63) and −0.81 in 2023 (−0.89 to −0.65)')
+edit('relative concentration changed little over time', 'to −0.43 (−0.54 to −0.27)', 'to −0.43 (−0.54 to −0.28)')
+edit('Median external expenditure share', 'Median external expenditure share was 23.0% in sub-Saharan Africa, 11.5% in Southeast Asia, East Asia and Oceania and 6.4% in South Asia.', 'Median external expenditure share was 23.0% (IQR 14.6–39.1) in sub-Saharan Africa, 11.5% (1.2–18.4) in Southeast Asia, East Asia and Oceania and 6.4% (3.5–6.9) in South Asia.')
+edit('Median external expenditure share', 'they held 27.2% of NTD DALYs and 52.3% of malaria DALYs', 'they held 27.2% of NTD DALYs (5.24 million) and 52.3% of malaria DALYs (26.95 million)')
+edit('In the correlated random-effects model', 'the within-country association −0.64% (Table S23)', 'the within-country association −0.64% (Table 3; Table S23)')
+# Discussion
+edit('This ecological study cannot establish', 'and the spatial-panel and machine-learning analyses remain provisional (appendix).', 'and spatial-panel models used balanced subsets of 130 and 71 countries (appendix).')
+# Funding role
+fp=[p for p in body.iter(q('p')) if 'subject to applicable institutional requirements' in ptext(p)][0]
+new_par_after(fp, 'This study was self-funded by the authors. No funder had any role in study design, data collection, data analysis, data interpretation or writing of the report.', template=fp)
+# Figure legends: map projection
+edit('Hatched = no data.', 'Hatched = no data.', 'Hatched = no data. Equal Earth projection.')
+edit("LISA clusters (FDR q < .05)", "LISA clusters (FDR q < .05)", "LISA clusters (FDR q<0.05; Equal Earth projection)")
+edit('Bivariate tertile map', 'Bivariate tertile map of', 'Bivariate tertile map (Equal Earth projection) of')
+edit('Multiscale GWR local coefficients for external share', 'Multiscale GWR local coefficients for external share', 'Multiscale GWR local coefficients for external share (Equal Earth projection)')
+# Table notes
+edit('Theil T is population-weighted', 'The reported Theil estimates exclude zero rates and require population data (NTDs: n = 199; malaria: n = 86); ', 'Theil T uses GBD populations and countries with a non-zero rate (NTDs: n = 204; malaria: n = 86); Table S15b gives the three-level decomposition and ')
+edit('Theil T is population-weighted', ' the zero-inclusive sensitivity.', ' the sensitivity to population source and zero rates.')
+edit('Spatial-panel rows remain provisional', 'Spatial-panel rows remain provisional because the main and supplementary tables read different model outputs.', 'Mundlak rows are the within-country and between-country components of one correlated random-effects model with year effects (Table S23). p values are given to two significant figures.')
+# Table cells (Tables 2 and 3): tracked cell replacements to match regenerated estimates
+import json
+TJ={t['id']:t for t in json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)),'..','results','tables.json')))}
+tbls=body.findall('.//w:tbl', ns)
+def cell_paras(tr): return [tc.find('w:p', ns) for tc in tr.findall('w:tc', ns)]
+def set_cell(p, new):
+    old=_direct(p)
+    if old==new or not old: return
+    replace(p, old, new)
+def sync_table(tbl, tid, labelmap=lambda s: s):
+    want={r[0]:r for r in TJ[tid]['rows'] if isinstance(r, list)}
+    for tr in tbl.findall('w:tr', ns)[1:]:
+        ps=cell_paras(tr); lab=labelmap(ptext(ps[0]))
+        if len(ps)>1 and lab in want:
+            for p_, v in zip(ps[1:], want[lab][1:]): set_cell(p_, v.replace('−','-'))
+import json
+sync_table(tbls[1], 'Table 2')
+t3=tbls[2]
+# Mundlak: relabel row as within component, add tracked row for between component
+mr=[tr for tr in t3.findall('w:tr', ns) if ptext(cell_paras(tr)[0])=='Mundlak CRE'][0]
+newrow=copy.deepcopy(mr); mr.addnext(newrow)
+replace(cell_paras(mr)[0], 'Mundlak CRE', 'Mundlak CRE, within-country component')
+trpr=newrow.find('w:trPr', ns)
+if trpr is None: trpr=_et.Element(q('trPr')); newrow.insert(0, trpr)
+trpr.append(_mark('ins'))
+bw=[r for r in TJ['Table 3']['rows'] if isinstance(r, list) and r[0]=='Mundlak CRE, between-country component'][0]
+for p_, v in zip(cell_paras(newrow), bw):
+    for r_ in list(p_.findall('w:r', ns)):
+        rpr=r_.find('w:rPr', ns); p_.remove(r_)
+    ins=_mark('ins'); r_=_et.SubElement(ins, q('r'))
+    if rpr is not None: r_.append(copy.deepcopy(rpr))
+    t_=_et.SubElement(r_, q('t')); t_.text=v.replace('−','-'); t_.set('{http://www.w3.org/XML/1998/namespace}space','preserve'); p_.append(ins)
+for tr in t3.findall('w:tr', ns):
+    p0=cell_paras(tr)[0]
+    if ptext(p0)=='Spatial panel 2007–2022 — provisional':
+        replace(p0, 'Spatial panel 2007–2022 — provisional', 'Spatial panel (2007–22)')
+        ref=[tr2 for tr2 in t3.findall('w:tr', ns) if ptext(cell_paras(tr2)[0])=='Within-country panel (2007–22)'][0]
+        rp=cell_paras(ref)[0].find('.//w:r/w:rPr', ns); ins_r=p0.find('w:ins/w:r', ns)
+        if rp is not None and ins_r is not None:
+            old_rp=ins_r.find('w:rPr', ns)
+            if old_rp is not None: ins_r.remove(old_rp)
+            ins_r.insert(0, copy.deepcopy(rp))
+        rpp=cell_paras(ref)[0].find('w:pPr', ns); opp=p0.find('w:pPr', ns)
+        if rpp is not None:
+            if opp is not None: p0.remove(opp)
+            p0.insert(0, copy.deepcopy(rpp))
+sync_table(t3, 'Table 3', labelmap=lambda s: {'Mundlak CRE, within-country component':'Mundlak CRE, within-country component'}.get(s, s))
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True)
+print('final revisions ok')
+# word-limit trim (main text ≤3500 words)
+tree = _et.parse(P); body = tree.find('.//w:body', ns)
+edit('Reductions in health aid have not historically', 'Replacing lost funds would require an 8.7% rise in domestic government health spending in sub-Saharan Africa. Reductions', 'Domestic replacement is uncertain. Reductions')
+tree.write(P, xml_declaration=True, encoding='UTF-8', standalone=True); print('trim ok')

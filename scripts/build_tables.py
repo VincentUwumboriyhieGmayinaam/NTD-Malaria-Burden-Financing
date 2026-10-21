@@ -3,7 +3,10 @@ import json
 import pandas as pd, numpy as np, json
 R='results'; T=[]
 f0=lambda v: f'{v:,.0f}'; f1=lambda v: f'{v:,.1f}'; f2=lambda v: f'{v:.2f}'
-def pfmt(p): return '< .001' if p<0.001 else f'{p:.3f}'.lstrip('0') if p<1 else '1.000'
+def pfmt(p):
+    if p<0.0001: return '<0.0001'
+    if p>=0.995: return '0.99'
+    d=max(2,-int(np.floor(np.log10(p)))+1); return f'{p:.{d}f}'
 def ci(a,lo,hi,d=1): return f'{a:,.{d}f} [{lo:,.{d}f}, {hi:,.{d}f}]'
 SH={'Southeast Asia, East Asia, and Oceania':'Southeast Asia, East Asia, and Oceania','Central Europe, Eastern Europe, and Central Asia':'Central Europe, Eastern Europe, and Central Asia'}
 # ---------- Table 1 ----------
@@ -20,9 +23,10 @@ K=json.load(open(f'{R}/key_numbers.json')); l=pd.read_csv(f'{R}/spatial_lisa_cou
 rows=[]
 for nm,key,col in [('NTDs (excl. malaria)','ntd','lisa_ntd_fdr'),('Malaria','mal','lisa_mal_fdr')]:
     sp=K['spatial'][key]; v=l[col].value_counts(); i=ineq['NTDs (excl. malaria)' if key=='ntd' else 'Malaria']
-    rows.append([nm,f2(sp['I']),f2(sp['z']),'< .001',str(v.get('High–High',0)),str(v.get('Low–Low',0)),str(v.get('High–Low',0)+v.get('Low–High',0)),f"{i['CI']:.2f} [{i['lo']:.2f}, {i['hi']:.2f}]",f"{i['Theil']:.2f}",f"{i['between_pct']:.1f} / {i['within_pct']:.1f}"])
+    tq=pd.read_csv(f'{R}/rev_inequality_over_time.csv'); tq=tq[(tq.outcome==nm)&(tq.year==2023)].iloc[0]
+    rows.append([nm,f2(sp['I']),f2(sp['z']),'<0.0001',str(v.get('High–High',0)),str(v.get('Low–Low',0)),str(v.get('High–Low',0)+v.get('Low–High',0)),f"{tq.CI:.2f} [{tq.CI_lo:.2f}, {tq.CI_hi:.2f}]",f"{tq.Theil:.2f}",f"{tq.between_pct:.1f} / {tq.within_pct:.1f}"])
 T.append({'id':'Table 2','title':'Spatial Autocorrelation and Socioeconomic Inequality in Age-Standardised DALY Rates, 2023','cols':['Outcome',"Global Moran's I",'z','p','High–High clusters (n)','Low–Low clusters (n)','Spatial outliers (n)','Concentration index by SDI [95% CI]','Theil T','Between / within super-region (%)'],
- 'rows':rows,'widths':[1.6,0.9,0.7,0.7,0.9,0.9,0.9,1.7,0.7,1.3],'note':"Moran's I and local indicators of spatial association (LISA) computed on log(1 + rate) with row-standardised k = 6 nearest-neighbour weights and 9 999 permutations; LISA clusters reported at Benjamini–Hochberg false-discovery-rate q < .05 (n = 203 countries with geometry). Concentration index is population-weighted, ranking countries by Socio-demographic Index (SDI); negative values indicate burden concentrated in low-SDI countries; 95% CI from 2 000 bootstrap resamples. Theil T is population-weighted and decomposed into between- and within-super-region components.",'main':True})
+ 'rows':rows,'widths':[1.6,0.9,0.7,0.7,0.9,0.9,0.9,1.7,0.7,1.3],'note':"Moran's I and local indicators of spatial association (LISA) computed on log(1 + rate) with row-standardised k = 6 nearest-neighbour weights and 9 999 permutations; LISA clusters reported at Benjamini–Hochberg false-discovery-rate q<0.05 (n = 203 countries with geometry). Concentration index is population-weighted, ranking countries by Socio-demographic Index (SDI); negative values indicate burden concentrated in low-SDI countries; 95% CI from 2 000 bootstrap resamples. Theil T is population-weighted (GBD populations) over countries with a non-zero rate (NTDs n = 204; malaria n = 86) and decomposed into between- and within-super-region components; Table S15b gives the three-level decomposition and Table S22 the sensitivity to population source and zero rates.",'main':True})
 # ---------- Table 3 ----------
 mc=pd.read_csv(f'{R}/model_comparison_external_share.csv'); rows=[]; groups=[]
 fams=['Between-country (2023 cross-section)','Within-country panel (2007–22)','Spatial panel (2007–22)']
@@ -31,6 +35,12 @@ for f in fams:
     for m in mc[mc.family==f].model.unique():
         a=mc[(mc.family==f)&(mc.model==m)&(mc.outcome=='NTDs (excl. malaria)')].iloc[0]; b=mc[(mc.family==f)&(mc.model==m)&(mc.outcome=='Malaria')].iloc[0]
         lab=('Two-way FE, Driscoll–Kraay SE (preferred)' if m=='Two-way FE (Driscoll–Kraay)' else m)
+        if m.startswith('Mundlak CRE'):
+            bw_=pd.read_csv(f'{R}/rev_between_within.csv'); bw_=bw_[bw_.exposure=='Share (per 10 pp)']
+            for comp in ['Within-country','Between-country']:
+                x=bw_[(bw_.outcome=='NTDs (excl. malaria)')&(bw_.component==comp)].iloc[0]; y=bw_[(bw_.outcome=='Malaria')&(bw_.component==comp)].iloc[0]
+                rows.append([f'Mundlak CRE, {comp.lower()} component',ci(x.pct,x.lo,x.hi,2),pfmt(x.p),f0(x.n),ci(y.pct,y.lo,y.hi,2),pfmt(y.p),f0(y.n)])
+            continue
         rows.append([lab,ci(a.pct,a.pct_lo,a.pct_hi,2),pfmt(a.p),f0(a.n),ci(b.pct,b.pct_lo,b.pct_hi,2),pfmt(b.p),f0(b.n)])
 T.append({'id':'Table 3','title':'Association Between External (Donor) Share of Health Expenditure and Age-Standardised DALY Rates Across Estimators','cols':['Estimator','NTDs: % change [95% CI]','p','n','Malaria: % change [95% CI]','p','n'],
  'rows':rows,'widths':[3.0,2.1,0.7,0.8,2.1,0.7,0.8],'note':'Estimates are percentage changes in the age-standardised DALY rate per 10-percentage-point increase in the external share of current health expenditure, adjusted for income (log LDI), UHC index, basic sanitation and drinking-water coverage, and (panel models) log domestic government health spending per capita; panel exposures lagged 2 years. NTD models: low- and middle-income countries (LMICs); malaria models: malaria-endemic LMICs. n = countries (cross-section) or country-years (panel). FE = fixed effects; CRE = correlated random effects; SAR = spatial autoregressive; SEM = spatial error model. Spatial panel models include country and year fixed effects (balanced panels; KNN k = 6 weights); SAR rows show the coefficient β, with direct, indirect and total associations in Table S12. Preferred estimator selected on the basis of Hausman and Mundlak tests (rejecting random effects) and evidence of cross-sectional dependence, serial correlation and heteroskedasticity (Table S3), for which Driscoll–Kraay standard errors are robust.','main':True})
@@ -83,8 +93,9 @@ T.append({'id':'Table S5','title':'Out-of-Sample Predictive Performance of Machi
 gw=json.load(open(f'{R}/gwr_summary.json')); rows=[['OLS (global)','—',f"{gw['OLS_AICc']:.1f}",f"{gw['OLS_R2']:.2f}"],['GWR (single bandwidth)',f"{gw['GWR_bw']:.0f}",f"{gw['GWR_AICc']:.1f}",f"{gw['GWR_R2']:.2f}"],['Multiscale GWR','see below',f"{gw['MGWR_AICc']:.1f}",f"{gw['MGWR_R2']:.2f}"]]
 T.append({'id':'Table S6a','title':'Geographically Weighted Regression: Model Fit (LMICs, 2023, n = 145)','cols':['Model','Bandwidth (nearest neighbours)','AICc','R²'],'rows':rows,'widths':[3,2.4,1.2,1.2],'note':'Adaptive bisquare kernel on projected (Robinson) country centroids; bandwidth selected by AICc.'})
 NM2={'Intercept':'Intercept','ext':'External share of CHE','uhc':'UHC index','log_ldi':'Income (log LDI)','sanit_basic_pct':'Basic sanitation'}
-rows=[[NM2[k],f"{gw['MGWR_bw'][k]:.0f}",f"{v['min']:.2f}",f"{v['median']:.2f}",f"{v['max']:.2f}",f"{v['pct_sig']:.0f}"] for k,v in gw['MGWR_coef_summary'].items()]
-T.append({'id':'Table S6b','title':'Multiscale GWR: Covariate-Specific Bandwidths and Local Coefficients','cols':['Covariate','Bandwidth','Minimum','Median','Maximum','Countries significant (%)'],'rows':rows,'widths':[2.6,1.1,1.0,1.0,1.0,1.6],'note':'Standardised coefficients; significance uses MGWR-corrected t-values (family-wise). A bandwidth close to n (145) indicates a global (spatially stationary) relationship; small bandwidths indicate local processes.'})
+lc=pd.read_csv(f'{R}/mgwr_local_coefficients.csv')
+rows=[[NM2[k],f"{gw['MGWR_bw'][k]:.0f}",f"{v['min']:.2f}",f"{lc['b_'+k].median():.2f} [{lc['b_'+k].quantile(.25):.2f} to {lc['b_'+k].quantile(.75):.2f}]",f"{v['max']:.2f}",f"{int(lc['sig_'+k].sum())} ({100*lc['sig_'+k].mean():.0f})"] for k,v in gw['MGWR_coef_summary'].items()]
+T.append({'id':'Table S6b','title':'Multiscale GWR: Covariate-Specific Bandwidths and Local Coefficients','cols':['Covariate','Bandwidth','Minimum','Median [IQR]','Maximum','Countries significant, n (%)'],'rows':rows,'widths':[2.6,1.1,1.0,1.0,1.0,1.6],'note':'Standardised coefficients; significance uses MGWR-corrected t-values (family-wise). A bandwidth close to n (145) indicates a global (spatially stationary) relationship; small bandwidths indicate local processes.'})
 se=pd.read_csv(f'{R}/sensitivity_analyses.csv'); rows=[]
 for _,r in se[se.analysis.str.startswith('S1')].iterrows(): rows.append(['Spatial weights',r.outcome,r.specification,f"Moran's I = {r.estimate:.2f}",pfmt(r.p)])
 for _,r in se[se.analysis.str.startswith('S2')].iterrows(): rows.append(['Cross-section specification',r.outcome,r.specification,ci(r.estimate,r.lo,r.hi,1),pfmt(r.p)])
@@ -99,13 +110,18 @@ r['rate']=r.excess_A/r.pop2023*1e5; r=r.nlargest(25,'excess_A')
 rows=[[x.location_name,x.sr,f'{100*x.ext_share:.1f}',ci(x.excess_A,x.A_lo,x.A_hi,0),f'{x.rate:.1f}',f"{m.loc[x.iso3,'excess_A']:,.0f}"] for x in r.itertuples()]
 T.append({'id':'Table S8','title':'Countries With the Largest Projected Excess NTD DALYs, Reference Scenario','cols':['Country','Super-region','External share of CHE (%)','Excess NTD DALYs/year [95% UI]','Per 100 000','Excess malaria DALYs/year'],'rows':rows,'widths':[2.2,2.4,1.2,2.4,1.0,1.6],'note':'Accounting model, reference scenario (19–26% cut). Ranked by absolute excess NTD DALYs.'})
 ex=pd.read_csv(f'{R}/excluded_countries_regression.csv'); ms=pd.read_csv(f'{R}/sensitivity_missingness.csv',index_col=0)
-rows=[[i,f'{ms.loc[i].iloc[0]:,.1f}',f'{ms.loc[i].iloc[1]:,.1f}'] for i in ms.index]
+a23=pd.read_csv('data/processed/analysis_country_2023.csv'); exm=a23.location_name.isin(ex.location_name)
+def _mi(x): return f'{x.median():,.1f} [{x.quantile(.25):,.1f}–{x.quantile(.75):,.1f}]'
+_tot=a23.daly_n_ntd_excl_malaria.sum()
+rows=[['Countries, n',f'{(~exm).sum()}',f'{exm.sum()}'],['NTD age-standardised DALY rate per 100 000, median [IQR]',_mi(a23.loc[~exm,'daly_asr_ntd_excl_malaria']),_mi(a23.loc[exm,'daly_asr_ntd_excl_malaria'])],
+ ['NTD DALYs, millions (% of global)',f"{a23.loc[~exm,'daly_n_ntd_excl_malaria'].sum()/1e6:.2f} ({100*a23.loc[~exm,'daly_n_ntd_excl_malaria'].sum()/_tot:.1f})",f"{a23.loc[exm,'daly_n_ntd_excl_malaria'].sum()/1e6:.2f} ({100*a23.loc[exm,'daly_n_ntd_excl_malaria'].sum()/_tot:.1f})"]]
 T.append({'id':'Table S9','title':'Comparison of Countries Included and Excluded From Cross-Sectional Regression (Complete-Case)','cols':['Characteristic','Included','Excluded'],'rows':rows,'widths':[4,1.6,1.6],'note':'Excluded countries ('+', '.join(ex.location_name.tolist())+') are predominantly small island and high-income states that together account for under 2% of global NTD DALYs.'})
 
 # ---------- Tables S10a/S10b: missing data ----------
 mp=pd.read_csv(f'{R}/missing_profile.csv'); ms=json.load(open(f'{R}/missing_summary.json'))
-rows=[[r.variable,f1(r.missing_raw_pct),f1(r.filled_by_rule_pct),f1(r.missing_after_pct),f0(r.countries_never_observed)] for r in mp.itertuples()]
-T.append({'id':'Table S10a','title':'Extent and Pattern of Missing Data in the Panel Modelling Frame (LMICs, 2007–2022)','cols':['Variable','Missing as reported (%)','Filled by within-country rule (%)','Missing after rule (%)','Countries never observed (n)'],'rows':rows,'widths':[3.6,1.4,1.6,1.4,1.4],
+_np=lambda pc,N: f'{round(pc*N/100):,} ({pc:.1f})'
+rows=[[r.variable,_np(r.missing_raw_pct,r.country_years),_np(r.filled_by_rule_pct,r.country_years),_np(r.missing_after_pct,r.country_years),f0(r.countries_never_observed)] for r in mp.itertuples()]
+T.append({'id':'Table S10a','title':'Extent and Pattern of Missing Data in the Panel Modelling Frame (LMICs, 2007–2022)','cols':['Variable','Missing as reported, n (%)','Filled by within-country rule, n (%)','Missing after rule, n (%)','Countries never observed (n)'],'rows':rows,'widths':[3.6,1.4,1.6,1.4,1.4],
  'note':f"Frame: {ms['countries']} LMICs × 16 years = {ms['country_years']:,} country-years. Rule: within-country linear interpolation of interior gaps and last observation carried forward for at most 2 years; no backward extrapolation, no cross-country borrowing, outcomes never imputed. Complete-case rows for the NTD model: {ms['complete_case_rows']:,} ({ms['complete_case_pct']}%) from {ms['countries_in_model']} countries, of which {ms['imputed_rows_in_model']} ({ms['imputed_rows_pct']}%) contain ≥1 filled value. Incompleteness was associated with lower burden (OR 0.33 per log unit, 95% CI 0.12–0.91) and earlier years (OR 0.94 per year), not with SDI (logistic model, country-clustered SE), consistent with missingness at random conditional on observed covariates. The 14 territories never reporting external health expenditure hold 0.77% of LMIC NTD DALYs."})
 mss=pd.read_csv(f'{R}/missing_sensitivity.csv'); rows=[]
 for o in ['NTDs (excl. malaria)','Malaria']:
@@ -172,14 +188,15 @@ T.append({'id':'Table S14','title':'Increase in Domestic Government Health Expen
 SRS={'Sub-Saharan Africa':'Sub-Saharan Africa','South Asia':'South Asia','Southeast Asia, East Asia, and Oceania':'SE Asia, E Asia & Oceania','Latin America and Caribbean':'Latin America & Caribbean','North Africa and Middle East':'N Africa & Middle East','Central Europe, Eastern Europe, and Central Asia':'C Europe, E Europe & C Asia','High-income':'High-income'}
 def n0(x): return f'{x:,.0f}'
 # S15 inequality over time
-iq=pd.read_csv(f'{R}/rev_inequality_over_time.csv'); ch=pd.read_csv(f'{R}/rev_inequality_change.csv'); rows=[]
+_cy=pd.read_csv(f'{R}/rev_country_1990_2010_2023.csv'); iq=pd.read_csv(f'{R}/rev_inequality_over_time.csv'); ch=pd.read_csv(f'{R}/rev_inequality_change.csv'); rows=[]
 for o in ['NTDs (excl. malaria)','Malaria']:
     rows.append({'group':o})
     for _,r in iq[iq.outcome==o].iterrows():
-        rows.append([str(int(r.year)),n0(r.pop_weighted_mean),ci(r.CI,r.CI_lo,r.CI_hi,2),ci(r.SII,r.SII_lo,r.SII_hi,0),ci(r.rSII,r.rSII_lo,r.rSII_hi,2),f'{r.Theil:.2f}',f'{r.between_pct:.1f} / {r.within_pct:.1f}'])
+        _c=_cy[(_cy.year==r.year)]; _k='ntd' if o.startswith('NTD') else 'mal'; _sd=np.sqrt(np.average((_c[_k]-np.average(_c[_k],weights=_c['pop']))**2,weights=_c['pop']))
+        rows.append([str(int(r.year)),f'{r.pop_weighted_mean:,.0f} ({_sd:,.0f})',ci(r.CI,r.CI_lo,r.CI_hi,2),ci(r.SII,r.SII_lo,r.SII_hi,0),ci(r.rSII,r.rSII_lo,r.rSII_hi,2),f'{r.Theil:.2f}',f'{r.between_pct:.1f} / {r.within_pct:.1f}'])
     for _,r in ch[ch.outcome==o].iterrows():
         rows.append([f'Change {r.period}','—',ci(r.dCI,r.dCI_lo,r.dCI_hi,2),'—',ci(r.drSII,r.drSII_lo,r.drSII_hi,2),'—','—'])
-T.append({'id':'Table S15a','title':'Socioeconomic Inequality in Age-Standardised DALY Rates by Socio-demographic Index, 1990, 2010 and 2023','cols':['Year','Population-weighted mean rate (per 100 000)','Concentration index [95% CI]','Slope index of inequality, per 100 000 [95% CI]','Relative SII [95% CI]','Theil T','Between / within super-region (%)'],'rows':rows,'widths':[1.5,1.6,1.9,2.3,1.8,0.9,1.6],
+T.append({'id':'Table S15a','title':'Socioeconomic Inequality in Age-Standardised DALY Rates by Socio-demographic Index, 1990, 2010 and 2023','cols':['Year','Population-weighted mean rate per 100 000 (SD)','Concentration index [95% CI]','Slope index of inequality, per 100 000 [95% CI]','Relative SII [95% CI]','Theil T','Between / within super-region (%)'],'rows':rows,'widths':[1.5,1.6,1.9,2.3,1.8,0.9,1.6],
  'note':'All 204 countries and territories, weighted by GBD population (1990) or population implied by GBD all-age counts and crude rates (2010, 2023), ranked by SDI of the same year. Concentration index ranges from −1 to 1; negative values indicate burden concentrated in low-SDI countries. The slope index of inequality (SII) is the population-weighted regression slope of the age-standardised rate on the fractional SDI rank (ridit), that is, the modelled difference between the highest- and lowest-SDI ends of the distribution; relative SII = SII ÷ population-weighted mean. 95% CI from 2 000 bootstrap resamples of countries; changes use paired resampling, so a change is distinguishable from zero when its interval excludes zero. NTD rates are NTDs and malaria minus malaria. 2023 values can differ from Table 2 in the second decimal because Table 2 weights by World Bank population and excludes zero rates from Theil T.'})
 # S15b nested Theil
 tn=pd.read_csv(f'{R}/rev_theil_nested.csv'); rows=[]
@@ -251,13 +268,13 @@ T.append({'id':'Table S20','title':'Cause-Specific National Leaders: Countries C
 # S21 LISA over time + WHO triangulation
 li=pd.read_csv(f'{R}/rev_lisa_over_time.csv'); rows=[{'group':'A. Spatial autocorrelation of log(1 + age-standardised DALY rate)'}]
 for _,r in li.iterrows():
-    o,y=r.series.split('_'); rows.append([('NTDs (excl. malaria)' if o=='ntd' else 'Malaria')+f', {y}',f'{r.moran_I:.2f}',f'{r.z:.1f}','< .001',str(r.HH),str(r.LL),str(r.outliers)])
+    o,y=r.series.split('_'); rows.append([('NTDs (excl. malaria)' if o=='ntd' else 'Malaria')+f', {y}',f'{r.moran_I:.2f}',f'{r.z:.1f}','<0.0001',str(r.HH),str(r.LL),str(r.outliers)])
 tri=pd.read_csv(f'{R}/rev_who_triangulation.csv'); rows.append({'group':'B. Agreement between GBD and WHO/UN SDG country series (Spearman rank correlation)'})
 for _,r in tri.iterrows(): rows.append([f'{r.pair}, {int(r.year)}',f'ρ = {r.rho:.2f}','—',pfmt(r.p),f'n = {int(r.n)}','—','—'])
 T.append({'id':'Table S21','title':'Stability of Spatial Clustering, 1990–2023, and External Validation Against WHO Surveillance Series','cols':['Series',"Moran's I / ρ",'z','p','High–High (n)','Low–Low (n)','Spatial outliers (n)'],'rows':rows,'widths':[4.4,1.1,0.7,0.8,1.1,1.0,1.1],
- 'note':"Panel A: row-standardised k = 6 nearest-neighbour weights, 9 999 permutations, LISA clusters at Benjamini–Hochberg q < .05 (n = 203 countries with geometry). Panel B: WHO-reported people requiring interventions against NTDs (SDG 3.3.5) expressed per 100 000 population; WHO malaria incidence per 1 000 population at risk (SDG 3.3.3), endemic countries only."})
+ 'note':"Panel A: row-standardised k = 6 nearest-neighbour weights, 9 999 permutations, LISA clusters at Benjamini–Hochberg q<0.05 (n = 203 countries with geometry). Panel B: WHO-reported people requiring interventions against NTDs (SDG 3.3.5) expressed per 100 000 population; WHO malaria incidence per 1 000 population at risk (SDG 3.3.3), endemic countries only."})
 
-# S22 post-review sensitivity analyses (values from the authors' post-review re-estimation reported in the manuscript)
+# S22 additional sensitivity analyses
 rows=[{'group':'A. Preferred two-way fixed-effects estimate, % difference per 10-percentage-point external share [95% CI] (observations)'},
  ['Primary specification (2007–2022)','−0.64 [−2.39, 1.14] (2,287)','−6.32 [−10.84, −1.57] (1,187)'],
  ['Panel extended through 2023','−0.32 [−2.13, 1.53] (2,429)','−6.97 [−11.28, −2.45] (1,262)'],
@@ -265,9 +282,10 @@ rows=[{'group':'A. Preferred two-way fixed-effects estimate, % difference per 10
  ['Omitting UHC effective coverage','−0.78 [−2.44, 0.91]','−6.59 [−11.62, −1.28]'],
  ['Country-clustered rather than Driscoll–Kraay standard errors','CI includes zero','−6.32 [−17.14, 5.91]'],
  {'group':'B. Theil T decomposition, 2023'},
- ['Positive rates only (primary; NTDs n = 199, malaria n = 86)','0.43; between 63.4%','1.34; between 78.9%'],
- ['Zero rates retained (n = 199)','0.43; between 63.4% (unchanged)','1.88; between 83.7%']]
-T.append({'id':'Table S22','title':'Post-Review Sensitivity Analyses of the Financing Association and the Theil Decomposition','cols':['Analysis','NTDs (excl. malaria)','Malaria'],'rows':rows,'widths':[4.6,2.8,2.8],
+ ['Primary: GBD populations, non-zero rates (NTDs n = 204; malaria n = 86)','0.43; between 64.0%','1.34; between 79.3%'],
+ ['World Bank populations, non-zero rates (NTDs n = 199; malaria n = 86)','0.43; between 63.4%','1.34; between 78.9%'],
+ ['World Bank populations, zero rates retained (n = 199)','0.43; between 63.4% (no zero rates)','1.88; between 83.7%']]
+T.append({'id':'Table S22','title':'Additional Sensitivity Analyses of the Financing Association and the Theil Decomposition','cols':['Analysis','NTDs (excl. malaria)','Malaria'],'rows':rows,'widths':[4.6,2.8,2.8],
  'note':'Malaria estimates are percentage differences in (1 + age-standardised DALY rate). UHC = universal health coverage effective-coverage index; LDI = lag-distributed income per capita. In the Theil T with zero rates, the limiting term 0 × log(0) is set to zero.'})
 
 # S23 between vs within (Mundlak)
@@ -289,5 +307,25 @@ for _,r in mo.iterrows():
     rows.append([r.outcome,'Per 10 percentage points' if f==1 else 'Per doubling of expenditure + US$1',ci(tr(r.pct),tr(r.lo),tr(r.hi),2),pfmt(r.p),ci(tr(r.pct),tr(r.lo_cl),tr(r.hi_cl),2),pfmt(r.p_cl),f'{int(r.n):,}'])
 T.append({'id':'Table S24','title':'Malaria Mortality as an Alternative Outcome: Two-Way Fixed-Effects Associations With External Health Financing, Malaria-Endemic Countries, 2007–2022','cols':['Outcome','Exposure','% difference, Driscoll–Kraay [95% CI]','p','% difference, country-clustered [95% CI]','p','Observations'],'rows':rows,'widths':[2.6,2.2,2.2,0.7,2.2,0.7,1.1],
  'note':'Preferred specification (country and year fixed effects; covariates as in Table S4) with the GBD 2023 age-standardised malaria death rate as outcome, 77 malaria-endemic low- and middle-income countries. Exposures lagged 2 years. The DALY rows repeat the primary outcome on the same countries for comparison.'})
+
+# S25 derivation of analytical samples (STROBE item 13)
+rows=[{'group':'A. Descriptive, inequality and spatial analyses'},
+ ['GBD 2023 countries and territories','204','—','Burden, trends, rankings, concentration index, SII (Tables 1, S15a–S20)'],
+ ['With non-zero malaria rate, 2023','86','118 with zero malaria burden','Malaria Theil T (Tables 2, S15b)'],
+ ['With Natural Earth geometry','203','1 (Tokelau)','Moran’s I and LISA (Tables 2, S21)'],
+ ['With WHO/UN SDG series, 2023','170 (NTDs); 79 (malaria)','Non-reporting or non-endemic countries','External triangulation (Table S21)'],
+ {'group':'B. Financing analyses (countries outside the GBD high-income super-region, 2007–2022)'},
+ ['Financing frame','168 countries; 2,688 country-years','36 high-income countries','Missing-data profile (Table S10a)'],
+ ['NTD panel sample','153 countries; 2,287 country-years','401 incomplete country-years, including all years for 15 countries*','Panel models (Tables 3, S3, S4, S10b, S23)'],
+ ['Malaria panel sample','77 countries; 1,187 country-years','90 non-endemic countries; 1 endemic country without complete records','Panel models (Tables 3, S23, S24)'],
+ ['Balanced spatial panels','130 (NTDs) and 71 (malaria) countries; 16 years','Countries with any missing year','Spatial panel models (Tables 3, S12)'],
+ ['2023 cross-section','145 (NTDs); 58 (malaria)','Countries with missing 2023 covariates','Between-country models and GWR (Tables 3, S6a–b)'],
+ ['Scenario models','153 countries','Countries without external-expenditure data','Projections (Tables 4, S8, S14)']]
+T.append({'id':'Table S25','title':'Derivation of the Analytical Samples','cols':['Sample','Included','Excluded (reason)','Analyses'],'rows':rows,'widths':[2.6,2.4,3.0,3.0],
+ 'note':'*American Samoa, Bermuda, Cook Islands, Guam, Montenegro, Nicaragua, Niue, North Korea, Northern Mariana Islands, Puerto Rico, Slovakia, Taiwan (province of China), Tokelau, Türkiye and US Virgin Islands. Incomplete records lacked at least one lagged financing exposure or covariate after the within-country interpolation rule; outcomes were never imputed. LMIC denotes countries outside the GBD high-income super-region.'})
+# S26 descriptive statistics of panel samples (STROBE item 14)
+ds=json.load(open(f'{R}/rev_descriptive_panel.json'))
+T.append({'id':'Table S26','title':'Characteristics of the Panel Analysis Samples, 2007–2022','cols':['Variable','NTD sample: mean (SD)','NTD sample: median [IQR]','Malaria sample: mean (SD)','Malaria sample: median [IQR]'],'rows':ds,'widths':[3.8,1.7,2.0,1.7,2.0],
+ 'note':'NTD sample: 153 countries, 2,287 country-years; malaria sample: 77 malaria-endemic countries, 1,187 country-years. Statistics are over country-years. Financial variables in current US$; LDI = lag-distributed income; UHC = universal health coverage. Distributions of rates and expenditure are right-skewed, which motivates the log transformations in Table S11.'})
 
 json.dump(T,open('results/tables.json','w'),indent=1,ensure_ascii=False); print(len(T),'tables')

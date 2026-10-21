@@ -127,7 +127,7 @@ li = pd.read_csv('results/rev_lisa_over_time.csv').set_index('series')
 ne = gpd.read_file('data/raw/geo/ne_50m_admin_0_countries.geojson'); ne['iso3'] = np.where(ne.ISO_A3 == '-99', ne.ADM0_A3, ne.ISO_A3)
 ne.loc[ne.ADMIN == 'France', 'iso3'] = 'FRA'; ne.loc[ne.ADMIN == 'Norway', 'iso3'] = 'NOR'
 g = ne[['iso3', 'geometry']].dissolve('iso3').reset_index().merge(lc.assign(iso3=lc.iso3.replace({'ALA': 'FIN'})), on='iso3', how='left')
-g = g[g.iso3 != 'ATA'].to_crs('ESRI:54030')
+g = g[g.iso3 != 'ATA'].to_crs('EPSG:8857')
 cmap = {'High–High': V.RED, 'Low–Low': V.BLUE, 'High–Low': V.RED_LIGHT, 'Low–High': V.BLUE_LIGHT, 'Not significant': V.NEUTRAL}
 fig, axs = plt.subplots(2, 2, figsize=(V.W2, 96 * V.MM)); fig.subplots_adjust(wspace=0.0, hspace=0.06, bottom=0.08)
 for ax, (col, L, T) in zip(axs.flat, [('ntd_2010', 'A', 'NTDs (excl. malaria), 2010'), ('ntd_2023', 'B', 'NTDs (excl. malaria), 2023'),
@@ -139,7 +139,7 @@ for ax, (col, L, T) in zip(axs.flat, [('ntd_2010', 'A', 'NTDs (excl. malaria), 2
         g[g.location_name.isin(K[f'lisa_{o}_HH_entered'])].plot(ax=ax, facecolor='none', edgecolor=V.INK, linewidth=0.9)
         txt += f"\nEntered high–high: {', '.join(K[f'lisa_{o}_HH_entered']) or 'none'}; left: {', '.join(K[f'lisa_{o}_HH_exited']) or 'none'}"
     ax.text(0.03, 0.04, txt, transform=ax.transAxes, fontsize=5.6, color=V.INK2, va='bottom')
-    ax.set_xlim(-1.3e7, 1.6e7); ax.set_ylim(-6.3e6, 8.6e6); ax.set_axis_off(); V.panel(ax, L, T, x=0.0, y=0.97)
+    ax.set_xlim(-1.3e7, 1.6e7); ax.set_ylim(-6.8e6, 8.5e6); ax.set_axis_off(); V.panel(ax, L, T, x=0.0, y=0.97)
 fig.legend(handles=[Patch(color=c, label=k) for k, c in cmap.items()] + [Patch(color=V.NODATA, label='No data'), Patch(facecolor='none', edgecolor=V.INK, label='Entered high–high')],
            loc='lower center', ncol=7, bbox_to_anchor=(0.5, 0.0), handlelength=1.2, columnspacing=0.9)
 V.save(fig, 'FigureS4_lisa_2010_2023')

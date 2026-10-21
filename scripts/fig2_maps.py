@@ -7,7 +7,7 @@ cs=pd.read_csv('data/processed/analysis_country_2023.csv')
 ne=gpd.read_file('data/raw/geo/ne_50m_admin_0_countries.geojson'); ne['iso3']=np.where(ne.ISO_A3=='-99',ne.ADM0_A3,ne.ISO_A3)
 ne.loc[ne.ADMIN=='France','iso3']='FRA'; ne.loc[ne.ADMIN=='Norway','iso3']='NOR'
 ne=ne[ne.ADMIN!='Antarctica']
-world=ne[['iso3','geometry']].dissolve('iso3').reset_index().merge(cs,on='iso3',how='left').to_crs('ESRI:54030')
+world=ne[['iso3','geometry']].dissolve('iso3').reset_index().merge(cs,on='iso3',how='left').to_crs('EPSG:8857')
 srb=world.dropna(subset=['super_region_name']).dissolve('super_region_name').reset_index()
 t1=pd.read_csv('results/table1_superregion_burden.csv',index_col=0)
 SHORT={'Sub-Saharan Africa':'Sub-Saharan Africa','South Asia':'South Asia','Southeast Asia, East Asia, and Oceania':'SE Asia, E Asia & Oceania',
@@ -26,7 +26,7 @@ for r,(L,title,col,br,lab,ramp,trcol) in enumerate(specs):
     else:
         world[world[col].notna()].plot(ax=ax,column=col,cmap=cmap,norm=norm,edgecolor='white',linewidth=0.15)
     srb.boundary.plot(ax=ax,color=V.INK,linewidth=0.45)
-    ax.set_xlim(-1.32e7,1.62e7); ax.set_ylim(-6.3e6,8.6e6)
+    ax.set_xlim(-1.32e7,1.62e7); ax.set_ylim(-6.8e6,8.5e6)
     V.panel(ax,L,f'{title}: age-standardised DALY rate per 100 000, 2023',y=1.0)
     # stepped legend
     lg=fig.add_subplot(gs[2*r+1,0]); lg.set_axis_off(); lg.set_xlim(0,1); lg.set_ylim(0,1)

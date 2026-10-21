@@ -16,6 +16,8 @@ def setup():
       'pdf.fonttype':42,'ps.fonttype':42,'svg.fonttype':'none','savefig.dpi':600,'figure.dpi':150,'axes.titleweight':'bold','axes.titlelocation':'left',
       'legend.frameon':False,'axes.facecolor':'white','figure.facecolor':'white'})
 def panel(ax,letter,title,x=-0.0,y=1.02):
+    if not hasattr(ax.figure,'_panels'): ax.figure._panels=[]
+    ax.figure._panels.append((letter,ax))
     ax.text(x,y,letter+'.',transform=ax.transAxes,fontsize=9,fontweight='bold',va='bottom',ha='left',color=INK)
     import matplotlib.transforms as mt
     ax.text(x,y,title,transform=mt.offset_copy(ax.transAxes,fig=ax.figure,x=12.5,y=0,units='points'),fontsize=7.5,fontweight='bold',va='bottom',ha='left',color=INK)
@@ -23,4 +25,22 @@ def save(fig,name):
     import os; sub='supplementary' if name.startswith('FigureS') else 'main'; os.makedirs(f'figures/{sub}',exist_ok=True); name=f'{sub}/{name}'
     for ext in ['pdf','png','svg']: fig.savefig(f'figures/{name}.{ext}',bbox_inches='tight',pad_inches=0.04,dpi=600 if ext=='png' else None)
     fig.savefig(f'figures/{name}.tiff',bbox_inches='tight',pad_inches=0.04,dpi=600,pil_kwargs={'compression':'tiff_lzw'})
+    _save_panels(fig,name)
     plt.close(fig)
+def _save_panels(fig,name):
+    """Lancet: supply individual parts of multi-part figures as editable vector files (text as text)."""
+    import os
+    from matplotlib.transforms import Bbox
+    P=getattr(fig,'_panels',[])
+    if len(P)<2: return
+    os.makedirs('figures/panels',exist_ok=True)
+    fig.canvas.draw(); r=fig.canvas.get_renderer(); pax=[a for _,a in P]
+    for L,ax in P:
+        bbs=[ax.get_tightbbox(r)]; core=ax.get_window_extent(r)
+        for o in fig.axes:
+            if o in pax or not o.get_visible(): continue
+            e=o.get_window_extent(r)
+            if e.overlaps(core) or (abs(e.x0-core.x0)<core.width*0.05 and e.y1<=core.y0 and core.y0-e.y1<core.height*0.35):
+                bbs.append(o.get_tightbbox(r))
+        bb=Bbox.union([b for b in bbs if b is not None]).transformed(fig.dpi_scale_trans.inverted()).padded(0.03)
+        for ext in ('pdf','svg'): fig.savefig(f'figures/panels/{os.path.basename(name)}_panel{L}.{ext}',bbox_inches=bb)

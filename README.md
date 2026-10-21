@@ -12,7 +12,8 @@ Authors: Gmayinaam VU, Nortey AN, Dzissem PE, Immurana M, Manyeh AK. Centre for 
 |---|---|
 | `manuscript/` | `Manuscript_V2_tracked_changes.docx` (revisions as tracked changes), `Manuscript_V2_clean.docx/.pdf` (changes accepted), `Supplementary_Appendix.docx/.pdf`, `Tables_Main_APA.docx`, `Tables_Supplementary_APA.docx`, `Methods_Audit_and_Reviewer_Responses.docx`, original V1 manuscript |
 | `manuscript/source/` | inputs used to assemble the appendix and the tracked revision |
-| `figures/main/` | Figures 1–8 (PDF and SVG vector; PNG and TIFF at 600 dpi; 180 mm width) |
+| `figures/main/` | Figures 1–8 (PDF and SVG vector with editable text; PNG and TIFF at 600 dpi; 180 mm width); `Figure1_workflow_editable.pptx` (editable flow diagram) |
+| `figures/panels/` | individual parts of every multi-part figure (PDF and SVG), as requested in the Lancet artwork guidelines |
 | `figures/supplementary/` | Figures S1–S4 |
 | `results/` | every numeric output (CSV/JSON); `tables.json` feeds all APA tables; `rev_*` files are the revision analyses |
 | `scripts/` | analysis pipeline (run from the repository root) |
@@ -31,9 +32,9 @@ GBD 2023 (IHME); World Bank World Development Indicators (external, domestic and
 3. Panel models: `step3_build_panel.py`, `step3_panel_models.py`, `step3_spatial_ml.py`, `step3_gwr.py`, `step3_combine_models.py`, `step3_preferred_full.py`
 4. Missing data and spatial panels: `step4_missing_data.py`, `step4_spatial_panel_twoway.py`
 5. Scenarios of funding cuts: `step3_scenarios_v2.py`
-6. Revision analyses: `step5_revisions.py` (inequality 1990/2010/2023, 21 regions, YLD/YLL, national rankings, cause leaders, LISA over time, WHO triangulation), `step5_theil_regions.py`, `step5_mundlak_between_within.py`, `step5_mortality_sensitivity.py`
-7. Figures: `fig1_workflow.py` … `fig8_scenarios.py`, `figS_revisions.py` (shared style in `vizstyle.py`)
-8. Tables and appendix: `build_tables.py` → `render_tables.js`; `build_appendix_content.py` → `render_appendix.js`; `build_audit.py` → `render_audit.js`
+6. Revision analyses: `step5_revisions.py` (inequality 1990/2010/2023, 21 regions, YLD/YLL, national rankings, cause leaders, LISA over time, WHO triangulation), `step5_theil_regions.py`, `step5_mundlak_between_within.py`, `step5_mortality_sensitivity.py`; then `step6_harmonise_outputs.py` (aligns headline inequality and Mundlak outputs with the revision analyses)
+7. Figures: `fig1_workflow.py` … `fig8_scenarios.py`, `figS_revisions.py` (shared style in `vizstyle.py`; maps use the Equal Earth projection); `fig1_workflow_pptx.py` for the editable Figure 1
+8. Tables and appendix: `build_tables.py` → `render_tables.js`; `build_appendix_content.py` → `build_appendix_docx.py` (renders `render_appendix.js` twice to page-number the contents; Lancet supplementary formatting); `build_audit.py` → `render_audit.js`
 
 Requirements: Python ≥3.11 (`requirements.txt`) and Node.js with `docx` 9.x for the Word outputs. Random seeds are fixed in each script.
 

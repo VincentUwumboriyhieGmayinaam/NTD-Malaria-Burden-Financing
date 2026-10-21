@@ -47,26 +47,26 @@ M.append(('3.12 Scenario models of development-assistance cuts', [
   fix(O[43], [('The scenario code treated', 'We treated')])]))
 M.append(('3.13 External triangulation with WHO surveillance series', [
   'GBD country estimates were compared with two WHO series obtained from the UN SDG database: the number of people requiring interventions against NTDs (SDG 3.3.5), expressed per 100 000 population, and malaria incidence per 1000 population at risk (SDG 3.3.3). Spearman rank correlations with GBD age-standardised DALY rates were computed for 2010 and 2023, for NTDs excluding malaria across all reporting countries and for malaria across endemic countries with non-zero values (Table S21). The comparison assesses agreement in the ordering of countries, not in absolute levels, because the measures differ in construct.']))
-M.append(('3.14 Sensitivity analyses', [O[45] + ' Post-review analyses extended the panel to 2023, omitted UHC, excluded observations without matching UHC or income records and retained zero rates in the Theil decomposition (Table S22).']))
+M.append(('3.14 Sensitivity analyses', [O[45] + ' Additional analyses extended the panel to 2023, omitted UHC, excluded observations without matching UHC or income records and retained zero rates in the Theil decomposition (Table S22).']))
 M.append(('3.15 Statistical software and reproducibility', [fix(O[47], [('The reproducible code cand be found on this GitHub repository.', 'Code and the harmonised analytical dataset are in the study GitHub repository (https://github.com/VincentUwumboriyhieGmayinaam/NTD-Malaria-Burden-Financing).')]) +
   ' Revision analyses are in scripts step5_revisions.py (inequality over time, regions, YLD–YLL, national rankings, cause leaders, LISA over time, WHO triangulation), step5_theil_regions.py, step5_mundlak_between_within.py, step5_mortality_sensitivity.py and step3_scenarios_v2.py.']))
 
 GATHER = [
  ('1', 'Define the indicators, populations and time periods for which estimates were made.', 'Main text, Methods; appendix 3.1–3.2'),
- ('2', 'List the funding sources for the work.', 'Main text, Funding'),
+ ('2', 'List the funding sources for the work.', 'Summary (Funding); Methods, Ethics and role of the funding source'),
  ('3', 'Describe how the data were identified and accessed.', 'Main text, Methods; appendix 3.1; Table S1'),
- ('4', 'Specify the inclusion and exclusion criteria; identify all ad-hoc exclusions.', 'Appendix 3.1 and 3.4; Table S9'),
+ ('4', 'Specify the inclusion and exclusion criteria; identify all ad-hoc exclusions.', 'Methods; appendix 3.1 and 3.4; Tables S9 and S25'),
  ('5', 'Provide information on all included data sources and their main characteristics.', 'Table S1; Table S11'),
  ('6', 'Identify and describe any categories of input data that have potentially important biases.', 'Appendix 3.4; Tables S9–S10b'),
  ('7', 'Describe and give sources for any other data inputs.', 'Appendix 3.1, 3.3 and 3.13; Table S11'),
- ('8', 'Provide all data inputs in a file format from which data can be efficiently extracted.', 'Project repository (data/raw, data/processed)'),
+ ('8', 'Provide all data inputs in a file format from which data can be efficiently extracted.', 'Study GitHub repository (data/raw and data/processed, CSV), public on publication; all inputs are publicly available from the sources in Table S1'),
  ('9', 'Provide a conceptual overview of the data analysis method.', 'Main text, Figure 1'),
- ('10', 'Provide a detailed description of all steps of the analysis, including mathematical formulae.', 'Appendix 3.1–3.15 (described in words)'),
+ ('10', 'Provide a detailed description of all steps of the analysis, including mathematical formulae.', 'Appendix 3.1–3.15; formulae are stated in words with methodological references and implemented in the repository code'),
  ('11', 'Describe how candidate models were evaluated and how the final model(s) were selected.', 'Appendix 3.8 and 3.11; Tables S3, S5'),
  ('12', 'Provide the results of an evaluation of model performance, if done, as well as sensitivity analyses.', 'Tables S5, S7, S10b, S12, S22–S24'),
  ('13', 'Describe methods for calculating uncertainty of the estimates.', 'Appendix 3.6, 3.8 and 3.12'),
- ('14', 'State how analytical or statistical source code can be accessed.', 'Appendix 3.15'),
- ('15', 'Provide published estimates in a file format from which data can be efficiently extracted.', 'Project repository (results)'),
+ ('14', 'State how analytical or statistical source code can be accessed.', 'Methods, Statistical software and reproducibility; appendix 3.15 (study GitHub repository)'),
+ ('15', 'Provide published estimates in a file format from which data can be efficiently extracted.', 'Tables S2, S8 and S16–S20; repository results folder (CSV)'),
  ('16', 'Report a quantitative measure of the uncertainty of the estimates.', 'Main text and Tables 1–4, S15–S24'),
  ('17', 'Interpret results in light of existing evidence; if updating previous estimates, explain changes.', 'Main text, Discussion'),
  ('18', 'Discuss limitations of the estimates, including changes in methods or data sources.', 'Main text, Discussion; Table S13'),
@@ -93,12 +93,52 @@ for para in ev.split('\n\n'):
     if para.count('(') > 15 and re.search(r'\(\d{8}\)', para): OTHER = para.strip()
 SEARCH = 'We searched PubMed from inception to Oct 21, 2026, without language restrictions, using six strings: (S1) NTD or malaria burden with Global Burden of Disease or DALYs; (S2) NTD or malaria with inequality, concentration index or slope index; (S3) NTD or malaria with spatial analysis, Moran’s I or hotspots; (S4) USAID, funding cuts or donor funding with NTDs, malaria or mortality, January 2024–October 2026; (S5) development assistance for health or official development assistance with NTD, malaria or child mortality; and (S6) domestic health financing, displacement or donor transition. The searches identified 767 records (S1 206; S2 29; S3 163; S4 99; S5 176; S6 94); after removal of 63 duplicates, 704 were unique and 698 could be retrieved and screened by title. We excluded 602 on title and 20 on abstract (commentaries without data, superseded analyses, out-of-scope designs), leaving 76 eligible studies. The 44 most relevant and recent, prioritised within five themes, are summarised in Table E1; two landmark national studies are flagged. WHO and IHME reports were reviewed for current indicator values. Supplementary targeted searches of Lancet journals for 2025–26 comment on the aid cuts identified commentaries and letters without primary data.'
 
+STROBE = [
+ ['1a','Title and abstract','Indicate the study’s design with a commonly used term in the title or the abstract','Summary (Methods: ecological study); title (spatial and panel analysis)'],
+ ['1b','','Provide an informative and balanced summary of what was done and what was found','Summary'],
+ ['2','Background/rationale','Explain the scientific background and rationale','Introduction, paragraphs 1–2; Research in context'],
+ ['3','Objectives','State specific objectives, including any prespecified hypotheses','Introduction, final paragraph'],
+ ['4','Study design','Present key elements of study design early in the paper','Methods, Study design and data'],
+ ['5','Setting','Describe the setting, locations and relevant dates','Methods; appendix 3.1; Table S1 (access dates)'],
+ ['6a','Participants','Give the eligibility criteria and the sources and methods of selection','Methods; appendix 3.1; Table S25 (unit of analysis: countries and territories)'],
+ ['6b','','Matched studies: matching criteria','Not applicable: no matching'],
+ ['7','Variables','Define all outcomes, exposures, predictors, potential confounders and effect modifiers','Methods, Study design and data, and Financing exposure and covariates; Table S11'],
+ ['8','Data sources/measurement','Give sources of data and details of methods of assessment for each variable','Methods; appendix 3.1–3.3; Tables S1, S11; external validation in Table S21'],
+ ['9','Bias','Describe any efforts to address potential sources of bias','Methods, Missing data and Financing models; appendix 3.4, 3.8, 3.14; Table S13'],
+ ['10','Study size','Explain how the study size was arrived at','Table S25: all GBD countries and territories were eligible; no sample-size calculation applies to a census of countries'],
+ ['11','Quantitative variables','Explain how quantitative variables were handled, including groupings','Methods (log transformations, per-10-percentage-point exposure, 2-year lags); Table S11'],
+ ['12a','Statistical methods','Describe all statistical methods, including those used to control for confounding','Methods; appendix 3.5–3.12'],
+ ['12b','','Describe any methods used to examine subgroups and interactions','Super-region and regional analyses (Methods); spatial heterogeneity by GWR (appendix 3.10)'],
+ ['12c','','Explain how missing data were addressed','Methods, Missing data; appendix 3.4; Tables S10a–b'],
+ ['12d','','Cross-sectional studies: describe analytical methods taking account of sampling strategy','Not applicable: all countries analysed (no sampling); population weights used in inequality measures (appendix 3.6)'],
+ ['12e','','Describe any sensitivity analyses','Methods; appendix 3.14; Tables S7, S10b, S22–S24'],
+ ['13a','Participants','Report numbers of individuals at each stage of study','Table S25'],
+ ['13b','','Give reasons for non-participation at each stage','Table S25'],
+ ['13c','','Consider use of a flow diagram','Figure 1 (analytical workflow); sample flow given in tabular form in Table S25'],
+ ['14a','Descriptive data','Give characteristics of study participants and information on exposures and potential confounders','Table 1; Table S26'],
+ ['14b','','Indicate number of participants with missing data for each variable of interest','Table S10a'],
+ ['15','Outcome data','Report numbers of outcome events or summary measures','Results; Tables 1, S16–S20'],
+ ['16a','Main results','Give unadjusted estimates and, if applicable, confounder-adjusted estimates and their precision; state confounders adjusted for','Table 3 (pooled and adjusted estimators with 95% CI); Table S4; confounders in Methods'],
+ ['16b','','Report category boundaries when continuous variables were categorised','Figure 6 legend (tertile cut-points); SDI quintiles in Table S18'],
+ ['16c','','If relevant, translate estimates of relative risk into absolute risk','Excess DALYs under scenarios (Table 4; Tables S8, S14)'],
+ ['17','Other analyses','Report other analyses done','Results; Tables S5–S7, S12, S22–S24'],
+ ['18','Key results','Summarise key results with reference to study objectives','Discussion, paragraph 1'],
+ ['19','Limitations','Discuss limitations, including sources of potential bias or imprecision','Discussion, limitations paragraph; Table S13'],
+ ['20','Interpretation','Give a cautious overall interpretation considering objectives, limitations, multiplicity of analyses and other evidence','Discussion'],
+ ['21','Generalisability','Discuss the generalisability (external validity) of the study results','Discussion (country-level inference only; ecological fallacy); limitations paragraph'],
+ ['22','Funding','Give the source of funding and the role of the funders','Summary (Funding); Methods, Ethics and role of the funding source']]
+
 FIGS = [
  ('Figure S1', 'FigureS1_inequality_over_time.png', 'Socioeconomic inequality in age-standardised DALY rates by SDI, 1990, 2010 and 2023', '(A) Concentration index with 95% bootstrap CI; negative values indicate concentration in low-SDI countries. (B) Slope index of inequality (SII), the modelled difference in DALYs per 100 000 between the highest-SDI and lowest-SDI ends of the distribution, with 95% CI. (C) Theil T; labels give the percentage of inequality between super-regions. Countries weighted by population and ranked by SDI of the same year (n = 204). Absolute gaps narrowed while relative concentration of malaria was unchanged.'),
  ('Figure S2', 'FigureS2_gbd_regions.png', 'Burden and change in the 21 GBD regions', '(A) Age-standardised DALY rate per 100 000 in 2023 for NTDs excluding malaria and for malaria (log scale; regions grouped by super-region; sub-Saharan African regions in bold). (B) Share of global combined NTD-and-malaria DALYs. (C) GBD-published percentage change in age-standardised rate, 2010–2023, with 95% UI, for the NTD-and-malaria aggregate and for malaria; × marks regions where malaria burden fell to zero.'),
  ('Figure S3', 'FigureS3_yld_yll.png', 'Years lived with disability and years of life lost as shares of DALYs, 2023', 'Coloured segments show the YLD share of DALYs for (A) NTDs excluding malaria and (B) malaria, by super-region; grey segments show YLLs. Totals are all-age DALYs. Most NTD burden is disability, whereas malaria burden is almost entirely premature death.'),
  ('Figure S4', 'FigureS4_lisa_2010_2023.png', 'Local spatial clusters of age-standardised DALY rates, 2010 and 2023', 'Local indicators of spatial association on log(1 + rate) with six-nearest-neighbour weights, 9999 permutations and Benjamini–Hochberg false-discovery rate below 5%. Black outlines mark countries that entered a high–high cluster between 2010 and 2023.'),
 ]
-json.dump({'methods': M, 'gather': GATHER, 'evidence': EV, 'search': SEARCH, 'other': OTHER,
+import re as _re
+M=[(h,[_re.sub(r'q < \.05','q<0.05',p).replace('α = .05','α=0.05') for p in ps]) for h,ps in M]
+_FX=[('Table S10b retains these original estimates as provisional pending imputation diagnostics; its variance summary','Because convergence diagnostics were not recorded, the multiple-imputation estimates in Table S10b are a secondary check on the complete-case and interpolation analyses rather than a primary result; the variance summary'),
+ ('Numerical comparisons remain provisional pending consistent test samples and corrected nested tuning.','Test samples differed between validation schemes and hyperparameters were tuned without a fully nested design, so comparisons are valid within, not across, validation schemes and are slightly optimistic for the tuned models.')]
+M=[(h,[__import__('functools').reduce(lambda t,ab: t.replace(*ab),_FX,p) for p in ps]) for h,ps in M]
+json.dump({'methods': M, 'gather': GATHER, 'strobe': STROBE, 'evidence': EV, 'search': SEARCH, 'other': OTHER,
            'tables': [t for t in T if not t.get('main')], 'figures': FIGS}, open('/home/claude/ntd/results/appendix.json', 'w'), ensure_ascii=False, indent=1)
 print('methods words', sum(len(p.split()) for _, ps in M for p in ps), 'tables', len([t for t in T if not t.get('main')]), 'evidence rows', len(rows), 'other found', OTHER is not None)

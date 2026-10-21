@@ -11,7 +11,7 @@ gs=fig.add_gridspec(2,2,height_ratios=[1.05,0.9],width_ratios=[1.2,1],hspace=0.4
 # ---- A forest
 ax=fig.add_subplot(gs[0,0])
 order=[('Between-country (2023 cross-section)','OLS + super-region FE'),('Between-country (2023 cross-section)','Spatial error model'),
-       ('Within-country panel (2007–22)','Pooled OLS'),('Within-country panel (2007–22)','Random effects'),('Within-country panel (2007–22)','Mundlak CRE'),
+       ('Within-country panel (2007–22)','Pooled OLS'),('Within-country panel (2007–22)','Random effects'),('Within-country panel (2007–22)','Mundlak CRE (within)'),
        ('Within-country panel (2007–22)','Two-way FE (cluster)'),('Within-country panel (2007–22)','Two-way FE (Driscoll–Kraay)'),('Within-country panel (2007–22)','First difference'),
        ('Within-country panel (2007–22)','FE + country trends'),('Spatial panel (2007–22)','Spatial lag FE (SAR)'),('Spatial panel (2007–22)','Spatial error FE (SEM)')]
 ypos=[]; y=0; heads=[]
@@ -50,14 +50,14 @@ V.panel(bx,'B','Predictive validation of ML vs panel models',x=-0.42,y=1.02)
 # ---- C MGWR map
 cx=fig.add_subplot(gs[1,:]); cx.set_axis_off()
 ne=gpd.read_file('data/raw/geo/ne_50m_admin_0_countries.geojson'); ne['iso3']=np.where(ne.ISO_A3=='-99',ne.ADM0_A3,ne.ISO_A3)
-ne.loc[ne.ADMIN=='France','iso3']='FRA'; ne.loc[ne.ADMIN=='Norway','iso3']='NOR'; ne=ne[ne.ADMIN!='Antarctica'].to_crs('ESRI:54030')
+ne.loc[ne.ADMIN=='France','iso3']='FRA'; ne.loc[ne.ADMIN=='Norway','iso3']='NOR'; ne=ne[ne.ADMIN!='Antarctica'].to_crs('EPSG:8857')
 w=ne[['iso3','geometry']].dissolve('iso3').reset_index().merge(loc,on='iso3',how='left')
 w[w.b_ext.isna()].plot(ax=cx,color='white',edgecolor=V.AXIS,linewidth=0.2)
 cmap=LinearSegmentedColormap.from_list('d',[V.BLUE_RAMP[5],V.BLUE_RAMP[2],V.NEUTRAL,V.ORANGE_RAMP[2],V.ORANGE_RAMP[5]])
 norm=TwoSlopeNorm(0,-0.4,0.55)
 w[w.b_ext.notna()&(w.sig_ext==0)].plot(ax=cx,color=V.NEUTRAL,edgecolor='white',linewidth=0.15)
 w[w.sig_ext==1].plot(ax=cx,column='b_ext',cmap=cmap,norm=norm,edgecolor='white',linewidth=0.15)
-cx.set_xlim(-1.15e7,1.62e7); cx.set_ylim(-4.5e6,6.2e6); cx.set_position([0.25,0.03,0.74,0.40])
+cx.set_xlim(-1.15e7,1.62e7); cx.set_ylim(-4.6e6,7.2e6); cx.set_position([0.25,0.03,0.74,0.40])
 cax=fig.add_axes([0.03,0.355,0.17,0.014]); sm_=plt.cm.ScalarMappable(norm=norm,cmap=cmap); cb=fig.colorbar(sm_,cax=cax,orientation='horizontal'); cb.outline.set_visible(False)
 cb.set_ticks([-0.4,0,0.5]); cb.set_ticklabels(['−0·4','0','0·5']); cb.ax.tick_params(labelsize=5.8,length=2)
 cb.set_label('Local standardised coefficient\n(external share → NTD rate)',fontsize=5.9,color=V.INK2)
@@ -66,4 +66,5 @@ txt=(f"MGWR vs OLS: AICc {gw['MGWR_AICc']:.0f} vs {gw['OLS_AICc']:.0f}; R² {gw[
      f"External share significant in {gw['MGWR_coef_summary']['ext']['pct_sig']:.0f}% of countries; grey = not significant (corrected t-test)").replace('.','·')
 fig.text(0.03,0.27,txt.replace('; ','\n').replace(', UHC','\nUHC').replace('; grey','\ngrey'),fontsize=5.8,color=V.INK2,va='top',linespacing=1.35)
 fig.text(0.03,0.43,'C.',fontsize=9,fontweight='bold'); fig.text(0.055,0.43,'Spatially varying association (multiscale GWR, LMICs, 2023)',fontsize=7.5,fontweight='bold')
+fig._panels=getattr(fig,'_panels',[])+[('C',cx)]
 V.save(fig,'Figure7_model_comparison')
