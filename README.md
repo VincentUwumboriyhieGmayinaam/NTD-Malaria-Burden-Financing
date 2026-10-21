@@ -43,5 +43,13 @@ Requirements: Python ≥3.11 (`requirements.txt`) and Node.js with `docx` 9.x fo
 - External financing share: −13.4% NTD rate per 10 percentage points between countries, −0.64% (95% CI −2.39 to 1.14) within countries.
 - Reference 19–26% cut: 0.41 million excess NTD DALYs and 1.85 million excess malaria DALYs a year (accounting model).
 
-## Licence
-To be confirmed by the authors before public release.
+## Licence and data attribution
+- **Code** (`scripts/`): MIT License — see `LICENSE`.
+- **Manuscript text, figures, tables and derived results** (`manuscript/`, `figures/`, `results/`): Creative Commons Attribution 4.0 International (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/. Please cite the article once published.
+- **Third-party data** (`data/raw/`) are not covered by these licences and remain under their providers' terms:
+  - Global Burden of Disease Study 2023 — Institute for Health Metrics and Evaluation (IHME), Seattle, WA. Used under the IHME Free-of-Charge Non-commercial User Agreement; cite: GBD 2023 Disease and Injury and Risk Factor Collaborators, *Lancet* 2025.
+  - World Bank World Development Indicators — CC BY 4.0.
+  - WHO indicators via the UN Global SDG Indicators Database — WHO / United Nations terms of use.
+  - IHME Financing Global Health 2025 — Apeagyei et al., *Lancet* 2025 (IHME terms).
+  - Natural Earth boundaries — public domain.
+- Check the providers' terms before redistributing raw data; the repository is private until publication.
