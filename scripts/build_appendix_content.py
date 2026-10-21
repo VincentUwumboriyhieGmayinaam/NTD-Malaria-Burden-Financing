@@ -1,7 +1,7 @@
 """Assemble the supplementary appendix content (methods text, GATHER checklist, evidence map, tables, figures) -> results/appendix.json"""
 import json, re
-O = json.load(open('manuscript/source/original_methods_paragraphs.json'))
-T = json.load(open('results/tables.json'))
+O = json.load(open('/tmp/claude-0/ms/orig_methods.json'))
+T = json.load(open('/home/claude/ntd/results/tables.json'))
 def fix(s, pairs):
     for a, b in pairs:
         if a not in s: raise ValueError('missing: ' + a[:60])
@@ -48,7 +48,7 @@ M.append(('3.12 Scenario models of development-assistance cuts', [
 M.append(('3.13 External triangulation with WHO surveillance series', [
   'GBD country estimates were compared with two WHO series obtained from the UN SDG database: the number of people requiring interventions against NTDs (SDG 3.3.5), expressed per 100 000 population, and malaria incidence per 1000 population at risk (SDG 3.3.3). Spearman rank correlations with GBD age-standardised DALY rates were computed for 2010 and 2023, for NTDs excluding malaria across all reporting countries and for malaria across endemic countries with non-zero values (Table S21). The comparison assesses agreement in the ordering of countries, not in absolute levels, because the measures differ in construct.']))
 M.append(('3.14 Sensitivity analyses', [O[45] + ' Post-review analyses extended the panel to 2023, omitted UHC, excluded observations without matching UHC or income records and retained zero rates in the Theil decomposition (Table S22).']))
-M.append(('3.15 Statistical software and reproducibility', [fix(O[47], [('The reproducible code cand be found on this GitHub repository.', 'Code is in the project GitHub repository [URL to be added].')]) +
+M.append(('3.15 Statistical software and reproducibility', [fix(O[47], [('The reproducible code cand be found on this GitHub repository.', 'Code and the harmonised analytical dataset are in the study GitHub repository (https://github.com/VincentUwumboriyhieGmayinaam/NTD-Malaria-Burden-Financing).')]) +
   ' Revision analyses are in scripts step5_revisions.py (inequality over time, regions, YLD–YLL, national rankings, cause leaders, LISA over time, WHO triangulation), step5_theil_regions.py, step5_mundlak_between_within.py, step5_mortality_sensitivity.py and step3_scenarios_v2.py.']))
 
 GATHER = [
@@ -73,7 +73,7 @@ GATHER = [
 ]
 
 # Evidence map from the screening file
-ev = open('literature/Evidence_table_full_screening.md').read()
+ev = open('/tmp/claude-0/ms/evidence_table.md').read()
 rows = []
 theme = {'A': 'A. Burden and trends', 'B': 'B. Inequality and spatial analyses', 'C': 'C. Financing and outcomes', 'D': 'D. Projections of funding cuts', 'E': 'E. Domestic financing, displacement and donor transition'}
 cur = None
@@ -100,5 +100,5 @@ FIGS = [
  ('Figure S4', 'FigureS4_lisa_2010_2023.png', 'Local spatial clusters of age-standardised DALY rates, 2010 and 2023', 'Local indicators of spatial association on log(1 + rate) with six-nearest-neighbour weights, 9999 permutations and Benjamini–Hochberg false-discovery rate below 5%. Black outlines mark countries that entered a high–high cluster between 2010 and 2023.'),
 ]
 json.dump({'methods': M, 'gather': GATHER, 'evidence': EV, 'search': SEARCH, 'other': OTHER,
-           'tables': [t for t in T if not t.get('main')], 'figures': FIGS}, open('results/appendix.json', 'w'), ensure_ascii=False, indent=1)
+           'tables': [t for t in T if not t.get('main')], 'figures': FIGS}, open('/home/claude/ntd/results/appendix.json', 'w'), ensure_ascii=False, indent=1)
 print('methods words', sum(len(p.split()) for _, ps in M for p in ps), 'tables', len([t for t in T if not t.get('main')]), 'evidence rows', len(rows), 'other found', OTHER is not None)
